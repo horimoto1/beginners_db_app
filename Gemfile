@@ -5,6 +5,8 @@ ruby "2.6.9"
 
 gem "rails", "~> 6.0.4", ">= 6.0.4.8"
 gem "friendly_id", "~> 5.4.0"
+gem "redcarpet", "~> 2.3.0"
+gem "coderay"
 gem "sqlite3", "~> 1.4"
 gem "puma", "~> 4.1"
 gem "sass-rails", ">= 6"
