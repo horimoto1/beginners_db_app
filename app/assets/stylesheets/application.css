@@ -13,3 +13,79 @@
  *= require_tree .
  *= require_self
  */
+
+  /* 共通レイアウト */
+* {
+  box-sizing: border-box; /* paddingとborderを要素のサイズに含める */
+}
+
+ul, li {
+  list-style-type: none; /* リストの黒点を取り消す */
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none; /* リンクの下線を取り消す */
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+input {
+  outline-width: 0; /* カーソル時の枠線を取り消す */
+}
+
+html {
+  font-family: "Avenir Next", "Hiragino Sans", sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0.1em; /* 文字の間隔 */
+  font-size: 16px;
+  color: #333;
+}
+
+h1 {
+  font-size: 32px;
+  font-size: 2rem; /* 32px以下に可変 */
+}
+
+h2 {
+  font-size: 20px;
+  font-size: 1.25rem; /* 20px以下に可変 */
+}
+
+h3 {
+  font-size: 18px;
+  font-size: 1.125rem; /* 18px以下に可変 */
+}
+
+p {
+  font-size: 1rem; /* 16px以下に可変 */
+  line-height: 2; /* 文字の高さ */
+}
+
+body {
+  margin: 0px;
+  background-color: #eee;
+}
+
+.clear {
+  clear: both; /* フロート状態の要素のサイズをその親要素に含める */
+}
+
+/* タブレット向けレイアウト */
+@media screen and (max-width: 800px) {
+  /* 共通レイアウト */
+  html {
+    font-size: 2vw;
+  }
+}
+
+/* スマートフォン向けレイアウト */
+@media screen and (max-width: 400px) {
+  /* 共通レイアウト */
+  html {
+    font-size: 3vw;
+  }
+}

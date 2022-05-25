@@ -1,0 +1,19 @@
+<div class="main-wrapper">
+  <div class="main">
+    <%= form_with(model: @category, local: true) do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+
+      <%= f.label :category_order %>
+      <%= f.number_field :category_order %>
+
+      <%= f.label :parent_category_id %>
+      <%= f.number_field :parent_category_id %>
+
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
