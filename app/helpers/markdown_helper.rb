@@ -5,7 +5,7 @@ module MarkdownHelper
   # マークダウンをHTMLに変換する
   def markdown(text)
     # レンダラーのオプション
-    option = {
+    options = {
       with_toc_data: true, # 見出しにアンカーを付ける
       hard_wrap: true, # 改行を<br>に変換する
     }
@@ -60,8 +60,12 @@ module MarkdownHelper
 
   # 目次を生成する
   def toc(text)
-    renderer = Redcarpet::Render::HTML_TOC.new(nesting_level: 3)
-    markdown = Redcarpet::Markdown.new(renderer)
+    extensions = {
+      nesting_level: 3, # 3層まで目次をネストする
+    }
+
+    renderer = Redcarpet::Render::HTML_TOC.new
+    markdown = Redcarpet::Markdown.new(renderer, extensions)
     markdown.render(text).html_safe
   end
 
