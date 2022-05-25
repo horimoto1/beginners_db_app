@@ -11,8 +11,13 @@
     </p>
 
     <p>
-      <strong>Content:</strong>
-      <%= @article.content %>
+      <strong>Content TOC:</strong>
+      <%= toc(@article.content) %>
+    </p>
+
+    <p>
+      <strong>Content Markdown:</strong>
+      <%= markdown(@article.content) %>
     </p>
 
     <p>

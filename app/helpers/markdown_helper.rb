@@ -1,4 +1,4 @@
-module MarkDownHelper
+module MarkdownHelper
   require "redcarpet"
   require "coderay"
 
