@@ -1,0 +1,26 @@
+<div class="main-wrapper">
+  <div class="main">
+    <%= form_with(model: [@category, @article], local: true) do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+
+      <%= f.label :content %>
+      <%= f.text_area :content %>
+
+      <%= f.label :article_order %>
+      <%= f.number_field :article_order %> 
+      
+      <%= f.label :status %>
+      <%= f.select :status, { "非公開": "private", "公開": "published" },
+                   selected: "private", required: true %>
+
+      <%= f.label :category_id %>
+      <%= f.number_field :category_id %>
+
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
