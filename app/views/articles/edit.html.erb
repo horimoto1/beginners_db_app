@@ -1,26 +1,40 @@
 <div class="main-wrapper">
   <div class="main">
     <%= form_with(model: [@category, @article], local: true) do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-      <%= f.label :title %>
-      <%= f.text_field :title %>
-
-      <%= f.label :content %>
-      <%= f.text_area :content, id: "markdown_editor" %>
-
-      <%= f.label :article_order %>
-      <%= f.number_field :article_order %> 
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
       
-      <%= f.label :status %>
-      <%= f.select :status, { "非公開": "private", "公開": "published" },
-                   selected: "private", required: true %>
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
 
-      <%= f.label :category_id %>
-      <%= f.number_field :category_id %>
+      <div class="field">
+        <%= f.label :content %>
+        <%= f.text_area :content, id: "markdown_editor" %>
+      </div>
 
-      <%= f.submit %>
+      <div class="field">
+        <%= f.label :article_order %>
+        <%= f.number_field :article_order %> 
+      </div>
+
+      <div class="field">
+        <%= f.label :status %>
+        <%= f.select :status, { "非公開": "private", "公開": "published" },
+                     selected: "private", required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :category_id %>
+        <%= f.number_field :category_id %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -1,5 +1,6 @@
 module MarkdownHelper
   require "redcarpet"
+  require "redcarpet/render_strip"
   require "coderay"
 
   # マークダウンをHTMLに変換する
@@ -64,7 +65,7 @@ module MarkdownHelper
       nesting_level: 3, # 3層まで目次をネストする
     }
 
-    renderer = Redcarpet::Render::HTML_TOC.new
+    renderer = Redcarpet::Render::HTML_TOC
     markdown = Redcarpet::Markdown.new(renderer, extensions)
     markdown.render(text).html_safe
   end
