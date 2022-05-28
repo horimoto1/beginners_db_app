@@ -9,5 +9,67 @@
     padding: 1rem;
     border: 1px solid #eee;
     box-shadow: 0px 2px 6px #ccc;
+
+    /* メインコンテンツのヘッダー */
+    .main-header {
+      height: 2rem;
+
+      /* ぱんくずリスト */
+      .breadcrumb {
+        float: left;
+
+        li {
+          float: left;
+          margin-right: 0.5rem;
+        }
+
+        .fa-angle-right {
+          margin: 0px 0.5rem;
+        }
+
+        a {
+          color: #777;
+          line-height: 2rem;
+        }
+      }
+
+      /* 情報 */
+      .info {
+        float: right;
+        color: #777;
+        line-height: 2rem;
+
+        .create {
+          margin-right: 1rem;
+          float: left;
+        }
+
+        .update {
+          float: left;
+        }
+      }
+    }
+
+    /* メインコンテンツのフツター */
+    .main-footer {
+      height: 3rem;
+      padding-top: 1rem;
+
+        /* ページング機能 */
+      .pager-category-navi{
+        a {
+          color: #777;
+          line-height: 2rem;
+        }
+
+        .previous {
+          float: left;
+        }
+
+        .next {
+          float: right;
+        }
+      }
+    }
   }
 }

@@ -61,6 +61,7 @@ h3 {
 }
 
 p {
+  /* htmlのfont-sizeを基準とする単位 */
   font-size: 1rem; /* 16px以下に可変 */
   line-height: 2; /* 文字の高さ */
 }
@@ -78,6 +79,7 @@ body {
 @media screen and (max-width: 800px) {
   /* 共通レイアウト */
   html {
+    /* remの基準値を画面横幅の2%に調整する */
     font-size: 2vw;
   }
 }
@@ -86,6 +88,7 @@ body {
 @media screen and (max-width: 400px) {
   /* 共通レイアウト */
   html {
+    /* remの基準値を画面横幅の3%に調整する */
     font-size: 3vw;
   }
 }

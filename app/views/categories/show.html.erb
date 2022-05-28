@@ -1,23 +1,111 @@
 <div class="main-wrapper">
   <div class="main">
-    <p>
-      <strong>Name:</strong>
-      <%= @category.name %>
-    </p>
+    <div class="main-header">
 
-    <p>
-      <strong>Title:</strong>
-      <%= @category.title %>
-    </p>
+      <div class="breadcrumb">
+        <ul>
+          <li>
+            <%= link_to root_path do %>
+              <span class="fa fa-home fa-fw"></span>
+              ホーム
+            <% end %>
+          </li>
+          <% @breadcrumb_list.each do |category| %>
+            <li>
+              <span class="fa fa-angle-right"></span>
+              <%= link_to category_path(category) do %>
+                <span class="fa fa-folder fa-fw"></span>
+                <%= category.title %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="info">
+        <div class="create">
+          <span class="fa fa-clock-o"></span>
+          <%= @category.created_at.strftime("%Y/%m/%d") %>
+        </div>
+        <div class="update">
+          <span class="fa fa-history"></span>
+          <%= @category.updated_at.strftime("%Y/%m/%d") %>
+        </div>
+      </div>
+    </div>
 
-    <p>
-      <strong>Category Order:</strong>
-      <%= @category.category_order %>
-    </p>
+    <div class="clear"></div>
 
-    <p>
-      <strong>Parent Category Id:</strong>
-      <%= @category.parent_category_id %>
-    </p>
+    <div class="category-heading">
+      <h1><%= @category.title %></h1>
+      <% if @category.summary.presence %>
+        <p><%= @category.summary %></p>
+      <% end %>
+    </div>
+
+    <% if @categories.length >= 2 %>
+      <div class="category-toc">
+        <p>目次</p>
+        <%= check_box_tag("toc-toggle") %>
+        <%= label_tag("toc-toggle", "") %>
+        <ul class="toc-table">
+          <% @categories.each do |category| %>
+            <% if category.articles.any? %>
+              <li>
+                <%= link_to "#{category.title}", "##{category.slug}" %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="category-menu">
+      <% @categories.each do |category| %>
+        <% if category.articles.any? %>
+          <ul>
+            <li class="category-navi">
+              <%= link_to category_path(category) do %>
+                <h2 id="<%= category.slug %>">
+                  <span class="fa fa-folder fa-fw"></span>
+                  <%= category.title %>
+                </h2>
+              <% end %>
+            </li>
+            <% category.articles.each do |article| %>
+              <li class="article-navi">
+                <%= link_to category_article_path(category, article) do %>
+                  <span class="fa fa-file"></span>
+                  <%= article.title %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="main-footer">
+      <div class="pager-category-navi">
+        <% if @previous_category %>
+          <div class ="previous">
+            <%= link_to category_path(@previous_category) do %>
+              <span class="fa fa-caret-left"></span>
+              <%= @previous_category.title %>
+            <% end %>
+          </div>
+        <% end %>
+        <% if @next_category %>
+          <div class ="next">
+            <%= link_to category_path(@next_category) do %>
+              <%= @next_category.title %>
+              <span class="fa fa-caret-right"></span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+
   </div>
 </div>

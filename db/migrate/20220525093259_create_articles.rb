@@ -3,6 +3,7 @@ class CreateArticles < ActiveRecord::Migration[6.0]
     create_table :articles do |t|
       t.string :name, null: false
       t.string :title, null: false
+      t.text :summary
       t.text :content, null: false
       t.integer :article_order, null: false
       t.string :status, null: false

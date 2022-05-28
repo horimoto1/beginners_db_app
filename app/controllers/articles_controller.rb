@@ -38,8 +38,8 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:name, :title, :content, :article_order,
-                                    :status, :category_id)
+    params.require(:article).permit(:name, :title, :summary, :content,
+                                    :article_order, :status, :category_id)
   end
 
   def set_category

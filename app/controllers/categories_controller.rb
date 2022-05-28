@@ -2,6 +2,10 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def show
+    @categories = [@category] + @category.child_categories
+    @breadcrumb_list = @category.breadcrumb_list
+    @previous_category = @category.previous_category
+    @next_category = @category.next_category
   end
 
   def new
@@ -36,8 +40,8 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name, :title, :category_order,
-                                     :parent_category_id)
+    params.require(:category).permit(:name, :title, :summary,
+                                     :category_order, :parent_category_id)
   end
 
   def set_category

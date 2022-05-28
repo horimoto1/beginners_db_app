@@ -1,3 +1,105 @@
 // Place all the styles related to the categories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+/* カテゴリーの見出し */
+.category-heading {
+  padding-bottom: 1rem;
+
+  h1 {
+    border-bottom: 2px solid #333;
+  }
+
+  p {
+    padding-top: 1rem;
+  }
+}
+
+/* カテゴリーの目次 */
+.category-toc {
+  background-color: #fcfcfc;
+  border: 3px solid #777;
+  padding-bottom: 1rem;
+  /* display: inline-block; */
+
+  p {
+    padding: 1rem 0px 0px 1rem;
+    display: inline-block;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  li {
+    padding: 1rem 1rem 0px 1rem;
+  }
+
+  /* 入れ子のレベルごとにカウンターを初期化 */
+  ul {
+    counter-reset: toc;
+  }
+
+  /* カウンターを付与する */
+  li::before {
+    counter-increment: toc;
+    /* 各レベルのカウンターを.で区切って結合し、末尾に.を付与する */
+    content: counters(toc, ".") ".";
+    /* padding-right: 0.5rem; */
+  }
+
+  /* ラベルだけ表示する */
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  /* 未チェック状態のラベル */
+  label:after {
+    content: "[閉じる]";
+    padding-right: 1rem;
+  }
+
+  /* チェック状態のラベル */
+  input[type="checkbox"]:checked ~ label:after {
+    content: "[開く]";
+    padding-right: 1rem;
+  }
+
+  /* チェック状態なら目次を閉じる */
+  input[type="checkbox"]:checked ~ ul {
+    display: none;
+  }
+}
+
+/* カテゴリーのメニュー */
+.category-menu {
+  ul{
+    padding-bottom: 1rem;
+  }
+
+  li {
+    padding-top: 1rem;
+    padding-bottom: 2px;
+  }
+
+  .category-navi {
+    border-bottom: 1px solid #333;
+
+    h2 {
+      display: inline;
+    }
+  }
+
+  .article-navi {
+    border-bottom: 1px solid #eee;
+
+    &::before {
+      content: "・";
+    }
+
+    a {
+      font-weight: bold;
+    }
+  }
+}
+

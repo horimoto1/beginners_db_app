@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2022_05_25_145545) do
   create_table "articles", force: :cascade do |t|
     t.string "name", null: false
     t.string "title", null: false
+    t.text "summary"
     t.text "content", null: false
     t.integer "article_order", null: false
     t.string "status", null: false
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 2022_05_25_145545) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "title", null: false
+    t.text "summary"
     t.integer "category_order", null: false
     t.integer "parent_category_id"
     t.datetime "created_at", precision: 6, null: false
