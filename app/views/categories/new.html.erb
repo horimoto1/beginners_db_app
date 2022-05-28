@@ -4,34 +4,36 @@
       <h1>カテゴリー新規作成</h1>
     </div>
 
-    <div class="category-form">
+    <div class="custom-form">
       <%= form_with(model: @category, local: true) do |f| %>
-        <div class="block">
+        <div class="block-control">
           <%= f.label "スラッグ名" %>
           <%= f.text_field :name %>
         </div>
 
-        <div class="block">
+        <div class="block-control">
           <%= f.label "タイトル" %>
           <%= f.text_field :title %>
         </div>
 
-        <div class="block">
+        <div class="block-control">
           <%= f.label "サマリー" %>
           <%= f.text_area :summary %>
         </div>
 
-        <div class="inline">
+        <div class="inline-control">
           <%= f.label "カテゴリーの並び順" %>
           <%= f.number_field :category_order %>
         </div>
 
-        <div class="inline">
+        <div class="inline-control">
           <%= f.label "親カテゴリーID" %>
           <%= f.number_field :parent_category_id %>
         </div>
 
-        <%= f.submit "新規作成" %>
+        <div class="action-control">
+          <%= f.submit "新規作成" %>
+        </div>
       <% end %>
     </div>
   </div>
