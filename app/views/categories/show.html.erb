@@ -45,15 +45,17 @@
         <p>目次</p>
         <%= check_box_tag("toc-toggle") %>
         <%= label_tag("toc-toggle", "") %>
-        <ul class="toc-table">
-          <% @categories.each do |category| %>
-            <% if category.articles.any? %>
-              <li>
-                <%= link_to "#{category.title}", "##{category.slug}" %>
-              </li>
+        <div class="toc-table">
+          <ul>
+            <% @categories.each do |category| %>
+              <% if category.articles.any? %>
+                <li>
+                  <%= link_to "#{category.title}", "##{category.slug}" %>
+                </li>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </ul>
+        </div>
       </div>
     <% end %>
 

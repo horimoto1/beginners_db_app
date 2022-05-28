@@ -36,7 +36,7 @@ class Category < ApplicationRecord
     Category.find_by_sql(sql).first
   end
 
-  # 後のカテゴリーを取得する
+  # 次のカテゴリーを取得する
   def next_category
     sql = <<~EOS
       SELECT *

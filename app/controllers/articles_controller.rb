@@ -3,6 +3,9 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def show
+    @breadcrumb_list = @category.breadcrumb_list
+    @previous_article = @article.previous_article
+    @next_article = @article.next_article
   end
 
   def new

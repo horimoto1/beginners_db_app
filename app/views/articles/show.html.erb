@@ -1,38 +1,79 @@
 <div class="main-wrapper">
   <div class="main">
-    <p>
-      <strong>Name:</strong>
-      <%= @article.name %>
-    </p>
+    <div class="main-header">
 
-    <p>
-      <strong>Title:</strong>
-      <%= @article.title %>
-    </p>
+      <div class="breadcrumb">
+        <ul>
+          <li>
+            <%= link_to root_path do %>
+              <span class="fa fa-home fa-fw"></span>
+              ホーム
+            <% end %>
+          </li>
+          <% @breadcrumb_list.each do |category| %>
+            <li>
+              <span class="fa fa-angle-right"></span>
+              <%= link_to category_path(category) do %>
+                <span class="fa fa-folder fa-fw"></span>
+                <%= category.title %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="info">
+        <div class="create">
+          <span class="fa fa-clock-o"></span>
+          <%= @article.created_at.strftime("%Y/%m/%d") %>
+        </div>
+        <div class="update">
+          <span class="fa fa-history"></span>
+          <%= @article.updated_at.strftime("%Y/%m/%d") %>
+        </div>
+      </div>
+    </div>
 
-    <p>
-      <strong>Content TOC:</strong>
-      <%= toc(@article.content) %>
-    </p>
+    <div class="clear"></div>
 
-    <p>
-      <strong>Content Markdown:</strong>
+    <div class="category-heading">
+      <h1><%= @article.title %></h1>
+      <%= simple_format(@article.summary) %>
+    </div>
+
+    <div class="category-toc">
+      <p>目次</p>
+      <%= check_box_tag("toc-toggle") %>
+      <%= label_tag("toc-toggle", "") %>
+      <div class="toc-table">
+        <%= toc(@article.content) %>
+      </div>
+    </div>
+
+    <div class="article-content">
       <%= markdown(@article.content) %>
-    </p>
+    </div>
 
-    <p>
-      <strong>Article Order:</strong>
-      <%= @article.article_order %>
-    </p>
+    <div class="main-footer">
+      <div class="pager-category-navi">
+        <% if @previous_article %>
+          <div class ="previous">
+            <%= link_to category_article_path(@category, @previous_article) do %>
+              <span class="fa fa-caret-left"></span>
+              <%= @previous_article.title %>
+            <% end %>
+          </div>
+        <% end %>
+        <% if @next_article %>
+          <div class ="next">
+            <%= link_to category_article_path(@category, @next_article) do %>
+              <%= @next_article.title %>
+              <span class="fa fa-caret-right"></span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
 
-    <p>
-      <strong>Status:</strong>
-      <%= @article.status %>
-    </p>
-
-    <p>
-      <strong>Category Id:</strong>
-      <%= @article.category_id %>
-    </p>
+    <div class="clear"></div>
   </div>
 </div>
