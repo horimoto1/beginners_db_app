@@ -37,9 +37,7 @@
 
     <div class="category-heading">
       <h1><%= @category.title %></h1>
-      <% if @category.summary.presence %>
-        <p><%= @category.summary %></p>
-      <% end %>
+      <%= simple_format(@category.summary) %>
     </div>
 
     <% if @categories.length >= 2 %>
