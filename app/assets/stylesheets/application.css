@@ -19,7 +19,7 @@
   box-sizing: border-box; /* paddingとborderを要素のサイズに含める */
 }
 
-ul, li {
+ul, ol, li {
   list-style-type: none; /* リストの黒点を取り消す */
   padding: 0;
   margin: 0;

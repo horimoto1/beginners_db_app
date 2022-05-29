@@ -79,7 +79,6 @@
   p {
     color: #a94442;
     padding: 1rem 0px 0px 1rem;
-    display: inline-block;
   }
 
   .error_list {
@@ -108,5 +107,9 @@
   input, textarea, select {
     border-color: #a94442;
     color: #a94442;
+  }
+
+  .CodeMirror {
+    border-color: #a94442;
   }
 }

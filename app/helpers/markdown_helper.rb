@@ -15,12 +15,12 @@ module MarkdownHelper
     extensions = {
       no_intra_emphasis: true, # 単語内の_を強調として解析しない
       tables: true, # テーブル
-      fenced_code_blocks: true, # ~~~コードブロック~~~
+      fenced_code_blocks: true, # ~~~複数行のコードブロック~~~
       autolink: true, # <>で囲ってないリンクも解析する
       disableindentedcodeblocks: true, # 通常記法のコードブロックを解析しない
       strikethrough: true, # ~~打ち消し線~~
-      lax_spacing: true, # 空行で囲ってないHTMLブロックも解析する
-      spaceafterheaders: true, # 見出しの前の半角スペースを必須にする
+      lax_spacing: true, # 複数行のコードブロックの前後の空行を不要にする
+      spaceafterheaders: true, #の後に空白が無ければ見出しと認めない
       superscript: true, # ^上付き文字
       underline: true, # _強調_
       highlight: true, # ==ハイライト==
@@ -35,34 +35,36 @@ module MarkdownHelper
 
   # レンダラーのカスタムクラス
   class CustomRender < Redcarpet::Render::HTML
-    # コードブロックに対して処理を行う
+    # コードブロックにシンタックスハイライトを適用する
     def block_code(code, language)
-      language = language.split(":")[0]
+      language &&= language.split(":")[0]
 
+      # CodeRayの記法に合わせる
       case language.to_s
       when "rb"
         lang = "ruby"
       when "yml"
         lang = "yaml"
-      when "css"
-        lang = "css"
-      when "html"
-        lang = "html"
       when ""
         lang = "md"
       else
         lang = language
       end
 
-      # コードブロックにシンタックスハイライトを適用する
+      # インラインCSSスタイルでシンタックスハイライトを適用する
       CodeRay.scan(code, lang).div
+    end
+
+    # テーブルをdivタグで囲って出力する
+    def table(header, body)
+      %(<div class="table-wrapper"><table>#{header}#{body}</table></div>)
     end
   end
 
   # 目次を生成する
   def toc(text)
     extensions = {
-      nesting_level: 3, # 3層まで目次をネストする
+      nesting_level: 1..3, # h1からh3まで目次を作成する
     }
 
     renderer = Redcarpet::Render::HTML_TOC

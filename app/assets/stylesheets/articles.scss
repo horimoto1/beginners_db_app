@@ -3,5 +3,101 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 .article-content {
-  padding: 1rem 0px;
+  padding-bottom: 1rem;
+
+  h1, h2, h3, h4, h5, h6 {
+    padding-top: 1rem;
+    border-bottom: 1px solid #777;
+    overflow-wrap: break-word;
+  }
+
+  p {
+    padding-top: 1rem;
+    overflow-wrap: break-word;
+  }
+
+  ul {
+    li {
+      list-style: disc inside;
+    }
+  }
+
+  ol {
+    li {
+      list-style: decimal inside;
+    }
+  }
+
+  img {
+    /* 画像サイズは親要素の横幅一杯を最大値として、物理サイズで表示する */
+    max-width: 100%;
+  }
+
+  /* 引用文 */
+  blockquote {
+    position: relative;
+    margin: 1rem 0px 0px 0px;
+    font-style: italic;
+    background: #efefef;
+    color: #555;
+
+    /* 引用アイコンを表示する */
+    &::before{
+      display: inline-block;
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      content: "\f10d";
+      font-family: FontAwesome;
+      color: #cfcfcf;
+      font-weight: 900;
+    }
+
+    p {
+      padding: 2rem 1rem 0px 1rem;
+    }
+
+    /* 引用元 */
+    cite {
+      display: block;
+      text-align: right;
+      color: #888888;
+    }
+  }
+
+  /* コードブロック */
+  .code {
+    background-color: #fcfcfc;
+    border: 3px solid #777;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+    overflow-x: auto;
+
+    /* 整形済みテキスト */
+    pre {
+      margin: 1rem 0px 0px 1rem;
+    }
+  }
+
+  /* テーブル */
+  .table-wrapper {
+    padding-top: 1rem;
+    overflow-x: auto; /* 横軸スクロールバー */
+
+    table {
+      border-collapse: collapse; /* 表の枠線を1本にする */
+
+      th, td {
+        padding: 3px 5px;
+        border: 1px solid #bbb;
+        background-color: #eee;
+        min-width: 10rem; /* セルが小さくなりすぎないようにする */
+      }
+
+      /* 奇数行/偶数行で色分けする */
+      tr:nth-child(even) td {
+        background-color: white;
+      }
+    }
+  }
 }

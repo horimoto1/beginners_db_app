@@ -1,5 +1,7 @@
 class Attachment < ApplicationRecord
+  # Active Storage
   has_one_attached :image
+
   validates :image, content_type: { in: ["image/jpeg", "image/png", "image/jpg",
                                          "image/gif"],
                                     message: "must be a valid image format" },
