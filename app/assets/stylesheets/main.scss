@@ -10,7 +10,7 @@
     border: 1px solid #eee;
     box-shadow: 0px 2px 6px #ccc;
 
-    /* メインコンテンツのヘッダー */
+    /* ヘッダー */
     .main-header {
       height: 2rem;
 
@@ -50,12 +50,80 @@
       }
     }
 
-    /* メインコンテンツのフツター */
+    /* 見出し */
+    .heading {
+      padding: 1rem 0px;
+
+      h1 {
+        border-bottom: 2px solid #333;
+      }
+
+      p {
+        padding-top: 1rem;
+      }
+    }
+
+    /* 目次(Table of Contents) */
+    .toc {
+      background-color: #fcfcfc;
+      border: 3px solid #777;
+      padding-bottom: 1rem;
+      margin: 1rem 0px;
+
+      p {
+        padding: 1rem 0px 0px 1rem;
+        display: inline-block;
+      }
+
+      a {
+        text-decoration: underline;
+      }
+
+      /* 入れ子のレベルごとにカウンターを初期化 */
+      ul {
+        counter-reset: toc_counter;
+      }
+
+      li {
+        padding: 1rem 1rem 0px 1rem;
+
+        /* カウンターを付与する */
+        &::before {
+          counter-increment: toc_counter;
+          /* 各レベルのカウンターを.で区切って結合し、末尾に.を付与する */
+          content: counters(toc_counter, ".") ".";
+        }
+      }
+
+      /* チェックボックスを非表示にする */
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      /* 未チェック状態のラベル */
+      label:after {
+        content: "[閉じる]";
+        padding-right: 1rem;
+      }
+
+      /* チェック状態のラベル */
+      input[type="checkbox"]:checked ~ label:after {
+        content: "[開く]";
+        padding-right: 1rem;
+      }
+
+      /* チェック状態なら目次を閉じる */
+      input[type="checkbox"]:checked ~ .toc-table {
+        display: none;
+      }
+    }
+
+    /* フツター */
     .main-footer {
       height: 2rem;
 
         /* ページング機能 */
-      .pager-category-navi{
+      .pager-navi{
         a {
           color: #777;
           line-height: 2rem;

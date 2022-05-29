@@ -1,5 +1,6 @@
+/* フォーム */
 .custom-form {
-  .block-control {
+  .block-field {
     label {
       display: block;
       padding-bottom: 0.25rem;
@@ -8,12 +9,12 @@
     padding-bottom: 1rem;
   }
 
-  .inline-control {
+  .inline-field {
     label {
       padding-right: 0.25rem;
     }
 
-    .field_with_errors {
+    * {
       display: inline-block;
     }
 
@@ -64,5 +65,48 @@
     &:hover {
       background-color: #7a7a7a;
     }
+  }
+}
+
+/* バリデーションエラー */
+.error_explanation {
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  border-radius: 4px;
+  padding-bottom: 1rem;
+  margin: 1rem 0px;
+
+  p {
+    color: #a94442;
+    padding: 1rem 0px 0px 1rem;
+    display: inline-block;
+  }
+
+  .error_list {
+    ul {
+      counter-reset: error_counter;
+    }
+  
+    li {
+      padding: 1rem 1rem 0px 1rem;
+      color: red;
+
+      &::before {
+        counter-increment: error_counter;
+        content: counter(error_counter) ".";
+      }
+    }
+  }
+}
+
+/* バリデーションエラー */
+.field_with_errors {
+  label {
+    color: red;
+  }
+
+  input, textarea, select {
+    border-color: #a94442;
+    color: #a94442;
   }
 }

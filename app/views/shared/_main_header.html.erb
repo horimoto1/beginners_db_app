@@ -1,0 +1,31 @@
+<div class="main-header">
+  <div class="breadcrumb">
+    <ul>
+      <li>
+        <%= link_to root_path do %>
+          <span class="fa fa-home fa-fw"></span>
+          ホーム
+        <% end %>
+      </li>
+      <% @breadcrumb_list.each do |category| %>
+        <li>
+          <span class="fa fa-angle-right"></span>
+          <%= link_to category_path(category) do %>
+            <span class="fa fa-folder fa-fw"></span>
+            <%= category.title %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="info">
+    <div class="create">
+      <span class="fa fa-clock-o"></span>
+      <%= object.created_at.strftime("%Y/%m/%d") %>
+    </div>
+    <div class="update">
+      <span class="fa fa-history"></span>
+      <%= object.updated_at.strftime("%Y/%m/%d") %>
+    </div>
+  </div>
+</div>

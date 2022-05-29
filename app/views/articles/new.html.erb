@@ -1,51 +1,10 @@
+<% provide(:button_text, "投稿") %>
 <div class="main-wrapper">
   <div class="main">
-    <div class="category-heading">
+    <div class="heading">
       <h1>記事投稿</h1>
     </div>
 
-    <div class="custom-form">
-      <%= form_with(model: [@category, @article], local: true) do |f| %>
-        <div class="block-control">
-          <%= f.label "スラッグ名" %>
-          <%= f.text_field :name %>
-        </div>
-    
-        <div class="block-control">
-          <%= f.label "タイトル" %>
-          <%= f.text_field :title %>
-        </div>
-
-        <div class="block-control">
-          <%= f.label "サマリー" %>
-          <%= f.text_area :summary %>
-        </div>
-
-        <div class="block-control">
-          <%= f.label "コンテンツ" %>
-          <%= f.text_area :content, id: "markdown_editor" %>
-        </div>
-
-        <div class="inline-control">
-          <%= f.label "ステータス" %>
-          <%= f.select :status, { "非公開": "private", "公開": "published" },
-                       selected: "private", required: true %>
-        </div>
-
-        <div class="inline-control">
-          <%= f.label "記事の並び順" %>
-          <%= f.number_field :article_order %> 
-        </div>
-
-        <div class="inline-control">
-          <%= f.label "カテゴリーID" %>
-          <%= f.number_field :category_id %>
-        </div>
-
-        <div class="action-control">
-          <%= f.submit "投稿" %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "article_form" %>
   </div>
 </div>

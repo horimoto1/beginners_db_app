@@ -1,47 +1,16 @@
 <div class="main-wrapper">
   <div class="main">
-    <div class="main-header">
-
-      <div class="breadcrumb">
-        <ul>
-          <li>
-            <%= link_to root_path do %>
-              <span class="fa fa-home fa-fw"></span>
-              ホーム
-            <% end %>
-          </li>
-          <% @breadcrumb_list.each do |category| %>
-            <li>
-              <span class="fa fa-angle-right"></span>
-              <%= link_to category_path(category) do %>
-                <span class="fa fa-folder fa-fw"></span>
-                <%= category.title %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="info">
-        <div class="create">
-          <span class="fa fa-clock-o"></span>
-          <%= @category.created_at.strftime("%Y/%m/%d") %>
-        </div>
-        <div class="update">
-          <span class="fa fa-history"></span>
-          <%= @category.updated_at.strftime("%Y/%m/%d") %>
-        </div>
-      </div>
-    </div>
+    <%= render "shared/main_header", object: @category %>
 
     <div class="clear"></div>
 
-    <div class="category-heading">
+    <div class="heading">
       <h1><%= @category.title %></h1>
       <%= simple_format(@category.summary) %>
     </div>
 
     <% if @categories.length >= 2 %>
-      <div class="category-toc">
+      <div class="toc">
         <p>目次</p>
         <%= check_box_tag("toc-toggle") %>
         <%= label_tag("toc-toggle", "") %>
@@ -84,28 +53,9 @@
       <% end %>
     </div>
 
-    <div class="main-footer">
-      <div class="pager-category-navi">
-        <% if @previous_category %>
-          <div class ="previous">
-            <%= link_to category_path(@previous_category) do %>
-              <span class="fa fa-caret-left"></span>
-              <%= @previous_category.title %>
-            <% end %>
-          </div>
-        <% end %>
-        <% if @next_category %>
-          <div class ="next">
-            <%= link_to category_path(@next_category) do %>
-              <%= @next_category.title %>
-              <span class="fa fa-caret-right"></span>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    </div>
+    <%= render "shared/main_footer", previous_object: @previous_category,
+                                     next_object: @next_category %>
 
     <div class="clear"></div>
-
   </div>
 </div>
