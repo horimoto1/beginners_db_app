@@ -20,7 +20,7 @@
 }
 
 ul, ol, li {
-  list-style-type: none; /* リストの黒点を取り消す */
+  list-style-type: none; /* リストの黒点や連番を取り消す */
   padding: 0;
   margin: 0;
 }
@@ -39,9 +39,9 @@ input {
 
 html {
   font-family: "Avenir Next", "Hiragino Sans", sans-serif;
-  line-height: 1.5;
+  line-height: 1.5; /* 文字の高さ(フォントサイズの1.5倍) */
   letter-spacing: 0.1em; /* 文字の間隔 */
-  font-size: 16px;
+  font-size: 16px; /* remの基準値 */
   color: #333;
 }
 
@@ -61,9 +61,8 @@ h3 {
 }
 
 p {
-  /* htmlのfont-sizeを基準とする単位 */
   font-size: 1rem; /* 16px以下に可変 */
-  line-height: 2; /* 文字の高さ */
+  line-height: 2;
 }
 
 body {

@@ -76,6 +76,12 @@ class Category < ApplicationRecord
     Category.find_by_sql(sql).reverse
   end
 
+  # ルートカテゴリー一覧を取得する
+  def self.root_categories
+    Category.where(parent_category_id: nil)
+      .order(category_order: :asc, id: :asc)
+  end
+
   private
 
   # nameが更新された際に、slugも自動で更新されるようにする

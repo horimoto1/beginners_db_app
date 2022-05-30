@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+/* マークダウンのスタイル */
 .article-content {
   padding-bottom: 1rem;
 
@@ -18,12 +19,14 @@
 
   ul {
     li {
+      padding-top: 0.5rem;
       list-style: disc inside;
     }
   }
 
   ol {
     li {
+      padding-top: 0.5rem;
       list-style: decimal inside;
     }
   }
@@ -63,6 +66,18 @@
       text-align: right;
       color: #888888;
     }
+  }
+
+  /* インラインコード */
+  code {
+    background-color: #fcfcfc;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: "Avenir Next", "Hiragino Sans", sans-serif;
+    font-size: 1rem;
+    line-height: 2;
+    letter-spacing: 0.1em;
+    padding: 0px 0.5rem;
   }
 
   /* コードブロック */

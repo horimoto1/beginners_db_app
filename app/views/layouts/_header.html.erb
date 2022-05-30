@@ -1,0 +1,36 @@
+<header>
+  <div class="header-wrapper">
+    <div class="header-container">
+      <div class="header-logo">
+        <%= link_to root_path do %>
+          <span class="fa fa-database"></span>
+          BeginnersDB
+        <% end %>
+      </div>
+      <div class="header-nav">
+        <%= render "layouts/search_form" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-menu">
+    <input type="checkbox" id="side-menu-toggle">
+    <label for="side-menu-toggle"><span class="fa fa-bars"></span></label>
+    <div class="side-menu-list">
+      <ul>
+        <li class="side-menu-nav">
+          <%= render "layouts/search_form" %>
+        </li>
+        <%= render "layouts/menu_list" %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="menu-bar-wrapper">
+    <div class="menu-bar">
+      <ul>
+        <%= render "layouts/menu_list" %>
+      </ul>
+    </div>
+  </div>
+</header>

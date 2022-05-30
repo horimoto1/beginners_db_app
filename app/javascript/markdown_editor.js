@@ -5,7 +5,7 @@ import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import { marked } from "marked";
 
-window.addEventListener("turbolinks:load", function () {
+window.addEventListener("turbolinks:load", () => {
   const element = document.getElementById("markdown_editor");
   if (element != null) {
     // プレビュー時のオプション

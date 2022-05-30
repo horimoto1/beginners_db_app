@@ -25,7 +25,7 @@ module MarkdownHelper
       underline: true, # _強調_
       highlight: true, # ==ハイライト==
       quote: true, # "引用符"
-      footnotes: true, # ^[脚注]
+      footnotes: true, # 注釈[^1]、[^1]: 脚注リンク
     }
 
     renderer = CustomRender.new(options)

@@ -1,0 +1,134 @@
+/* ヘッダー */
+.header-wrapper {
+  height: 3rem;
+  background-color: #eee;
+  width: 100%;
+
+  .header-container {
+    max-width: 1000px;
+    margin: 0px auto;
+
+    /* ロゴ */
+    .header-logo {
+      float: left;
+
+      a {
+        color: #333;
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 0px 1rem;
+        display: inline-block;
+        line-height: 3rem;
+      }
+    }
+
+    /* サイト内検索機能 */
+    .header-nav {
+      float: right;
+    }
+  }
+}
+
+/* サイドメニュー */
+.side-menu {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  display: none;
+
+  label {
+    font-size: 1.5rem;
+    line-height: 3rem;
+    padding: 0px 1rem;
+    cursor: pointer;
+  }
+
+  /* ラベルだけ表示する */
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .side-menu-list {
+    background-color: #3a3a3a;
+    height: 100vh; /* 画面の高さの100% */
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 1;
+    display: none;
+  }
+
+  li:hover {
+    background-color: #7a7a7a;
+  }
+
+  a {
+    color: white;
+    display: block;
+    font-size: 1.5rem;
+    padding: 0px 1rem;
+    line-height: 3rem;
+  }
+
+  /* チェック状態ならラベルを非表示にする */
+  input[type="checkbox"]:checked ~ label:before {
+    display: none;
+  }
+
+  /* チェック状態ならメニューを表示する */
+  input[type="checkbox"]:checked ~ .side-menu-list {
+    display: inline-block;
+  }
+}
+
+/* メニューバー */
+.menu-bar-wrapper {
+  height: 3rem;
+  background-color: #3a3a3a;
+  width: 100%;
+
+  .menu-bar {
+    max-width: 1000px;
+    margin: 0px auto;
+
+    li {
+      float: left;
+
+      &:hover {
+        background-color: #7a7a7a;
+      }
+    }
+
+    a {
+      color: white;
+      display: inline-block;
+      font-size: 1.5rem;
+      padding: 0px 1rem;
+      line-height: 3rem;
+    }
+  }
+}
+
+/* タブレット向けレイアウト */
+@media screen and (max-width: 800px) {
+  /* ヘッダー */
+  .header-wrapper {
+    border-bottom: 1px solid #bbb;
+
+    /* ヘッダー内のサイト内検索機能を非表示にする */
+    .header-nav {
+      display: none;
+    }
+  }
+
+  /* サイドメニューを表示する */
+  .side-menu {
+    display: block;
+  }
+
+  /* メニューバーを非表示にする */
+  .menu-bar-wrapper {
+    display: none;
+  }
+}
