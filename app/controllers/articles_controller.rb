@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_category
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :correct_path, only: [:show, :edit, :update, :destroy]
 
   def show
     @breadcrumb_list = @category.breadcrumb_list
@@ -17,7 +18,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
-      redirect_to edit_category_article_path(@category, @article)
+      redirect_to category_article_path(@category, @article)
     else
       render "new"
     end
@@ -28,7 +29,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to edit_category_article_path(@category, @article)
+      redirect_to category_article_path(@category, @article)
     else
       render "edit"
     end
@@ -36,7 +37,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to new_category_article_path(@category)
+    redirect_to category_path(@category)
   end
 
   private
@@ -52,5 +53,11 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.friendly.find(params[:id])
+  end
+
+  def correct_path
+    unless @category.articles.include?(@article)
+      redirect_to root_path
+    end
   end
 end

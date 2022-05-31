@@ -1,0 +1,23 @@
+.root-categories {
+  padding-bottom: 1rem;
+
+  .top-box {
+    position: relative;
+    border: 2px solid #777;
+    border-radius: 6px;
+    padding-bottom: 1rem;
+    margin-top: 2rem;
+
+    .top-box-title {
+      position: absolute;
+      top: -1rem; /* ボーダー上に重ねて表示する */
+      left: 1rem;
+      background-color: white;
+      padding: 0px 0.5rem;
+    }
+
+    p {
+      padding: 1rem 1rem 0px 1rem;
+    }
+  }
+}

@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  root "categories#new"
-  resources :categories, only: [:show, :new, :create, :edit, :update, :destroy] do
-    resources :articles, only: [:show, :new, :create, :edit, :update, :destroy]
+  root "home#top"
+
+  resources :categories, except: :index do
+    resources :articles, except: :index
   end
 
   resources :attachments, only: [:create, :destroy]

@@ -50,21 +50,21 @@
       }
     }
 
-    /* メニュー */
+    /* アクションメニュー */
     .action-menu {
-      padding-top: 1rem;
-
       .left-list {
         li {
+          padding-top: 1rem;
+          padding-right: 0.5rem;
           float: left;
-          margin-right: 0.5rem;
         }
       }
 
       .right-list {
         li {
+          padding-top: 1rem;
+          padding-left: 0.5rem;
           float: right;
-          margin-left: 0.5rem;
         }
       }
     }

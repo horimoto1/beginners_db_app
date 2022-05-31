@@ -1,0 +1,23 @@
+<div class="main-wrapper">
+  <div class="main">
+    <div class="heading">
+      <h1>TOP PAGE</h1>
+      <p>当サイトはデータベース初心者を対象に、リレーショナルデータベースを中心としたデータベースの基礎知識を体系的に解説します。</p>
+    </div>
+
+    <div class="root-categories">
+      <ul>
+        <% @root_categories.each do |root_category| %>
+          <li class="top-box">
+            <div class="top-box-title">
+              <%= link_to root_category do %>
+                <h2><%= root_category.title %></h2>
+              <% end %>
+            </div>
+            <%= simple_format(root_category.summary) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
