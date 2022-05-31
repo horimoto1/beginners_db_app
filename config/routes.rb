@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   end
 
   resources :attachments, only: [:create, :destroy]
+
+  get "*path", to: "application#render_404"
 end

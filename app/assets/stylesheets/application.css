@@ -14,7 +14,7 @@
  *= require_self
  */
 
-  /* 共通レイアウト */
+/* 共通レイアウト */
 * {
   box-sizing: border-box; /* paddingとborderを要素のサイズに含める */
 }

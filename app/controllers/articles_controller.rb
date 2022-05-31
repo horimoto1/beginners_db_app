@@ -1,7 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_category
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  before_action :correct_path, only: [:show, :edit, :update, :destroy]
 
   def show
     @breadcrumb_list = @category.breadcrumb_list
@@ -52,12 +51,6 @@ class ArticlesController < ApplicationController
   end
 
   def set_article
-    @article = Article.friendly.find(params[:id])
-  end
-
-  def correct_path
-    unless @category.articles.include?(@article)
-      redirect_to root_path
-    end
+    @article = @category.articles.friendly.find(params[:id])
   end
 end
