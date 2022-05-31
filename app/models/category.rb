@@ -82,6 +82,11 @@ class Category < ApplicationRecord
       .order(category_order: :asc, id: :asc)
   end
 
+  # 子カテゴリーの数を取得する
+  def self.child_categories_count(id)
+    Category.where(parent_category_id: id).count
+  end
+
   private
 
   # nameが更新された際に、slugも自動で更新されるようにする

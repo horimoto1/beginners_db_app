@@ -50,6 +50,25 @@
       }
     }
 
+    /* メニュー */
+    .action-menu {
+      padding-top: 1rem;
+
+      .left-list {
+        li {
+          float: left;
+          margin-right: 0.5rem;
+        }
+      }
+
+      .right-list {
+        li {
+          float: right;
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
     /* 見出し */
     .heading {
       padding: 1rem 0px;

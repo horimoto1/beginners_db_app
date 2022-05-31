@@ -10,6 +10,11 @@ class CategoriesController < ApplicationController
 
   def new
     @category = Category.new
+    if @category.parent_category_id = params[:parent_category_id]
+      @category.category_order = Category.child_categories_count(
+        @category.parent_category_id
+      ) + 1
+    end
   end
 
   def create

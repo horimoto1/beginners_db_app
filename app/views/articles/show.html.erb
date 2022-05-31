@@ -4,6 +4,32 @@
 
     <div class="clear"></div>
 
+    <div class="action-menu">
+      <ul class="left-list">
+        <li class="custom-form">
+          <%= form_with(url: edit_category_article_path(@category, @article),
+                        method: :get, local: true) do |f| %>
+            <div class="action-field">
+              <%= f.submit "記事編集" %>
+            </div>
+          <% end %>
+        </li>
+      </ul>
+      <ul class="right-list">
+        <li class="custom-form">
+          <%= form_with(url: category_article_path(@category, @article),
+                        method: :delete, local: true,
+                        data: { confirm: "Are you sure?" }) do |f| %>
+            <div class="action-field">
+              <%= f.submit "記事削除" %>
+            </div>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="clear"></div>
+
     <div class="heading">
       <h1><%= @article.title %></h1>
       <%= simple_format(@article.summary) %>

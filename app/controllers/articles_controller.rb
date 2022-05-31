@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
   def new
     @article = Article.new
     @article.category_id = @category.id
+    @article.article_order = @category.articles.count + 1
   end
 
   def create

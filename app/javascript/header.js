@@ -1,13 +1,10 @@
 // HTML全体が読み込まれてからイベントを登録する
 document.addEventListener("DOMContentLoaded", () => {
-  // サイドメニューの外側をクリックした際はサイドメニューを閉じる
-  document.addEventListener("click", (e) => {
-    // 子要素に.side-menuを含むか？
-    if(!e.target.closest(".side-menu")) {
-      const element = document.getElementById("side-menu-toggle");
-      element.checked = false;
-    }
-  })
+  // サイドメニューを閉じる
+  function close_side_menu() {
+    const element = document.getElementById("side-menu-toggle");
+    element.checked = false;
+  }
 
   // キーワードが未入力の場合は検索を実行しない
   function search_form_check(e) {
@@ -30,12 +27,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const buttons = document.getElementsByClassName("search-button");
-  for(let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", (e) => {
+  document.addEventListener("click", (e) => {
+    // サイドメニューの外側をクリックした際はサイドメニューを閉じる
+    if(!e.target.closest(".side-menu")) {
+      close_side_menu();
+    }
+
+    // キーワードが未入力かどうかチェックする
+    if(e.target.closest(".search-button")) {
       search_form_check(e);
-      // イベントの伝播を止める
-      e.stopPropagation();
-    });
-  }
+    }
+  })
 })
