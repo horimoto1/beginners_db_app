@@ -2,9 +2,11 @@ import "inline-attachment/src/inline-attachment";
 import "inline-attachment/src/codemirror-4.inline-attachment";
 import SimpleMDE from "simplemde";
 import Rails from "@rails/ujs";
-import Turbolinks from "turbolinks";
 import { marked } from "marked";
 
+var simplemde = null;
+
+// turbolinksでページ読み込み時にMarkdownエディタを設定する
 window.addEventListener("turbolinks:load", () => {
   const element = document.getElementById("markdown_editor");
   if (element != null) {
@@ -15,7 +17,7 @@ window.addEventListener("turbolinks:load", () => {
     });
 
     // textareaをMarkdownエディタにする
-    const simplemde = new SimpleMDE({
+    simplemde = new SimpleMDE({
       element: element,
       // ツールバーのカスタマイズ
       toolbar: ["bold", "strikethrough", "heading", "|",
@@ -44,6 +46,14 @@ window.addEventListener("turbolinks:load", () => {
       extraHeaders: { "X-CSRF-Token": Rails.csrfToken() }, // CSRF対策
     });
   }
-});
+})
 
-Turbolinks.start();
+// turbolinksでページ遷移時にMarkdownエディタを削除する
+// 戻るでページ遷移するとMarkdownエディタが複数表示されるため
+window.addEventListener("turbolinks:visit", () => {
+  if (simplemde !== null) {
+    // Markdownエディタをtextareaに戻す
+    simplemde.toTextArea();
+    simplemde = null;
+  }
+})
