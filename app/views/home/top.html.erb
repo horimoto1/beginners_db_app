@@ -1,5 +1,20 @@
 <div class="main-wrapper">
   <div class="main">
+    <div class="action-menu">
+      <ul class="left-list">
+        <li class="custom-form">
+          <%= form_with(url: new_category_path,
+                        method: :get, local: true) do |f| %>
+            <div class="action-field">
+              <%= f.submit "カテゴリー作成" %>
+            </div>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="clear"></div>
+
     <div class="heading">
       <h1>TOP PAGE</h1>
       <p>当サイトはデータベース初心者を対象に、リレーショナルデータベースを中心としたデータベースの基礎知識を体系的に解説します。</p>
