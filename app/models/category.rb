@@ -14,6 +14,7 @@ class Category < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true
   validates :category_order, presence: true
+  validate :parent_category_id_should_be_null_or_exists
 
   # 前のカテゴリーを取得する
   def previous_category
@@ -87,5 +88,14 @@ class Category < ApplicationRecord
   # nameが更新された際に、slugも自動で更新されるようにする
   def should_generate_new_friendly_id?
     name_changed? || super
+  end
+
+  # 親カテゴリーIDがnullまたは存在するかバリデーションする
+  def parent_category_id_should_be_null_or_exists
+    if parent_category_id
+      unless Category.exists?(self.parent_category_id)
+        errors.add(:parent_category_id, "がnullではないか存在しません")
+      end
+    end
   end
 end

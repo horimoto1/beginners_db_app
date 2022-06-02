@@ -13,6 +13,7 @@ class Article < ApplicationRecord
   validates :article_order, presence: true
   validates :status, presence: true
   validates :category_id, presence: true
+  validate :category_id_should_be_exists
 
   # 前の記事を取得する
   def previous_article
@@ -61,5 +62,12 @@ class Article < ApplicationRecord
   # nameが更新された際に、slugも自動で更新されるようにする
   def should_generate_new_friendly_id?
     name_changed? || super
+  end
+
+  # カテゴリーIDが存在するかバリデーションする
+  def category_id_should_be_exists
+    unless Category.exists?(self.category_id)
+      errors.add(:category_id, "が存在しません")
+    end
   end
 end

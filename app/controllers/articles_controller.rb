@@ -15,9 +15,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = @category.articles.build(article_params)
+    @article = Article.new(article_params)
     if @article.save
-      redirect_to category_article_path(@category, @article)
+      redirect_to category_article_path(@article.category, @article)
     else
       render "new"
     end
@@ -28,7 +28,8 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to category_article_path(@category, @article)
+      @article.reload
+      redirect_to category_article_path(@article.category, @article)
     else
       render "edit"
     end
@@ -43,7 +44,7 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:name, :title, :summary, :content,
-                                    :article_order, :status)
+                                    :article_order, :status, :category_id)
   end
 
   def set_category

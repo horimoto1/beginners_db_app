@@ -34,6 +34,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
+      @category.reload
       redirect_to category_path(@category)
     else
       render "edit"
