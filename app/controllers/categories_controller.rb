@@ -9,11 +9,14 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @category = Category.new
-    if @category.parent_category_id = params[:parent_category_id]
-      @category.category_order = Category.child_categories_count(
-        @category.parent_category_id
-      ) + 1
+    if params[:parent_category_id]
+      parent_category = Category.friendly.find(params[:parent_category_id])
+      @category = parent_category.child_categories.build(
+        category_order: parent_category.child_categories.count + 1,
+      )
+    else
+      @category = Category.new
+      @category.category_order = @root_categories.count + 1
     end
   end
 
@@ -38,15 +41,20 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    parent_category = @category.parent_category
     @category.destroy
-    redirect_to root_path
+    if parent_category
+      redirect_to category_path(parent_category)
+    else
+      redirect_to root_path
+    end
   end
 
   private
 
   def category_params
-    params.require(:category).permit(:name, :title, :summary,
-                                     :category_order, :parent_category_id)
+    params.require(:category).permit(:name, :title, :summary, :category_order,
+                                     :parent_category_id)
   end
 
   def set_category

@@ -9,13 +9,13 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
-    @article.category_id = @category.id
-    @article.article_order = @category.articles.count + 1
+    @article = @category.articles.build(
+      article_order: @category.articles.count + 1,
+    )
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = @category.articles.build(article_params)
     if @article.save
       redirect_to category_article_path(@category, @article)
     else
@@ -43,7 +43,7 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:name, :title, :summary, :content,
-                                    :article_order, :status, :category_id)
+                                    :article_order, :status)
   end
 
   def set_category

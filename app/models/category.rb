@@ -3,17 +3,17 @@ class Category < ApplicationRecord
   include FriendlyId
   friendly_id :name, use: :slugged
 
+  has_many :child_categories, class_name: "Category",
+                              foreign_key: "parent_category_id",
+                              dependent: :destroy
+  belongs_to :parent_category, class_name: "Category",
+                               foreign_key: "parent_category_id",
+                               optional: true
   has_many :articles, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true
   validates :category_order, presence: true
-
-  # 子カテゴリー一覧を取得する
-  def child_categories
-    Category.where(parent_category_id: self.id)
-      .order(category_order: :asc, id: :asc)
-  end
 
   # 前のカテゴリーを取得する
   def previous_category
@@ -80,11 +80,6 @@ class Category < ApplicationRecord
   def self.root_categories
     Category.where(parent_category_id: nil)
       .order(category_order: :asc, id: :asc)
-  end
-
-  # 子カテゴリーの数を取得する
-  def self.child_categories_count(id)
-    Category.where(parent_category_id: id).count
   end
 
   private

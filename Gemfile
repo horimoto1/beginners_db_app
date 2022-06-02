@@ -19,6 +19,7 @@ gem "image_processing", ">= 1.9.3"
 gem "mini_magick", ">= 4.9.5"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "rails-i18n"
+gem "seed_dump"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
