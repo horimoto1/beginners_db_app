@@ -1,0 +1,21 @@
+<footer>
+  <div class="footer-wrapper">
+    <div class="footer-menu">
+      <ul>
+        <li>
+          <% if user_signed_in? %>
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "ログイン", new_user_session_path %>
+          <% end %>
+        </li>
+        <li>
+          <span>|</span>
+        </li>
+        <li>
+          <%= link_to "プロフィール", profile_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

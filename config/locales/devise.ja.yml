@@ -10,6 +10,7 @@ ja:
 
   devise:
     failure:
+      already_authenticated: "既にログインしています。"
       unauthenticated: "ログインしてください。"
       #      unauthenticated: 'You need to sign in or sign up before continuing.'
       unconfirmed: "本登録を行ってください。"

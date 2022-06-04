@@ -66,6 +66,17 @@ p {
   line-height: 2;
 }
 
+pre {
+  margin: 0px;
+}
+
+code {
+  font-family: "Avenir Next", "Hiragino Sans", sans-serif;
+  font-size: 1rem;
+  line-height: 2;
+  letter-spacing: 0.1em;
+}
+
 body {
   margin: 0px;
   background-color: #eee;

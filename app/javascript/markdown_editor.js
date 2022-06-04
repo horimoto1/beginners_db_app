@@ -49,7 +49,7 @@ window.addEventListener("turbolinks:load", () => {
 })
 
 // turbolinksでページ遷移時にMarkdownエディタを削除する
-// 戻るでページ遷移するとMarkdownエディタが複数表示されるため
+// 戻るボタンでページ遷移するとMarkdownエディタが増殖するため
 window.addEventListener("turbolinks:visit", () => {
   if (simplemde !== null) {
     // Markdownエディタをtextareaに戻す

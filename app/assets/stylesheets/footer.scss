@@ -1,0 +1,27 @@
+/* フッター */
+.footer-wrapper {
+  height: 3rem;
+  width: 100%;
+  border-top: 1px solid #bbb;
+
+  .footer-menu {
+    max-width: 1000px;
+    margin: 0px auto;
+
+    ul{
+      padding-right: 1rem;
+    }
+
+    li {
+      float: right;
+
+      a, span {
+        color: #777;
+        display: inline-block;
+        font-size: 1rem;
+        padding-left: 1rem;
+        line-height: 3rem;
+      }
+    }
+  }
+}

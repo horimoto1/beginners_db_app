@@ -13,15 +13,20 @@
 
   <body>
     <%= render "layouts/header" %>
+
     <div class="main-wrapper">
       <%= render "shared/flash_messages" %>
+
       <div class="main">
         <%= yield %>
       </div>
+
       <% if Rails.env.development? %>
         <%= debug(params) %>
         <% console %>
       <% end %>
     </div>
+
+    <%= render "layouts/footer" %>
   </body>
 </html>
