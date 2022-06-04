@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_category
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
@@ -17,6 +18,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
+      flash[:success] = "記事を投稿しました"
       redirect_to category_article_path(@article.category, @article)
     else
       render "new"
@@ -28,6 +30,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
+      flash[:success] = "記事を更新しました"
       @article.reload
       redirect_to category_article_path(@article.category, @article)
     else
@@ -37,6 +40,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
+    flash[:success] = "記事を削除しました"
     redirect_to category_path(@category)
   end
 

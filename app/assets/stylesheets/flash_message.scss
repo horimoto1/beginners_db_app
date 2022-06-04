@@ -1,0 +1,37 @@
+/* フラッシュ */
+.flash {
+  margin-bottom: 1rem;
+
+  p {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .info, .notice {
+    color: #31708f;
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+    border-radius: 4px;
+  }
+
+  .success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    border-radius: 4px;
+  }
+
+  .warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border: 1px solid #faebcc;
+    border-radius: 4px;
+  }
+
+  .danger, .alert {
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+  }
+}

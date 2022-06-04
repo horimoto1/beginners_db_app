@@ -33,7 +33,7 @@
     font-size: 1rem;
   }
 
-  input[type="text"] {
+  input[type="text"],  input[type="email"], input[type="password"] {
     width: 100%;
     height: 2rem;
   }
@@ -55,6 +55,46 @@
     height: 2rem;
   }
 
+  .check-box {
+    /* 通常のチェックボックスは非表示にする */
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    label {
+      position: relative;
+      padding-left: 1.5rem;
+
+      /* チェックボックスの枠線 */
+      &::before {
+        position: absolute;
+        content: "";
+        display: inline-block;
+        top: calc((1rem - 1px) / 2);
+        left: 0px;
+        width: calc(1rem - 1px);
+        height: calc(1rem - 1px);
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+    }
+
+    /* チェックボックスのアイコン */
+    input[type="checkbox"]:checked ~ label::after {
+      position: absolute;
+      content: "\f00c";
+      display: inline-block;
+      top: 0px;
+      left: 0px;
+      font-family: FontAwesome;
+      font-weight: 900;
+    }
+
+    input[type="checkbox"]:checked ~ label::before {
+      border: 1px solid #bbb;
+    }
+  }
+
   .action-field {
     input[type="submit"] {
       min-width: 6rem;
@@ -67,51 +107,5 @@
         background-color: #7a7a7a;
       }
     }
-  }
-}
-
-/* バリデーションエラー */
-.error_explanation {
-  background-color: #f2dede;
-  border: 1px solid #ebccd1;
-  border-radius: 4px;
-  padding-bottom: 1rem;
-  margin: 1rem 0px;
-
-  p {
-    color: #a94442;
-    padding: 1rem 1rem 0px 1rem;
-  }
-
-  .error_list {
-    ul {
-      counter-reset: error_counter;
-    }
-  
-    li {
-      padding: 1rem 1rem 0px 1rem;
-      color: red;
-
-      &::before {
-        counter-increment: error_counter;
-        content: counter(error_counter) ".";
-      }
-    }
-  }
-}
-
-/* バリデーションエラー */
-.field_with_errors {
-  label {
-    color: red;
-  }
-
-  input, textarea, select {
-    border-color: #a94442;
-    color: #a94442;
-  }
-
-  .CodeMirror {
-    border-color: #a94442;
   }
 }

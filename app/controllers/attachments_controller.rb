@@ -1,4 +1,6 @@
 class AttachmentsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     attachment = Attachment.new
     attachment.image.attach(params[:image])

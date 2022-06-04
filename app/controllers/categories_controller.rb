@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def show
@@ -23,6 +24,7 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
+      flash[:success] = "カテゴリーを作成しました"
       redirect_to category_path(@category)
     else
       render "new"
@@ -34,6 +36,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
+      flash[:success] = "カテゴリーを更新しました"
       @category.reload
       redirect_to category_path(@category)
     else
@@ -44,6 +47,7 @@ class CategoriesController < ApplicationController
   def destroy
     parent_category = @category.parent_category
     @category.destroy
+    flash[:success] = "カテゴリーを削除しました"
     if parent_category
       redirect_to category_path(parent_category)
     else

@@ -66,9 +66,9 @@
 
   /* インラインコード */
   code {
-    background-color: #fcfcfc;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    background-color: #eee;
+    // border: 1px solid #ccc;
+    // border-radius: 3px;
     font-family: "Avenir Next", "Hiragino Sans", sans-serif;
     font-size: 1rem;
     line-height: 2;
@@ -78,8 +78,8 @@
 
   /* コードブロック */
   .code {
-    background-color: #fcfcfc;
-    border: 2px solid #777;
+    background-color: #f6f8fa;
+    border-radius: 6px;
     padding-bottom: 1rem;
     margin-top: 1rem;
     overflow-x: auto;
@@ -101,13 +101,13 @@
       th, td {
         padding: 3px 5px;
         border: 1px solid #bbb;
-        background-color: #eee;
+        background-color: white;
         min-width: 10rem; /* セルが小さくなりすぎないようにする */
       }
 
       /* 奇数行/偶数行で色分けする */
       tr:nth-child(even) td {
-        background-color: white;
+        background-color: #eee;
       }
     }
   }
