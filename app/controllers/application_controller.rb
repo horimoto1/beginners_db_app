@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_menu
-    @root_categories = Category.root_categories
+    @root_categories = Category.root_categories.sorted
   end
 
   def render_404(exception = nil)

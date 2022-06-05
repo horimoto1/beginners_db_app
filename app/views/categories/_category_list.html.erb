@@ -1,5 +1,5 @@
 <% if login_filter(category.articles).any? %>
-  <% login_filter(category.articles).each do |article| %>
+  <% login_filter(category.articles.sorted).each do |article| %>
     <li class="article-navi">
       <%= link_to category_article_path(category, article) do %>
         <span class="fa fa-file"></span>

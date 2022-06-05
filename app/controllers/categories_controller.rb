@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def show
-    @child_categories = @category.child_categories
+    @child_categories = @category.child_categories.sorted
     @breadcrumb_list = @category.breadcrumb_list
     @previous_category = @category.previous_category
     @next_category = @category.next_category

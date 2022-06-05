@@ -5,8 +5,7 @@ class Article < ApplicationRecord
 
   belongs_to :category
 
-  default_scope -> { order(article_order: :asc, id: :asc) }
-
+  scope :sorted, -> { order(article_order: :asc, id: :asc) }
   scope :published, -> { where(status: "published") }
 
   validates :name, presence: true, uniqueness: true

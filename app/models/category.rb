@@ -11,6 +11,9 @@ class Category < ApplicationRecord
                                optional: true
   has_many :articles, dependent: :destroy
 
+  scope :sorted, -> { order(category_order: :asc, id: :asc) }
+  scope :root_categories, -> { where(parent_category_id: nil) }
+
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true
   validates :category_order, presence: true
@@ -75,12 +78,6 @@ class Category < ApplicationRecord
     EOS
 
     Category.find_by_sql(sql).reverse
-  end
-
-  # ルートカテゴリー一覧を取得する
-  def self.root_categories
-    Category.where(parent_category_id: nil)
-      .order(category_order: :asc, id: :asc)
   end
 
   private
