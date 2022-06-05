@@ -44,7 +44,6 @@
     cursor: pointer;
   }
 
-  /* ラベルだけ表示する */
   input[type="checkbox"] {
     display: none;
   }
@@ -54,9 +53,10 @@
     height: 100vh; /* 画面の高さの100% */
     position: fixed;
     top: 0px;
-    right: 0px;
+    right: -100%; // 要素を画面外に隠す
     z-index: 100;
-    display: none;
+    // display: none;
+    transition: right 300ms 0s ease-in; // アニメーションさせる
   }
 
   li:hover {
@@ -78,7 +78,8 @@
 
   /* チェック状態ならメニューを表示する */
   input[type="checkbox"]:checked ~ .side-menu-list {
-    display: inline-block;
+    // display: inline-block;
+    right: 0px;
   }
 }
 

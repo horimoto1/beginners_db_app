@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 })
 
-// turbolinksでページ遷移時にサイドメニューを閉じる
-// ページ遷移後に一瞬だけサイドメニューが表示されてしまう場合があるため
+// turbolinksでページ遷移時の調整
 window.addEventListener("turbolinks:visit", () => {
+  // 一瞬だけサイドメニューが表示されてしまう場合があるため
   close_side_menu();
 })

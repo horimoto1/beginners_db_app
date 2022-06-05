@@ -89,6 +89,12 @@
       padding-bottom: 1rem;
       margin: 1rem 0px;
 
+      .toc-table {
+        transition: max-height 300ms 0s ease;
+        overflow: hidden; // 閉じた際に子要素を非表示にする
+        max-height: 100vh;
+      }
+
       p {
         padding: 1rem 0px 0px 1rem;
         display: inline-block;
@@ -133,7 +139,8 @@
 
       /* チェック状態なら目次を閉じる */
       input[type="checkbox"]:checked ~ .toc-table {
-        display: none;
+        // display: none;
+        max-height: 0;
       }
     }
 
