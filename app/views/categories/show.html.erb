@@ -53,47 +53,51 @@
   <%= simple_format(@category.summary) %>
 </div>
 
-<% if @categories.length >= 2 %>
-  <div class="toc">
-    <p>目次</p>
-    <%= check_box_tag("toc-toggle") %>
-    <%= label_tag("toc-toggle", "") %>
-    <div class="toc-table">
-      <ul>
-        <% @categories.each do |category| %>
-          <% if category != @category || category.articles.any? %>
-            <li>
-              <%= link_to "#{category.title}", "##{category.slug}" %>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
+<div class="toc">
+  <p>目次</p>
+  <%= check_box_tag("toc-toggle") %>
+  <%= label_tag("toc-toggle", "") %>
+  <div class="toc-table">
+    <ul>
+      <% if login_filter(@category.articles).any? || @child_categories.empty? %>
+        <li>
+          <%= link_to "#{@category.title}", "##{@category.slug}" %>
+        </li>
+      <% end %>
+      <% @child_categories.each do |category| %>
+        <li>
+          <%= link_to "#{category.title}", "##{category.slug}" %>
+        </li>
+      <% end %>
+    </ul>
   </div>
-<% end %>
+</div>
 
 <div class="category-menu">
-  <% @categories.each do |category| %>
-    <% if category != @category || category.articles.any? %>
-      <ul>
-        <li class="category-navi">
-          <%= link_to category_path(category) do %>
-            <h2 id="<%= category.slug %>">
-              <span class="fa fa-folder fa-fw"></span>
-              <%= category.title %>
-            </h2>
-          <% end %>
-        </li>
-        <% category.articles.each do |article| %>
-          <li class="article-navi">
-            <%= link_to category_article_path(category, article) do %>
-              <span class="fa fa-file"></span>
-              <%= article.title %>
-            <% end %>
-          </li>
+  <% if login_filter(@category.articles).any? || @child_categories.empty? %>
+    <ul>
+      <li class="category-navi">
+        <h2 id="<%= @category.slug %>">
+          <span class="fa fa-folder-open"></span>
+          <%= @category.title %>
+        </h2>
+      </li>
+      <%= render "category_list", category: @category %>
+    </ul>
+  <% end %>
+  
+  <% @child_categories.each do |category| %>
+    <ul>
+      <li class="category-navi">
+        <%= link_to category_path(category) do %>
+          <h2 id="<%= category.slug %>">
+            <span class="fa fa-folder fa-fw"></span>
+            <%= category.title %>
+          </h2>
         <% end %>
-      </ul>
-    <% end %>
+      </li>
+      <%= render "category_list", category: category %>
+    </ul>
   <% end %>
 </div>
 

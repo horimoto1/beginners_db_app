@@ -7,6 +7,8 @@ class Article < ApplicationRecord
 
   default_scope -> { order(article_order: :asc, id: :asc) }
 
+  scope :published, -> { where(status: "published") }
+
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true
   validates :content, presence: true
@@ -55,6 +57,10 @@ class Article < ApplicationRecord
     EOS
 
     Article.find_by_sql(sql).first
+  end
+
+  def published?
+    self.status == "published"
   end
 
   private

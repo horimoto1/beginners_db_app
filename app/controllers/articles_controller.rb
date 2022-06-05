@@ -5,8 +5,8 @@ class ArticlesController < ApplicationController
 
   def show
     @breadcrumb_list = @category.breadcrumb_list
-    @previous_article = @article.previous_article
-    @next_article = @article.next_article
+    @previous_article = login_filter(@article.previous_article)
+    @next_article = login_filter(@article.next_article)
   end
 
   def new
@@ -57,5 +57,10 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = @category.articles.friendly.find(params[:id])
+
+    unless login_filter(@article)
+      message = "この記事は現在非公開となっています。"
+      raise ApplicationError::NotPublishedError, message
+    end
   end
 end
