@@ -17,6 +17,7 @@ class Category < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true
   validates :category_order, presence: true
+
   validate :parent_category_id_should_be_null_or_exists
 
   # 前のカテゴリーを取得する

@@ -5,8 +5,10 @@ class Article < ApplicationRecord
 
   belongs_to :category
 
+  PUBLISHED_STATUS = "published"
+
   scope :sorted, -> { order(article_order: :asc, id: :asc) }
-  scope :published, -> { where(status: "published") }
+  scope :published, -> { where(status: PUBLISHED_STATUS) }
 
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true
@@ -14,6 +16,7 @@ class Article < ApplicationRecord
   validates :article_order, presence: true
   validates :status, presence: true
   validates :category_id, presence: true
+
   validate :category_id_should_be_exists
 
   # 前の記事を取得する
@@ -59,7 +62,7 @@ class Article < ApplicationRecord
   end
 
   def published?
-    self.status == "published"
+    self.status == PUBLISHED_STATUS
   end
 
   private

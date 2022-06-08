@@ -9,7 +9,9 @@ function erase_flash() {
 // 目次の開閉状態をリセットする
 function reset_toc() {
   const element = document.getElementById("toc-toggle");
-  element.checked = false;
+  if (element !== null) {
+    element.checked = false;
+  }
 }
 
 // turbolinksでページ遷移時の調整

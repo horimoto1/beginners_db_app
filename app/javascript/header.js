@@ -1,7 +1,9 @@
 // サイドメニューを閉じる
 function close_side_menu() {
   const element = document.getElementById("side-menu-toggle");
-  element.checked = false;
+  if (element !== null) {
+    element.checked = false;
+  }
 }
 
 // キーワードが未入力の場合は検索を実行しない
