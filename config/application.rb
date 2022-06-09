@@ -19,5 +19,12 @@ module BeginnersDbApp
     # 日本語対応
     config.i18n.default_locale = :ja
     config.time_zone = "Tokyo"
+
+    # 次のSpecファイルを生成しないようにする
+    config.generators do |g|
+      g.test_framework :rspec,
+        view_specs: false,
+        routing_specs: false
+    end
   end
 end

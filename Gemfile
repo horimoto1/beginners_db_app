@@ -26,6 +26,8 @@ group :development, :test do
   gem "sqlite3", "~> 1.4"
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "faker"
+  gem "rspec-rails", ">= 5.1.2", "< 6.0.0"
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -33,14 +35,11 @@ group :development do
   gem "listen", ">= 3.1.5"
   gem "spring", ">= 2.1.0"
   gem "spring-watcher-listen", ">= 2.0.1"
+  gem "spring-commands-rspec"
 end
 
 group :test do
-  gem "capybara", ">= 2.15"
-  gem "selenium-webdriver"
-  gem "webdrivers"
-  gem "rails-controller-testing", ">= 1.0.4"
-  gem "minitest", ">= 5.11.3"
+  gem "capybara"
 end
 
 group :production do
