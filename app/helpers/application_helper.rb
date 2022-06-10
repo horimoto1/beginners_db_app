@@ -23,7 +23,7 @@ module ApplicationHelper
 
     case object
     when ActiveRecord::Relation
-      object.published if object.model == Article
+      object.model == Article ? object.published : object
     when Article
       object.published? ? object : nil
     else

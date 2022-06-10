@@ -19,8 +19,8 @@ module MarkdownHelper
       autolink: true, # <>で囲ってないリンクも解析する
       disableindentedcodeblocks: true, # 通常記法のコードブロックを解析しない
       strikethrough: true, # ~~打ち消し線~~
-      lax_spacing: true, # 複数行のコードブロックの前後の空行を不要にする
-      spaceafterheaders: true, #の後に空白が無ければ見出しと認めない
+      lax_spacing: true, # ブロックレベルのHTML要素の前後の空行を不要にする
+      spaceafterheaders: true, # #の後に空白が無ければ見出しと認めない
       superscript: true, # ^上付き文字
       underline: true, # _強調_
       highlight: true, # ==ハイライト==

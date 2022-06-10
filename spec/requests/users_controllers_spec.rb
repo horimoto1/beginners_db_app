@@ -1,10 +1,7 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "UsersControllers", type: :request do
-  describe "GET /users_controllers" do
-    it "works! (now write some real specs)" do
-      get users_controllers_path
-      expect(response).to have_http_status(200)
-    end
+  describe "#show" do
+    it "アクセスできること"
   end
 end
