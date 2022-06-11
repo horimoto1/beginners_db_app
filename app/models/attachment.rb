@@ -4,7 +4,7 @@ class Attachment < ApplicationRecord
 
   validates :image, content_type: { in: ["image/jpeg", "image/png", "image/jpg",
                                          "image/gif"],
-                                    message: "must be a valid image format" },
+                                    message: "のcontent-typeが無効です。" },
                     size: { less_than: 5.megabytes,
-                            message: "should be less than 5MB" }
+                            message: "のファイルサイズは5MB未満にしてください。" }
 end

@@ -38,12 +38,31 @@ window.addEventListener("turbolinks:load", () => {
       },
     });
 
+    // エラーメッセージを表示する
+    function show_error_messages(response) {
+      var json = JSON.parse(response.response);
+      if (json["errors"] === undefined) {
+        return;
+      }
+
+      var error_messages = "";
+      for (var i = 0; i < json["errors"].length; i++) {
+        error_messages += json["errors"][i];
+        if (i < json["errors"].length - 1) {
+          error_messages += "\n";
+        }
+      }
+
+      alert(error_messages);
+    }
+
     // エディタに画像がドラッグ&ドロップされた際の処理
     inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
       uploadUrl: "/attachments", // POSTで送信するパス
       uploadFieldName: "image", // パラメータのキー
       allowedTypes: ["image/jpeg", "image/png", "image/jpg", "image/gif"],
       extraHeaders: { "X-CSRF-Token": Rails.csrfToken() }, // CSRF対策
+      onFileUploadResponse: (response) => { show_error_messages(response) },
     });
   }
 })

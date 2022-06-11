@@ -76,7 +76,7 @@ RSpec.describe "ApplicationControllers", type: :request do
     let!(:article) { create(:article) }
 
     context "ログアウト時に非公開のArticleにアクセスする" do
-      it "非公開ページを表示する" do
+      it "非公開ページを表示すること" do
         get category_article_path(article.category, article)
         expect(response).to have_http_status(404)
         expect(response.body).to include "非公開"
@@ -84,7 +84,7 @@ RSpec.describe "ApplicationControllers", type: :request do
     end
 
     context "ログイン時に非公開のArticleにアクセスする" do
-      it "articlesのshowページを表示する" do
+      it "articlesのshowページを表示すること" do
         sign_in user
         get category_article_path(article.category, article)
         expect(response).to have_http_status(200)
