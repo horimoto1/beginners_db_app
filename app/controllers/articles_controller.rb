@@ -59,7 +59,7 @@ class ArticlesController < ApplicationController
     @article = @category.articles.friendly.find(params[:id])
 
     unless login_filter(@article)
-      message = "この記事は現在非公開となっています。"
+      message = "この記事は非公開になっています。"
       raise ApplicationError::NotPublishedError, message
     end
   end

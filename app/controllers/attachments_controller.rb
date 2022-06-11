@@ -7,7 +7,7 @@ class AttachmentsController < ApplicationController
     if attachment.save
       render json: { filename: url_for(attachment.image) }
     else
-      render json: {}
+      render json: { filename: "画像のアップロードに失敗しました" }
     end
   end
 
@@ -15,6 +15,6 @@ class AttachmentsController < ApplicationController
     attachment = Attachment.find(params[:id])
     attachment.image.purge if attachment.image.attached?
     attachment.destroy
-    render json: {}
+    render json: { filename: "画像を削除しました" }
   end
 end

@@ -4,11 +4,11 @@ FactoryBot.define do
       published { false }
     end
 
-    name { Faker::Internet.slug }
-    title { Faker::Lorem.sentence(word_count: 3) }
-    summary { Faker::Lorem.paragraph(sentence_count: 3) }
-    content { Faker::Markdown.random }
-    article_order { 1 }
+    sequence(:name) { |n| "test#{n}" }
+    sequence(:title) { |n| "タイトル#{n}" }
+    summary { "テスト記事" }
+    content { "# テスト" }
+    sequence(:article_order) { |n| n }
     status { published ? "published" : "private" }
     association :category
   end
