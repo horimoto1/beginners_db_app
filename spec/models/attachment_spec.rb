@@ -3,21 +3,81 @@ require "rails_helper"
 RSpec.describe Attachment, type: :model do
   describe "バリデーション" do
     context "全ての属性が正しい場合" do
-      it "content_typeがimage/jpegでもバリデーションが通ること"
+      context "content_typeがimage/jpeg" do
+        let!(:attachment) { build(:attachment) }
 
-      it "content_typeがimage/pngでもバリデーションが通ること"
+        it "バリデーションが通ること" do
+          expect(attachment).to be_valid
+        end
+      end
 
-      it "content_typeがimage/jpgでもバリデーションが通ること"
+      context "content_typeがimage/png" do
+        let!(:attachment) {
+          build(:attachment, image: "480x320.png",
+                             content_type: "image/png")
+        }
 
-      it "content_typeがimage/gifでもバリデーションが通ること"
+        it "バリデーションが通ること" do
+          expect(attachment).to be_valid
+        end
+      end
 
-      it "sizeが4.9MBでもバリデーションが通ること"
+      context "content_typeがimage/gif" do
+        let!(:attachment) {
+          build(:attachment, image: "480x320.gif",
+                             content_type: "image/gif")
+        }
+
+        it "バリデーションが通ること" do
+          expect(attachment).to be_valid
+        end
+      end
+
+      context "content_typeがimage/svg+xml" do
+        let!(:attachment) {
+          build(:attachment, image: "rails.svg",
+                             content_type: "image/svg+xml")
+        }
+
+        it "バリデーションが通ること" do
+          expect(attachment).to be_valid
+        end
+      end
+
+      context "file_sizeが4MB" do
+        let!(:attachment) {
+          build(:attachment, image: "4MB.png",
+                             content_type: "image/png")
+        }
+
+        it "バリデーションが通ること" do
+          expect(attachment).to be_valid
+        end
+      end
     end
 
     context "imageが不正" do
-      it "content_typeが未定義ならばバリデーションが通らないこと"
+      context "content_typeがimage/webp" do
+        let!(:attachment) {
+          build(:attachment, image: "480x320.webp",
+                             content_type: "image/webp")
+        }
 
-      it "sizeが5MBならばバリデーションが通らないこと"
+        it "バリデーションが通らないこと" do
+          expect(attachment).not_to be_valid
+        end
+      end
+
+      context "file_sizeが5MB" do
+        let!(:attachment) {
+          build(:attachment, image: "5MB.png",
+                             content_type: "image/png")
+        }
+
+        it "バリデーションが通らないこと" do
+          expect(attachment).not_to be_valid
+        end
+      end
     end
   end
 end

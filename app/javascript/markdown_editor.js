@@ -60,7 +60,7 @@ window.addEventListener("turbolinks:load", () => {
     inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
       uploadUrl: "/attachments", // POSTで送信するパス
       uploadFieldName: "image", // パラメータのキー
-      allowedTypes: ["image/jpeg", "image/png", "image/jpg", "image/gif"],
+      allowedTypes: ["image/jpeg", "image/png", "image/gif", "image/svg+xml"],
       extraHeaders: { "X-CSRF-Token": Rails.csrfToken() }, // CSRF対策
       onFileUploadResponse: (response) => { show_error_messages(response) },
     });

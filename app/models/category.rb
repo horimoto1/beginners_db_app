@@ -62,8 +62,8 @@ class Category < ApplicationRecord
     Category.find_by_sql(sql).first
   end
 
-  # パンくずリストを取得する
-  def breadcrumb_list
+  # 祖先Categoryを全て含むツリーを取得する
+  def category_tree
     sql = <<~EOS
       WITH RECURSIVE tmp AS (
         SELECT *

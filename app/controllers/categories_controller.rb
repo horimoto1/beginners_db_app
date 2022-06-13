@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
   def show
     @child_categories = @category.child_categories.sorted
-    @breadcrumb_list = @category.breadcrumb_list
+    @category_tree = @category.category_tree
     @previous_category = @category.previous_category
     @next_category = @category.next_category
   end

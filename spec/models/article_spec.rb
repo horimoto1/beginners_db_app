@@ -2,103 +2,238 @@ require "rails_helper"
 
 RSpec.describe Article, type: :model do
   describe "バリデーション" do
+    let!(:category) { create(:category) }
+    let!(:article) { build(:article, category_id: category.id) }
+
     context "全ての属性が正しい場合" do
-      it "バリデーションが通ること"
+      it "バリデーションが通ること" do
+        expect(article).to be_valid
+      end
     end
 
     context "nameが不正の場合" do
-      it "空ならばバリデーションが通らないこと"
+      it "空ならばバリデーションが通らないこと" do
+        article.name = ""
+        expect(article).not_to be_valid
+      end
 
-      it "重複するならばバリデーションが通らないこと"
+      it "重複するならばバリデーションが通らないこと" do
+        article.save
+        duplicate_article = build(:article, name: article.name)
+        expect(duplicate_article).not_to be_valid
+      end
     end
 
     context "titleが不正の場合" do
-      it "空ならばバリデーションが通らないこと"
+      it "空ならばバリデーションが通らないこと" do
+        article.title = ""
+        expect(article).not_to be_valid
+      end
 
-      it "重複するならばバリデーションが通らないこと"
+      it "重複するならばバリデーションが通らないこと" do
+        article.save
+        duplicate_article = build(:article, title: article.title)
+        expect(duplicate_article).not_to be_valid
+      end
     end
 
     context "contentが不正の場合" do
-      it "空ならばバリデーションが通らないこと"
+      it "空ならばバリデーションが通らないこと" do
+        article.content = ""
+        expect(article).not_to be_valid
+      end
     end
 
     context "article_orderが不正の場合" do
-      it "空ならばバリデーションが通らないこと"
+      it "空ならばバリデーションが通らないこと" do
+        article.article_order = nil
+        expect(article).not_to be_valid
+      end
     end
 
     context "statusが不正の場合" do
-      it "空ならばバリデーションが通らないこと"
+      it "空ならばバリデーションが通らないこと" do
+        article.status = ""
+        expect(article).not_to be_valid
+      end
     end
 
     context "category_idが不正の場合" do
-      it "空ならばバリデーションが通らないこと"
+      it "空ならばバリデーションが通らないこと" do
+        article.category_id = nil
+        expect(article).not_to be_valid
+      end
 
-      it "参照先が存在しなければバリデーションが通らないこと"
+      it "参照先が存在しなければバリデーションが通らないこと" do
+        article.category_id = -1
+        expect(article).not_to be_valid
+      end
     end
   end
 
   describe "スコープ" do
-    it "article_orderの昇順でソートされ、タイはidの昇順でソートされること"
-    # 最小のarticle_orderを持つArticleを複数作成する
-    # その中でidが最小のArticleがfirstならテストをパスする
+    context "article_orderの昇順でソートされ、タイはidの昇順でソートされること" do
+      # 最小のarticle_orderを持つArticleを複数作成する
+      let!(:article_3) { create(:article, article_order: 3) }
+      let!(:article_2) { create(:article, article_order: 2) }
+      let!(:articles_1) { create_list(:article, 3, article_order: 1) }
 
-    it "公開されているArticle一覧を取得すること"
+      it "article_orderとidが最小のArticleが先頭に来ること" do
+        expect(Article.sorted.first).to eq articles_1.min_by { |article| article.id }
+      end
+    end
+
+    context "公開されているArticle一覧を取得すること" do
+      let!(:published_articles) { create_list(:article, 3, published: true) }
+      let!(:private_articles) { create_list(:article, 3) }
+
+      it "公開されているArticleが全て含まれること" do
+        published_articles.each do |published_article|
+          expect(Article.published).to include published_article
+        end
+      end
+
+      it "公開されていないArticleが全て含まれないこと" do
+        private_articles.each do |private_article|
+          expect(Article.published).not_to include private_article
+        end
+      end
+    end
   end
 
   describe "#should_generate_new_friendly_id?" do
-    it "nameが更新されるとslugも自動で更新されること"
+    let!(:article) { create(:article) }
+
+    it "nameが更新されるとslugも自動で更新されること" do
+      new_article_name = "sample"
+      article.update_attributes(name: new_article_name)
+      expect(article.slug).to eq new_article_name.parameterize
+    end
   end
 
   describe "#published?" do
-    it "公開されている場合はtrueとなること"
+    let!(:published_article) { create(:article, published: true) }
+    let!(:private_article) { create(:article) }
 
-    it "非公開の場合はfalseとなること"
+    it "公開されている場合はtrueとなること" do
+      expect(published_article.published?).to be_truthy
+    end
+
+    it "非公開の場合はfalseとなること" do
+      expect(private_article.published?).to be_falsey
+    end
   end
 
   describe "#previous_article" do
+    let!(:categories) { create_list(:category, 3) }
+    let!(:article) {
+      create(:article, article_order: 2,
+                       category_id: categories.first.id)
+    }
+
     context "同一の親Categoryに属すArticleが存在しない" do
-      it "nilが返されること"
+      it "nilが返されること" do
+        expect(article.previous_article).to be_nil
+      end
     end
 
     context "同一の親Categoryに属すArticleが存在する" do
       context "article_orderが小さいArticleが存在する" do
-        it "前のArticleを取得できること"
+        let!(:article_lt) {
+          create(:article, article_order: 1,
+                           category_id: categories.first.id)
+        }
+
+        it "前のArticleを取得できること" do
+          expect(article.previous_article).to eq article_lt
+        end
       end
 
       context "article_orderが小さいArticleが存在しない" do
-        it "nilが返されること"
+        let!(:article_gt) {
+          create(:article, article_order: 3,
+                           category_id: categories.first.id)
+        }
+
+        it "nilが返されること" do
+          expect(article.previous_article).to be_nil
+        end
       end
 
-      context "article_orderがタイだが、idが小さいArticleが存在する" do
-        it "前のArticleを取得できること"
-      end
+      context "article_orderがタイのArticleが存在する" do
+        let!(:article_eq) {
+          create(:article, article_order: 2,
+                           category_id: categories.first.id)
+        }
 
-      context "article_orderがタイだが、idが小さいArticleが存在しない" do
-        it "nilが返されること"
+        context "idが小さいArticleが存在する" do
+          it "前のArticleを取得できること" do
+            expect(article_eq.previous_article).to eq article
+          end
+        end
+
+        context "idが小さいArticleが存在しない" do
+          it "nilが返されること" do
+            expect(article.previous_article).to be_nil
+          end
+        end
       end
     end
   end
 
   describe "#next_article" do
+    let!(:categories) { create_list(:category, 3) }
+    let!(:article) {
+      create(:article, article_order: 2,
+                       category_id: categories.first.id)
+    }
+
     context "同一の親Categoryに属すArticleが存在しない" do
-      it "nilが返されること"
+      it "nilが返されること" do
+        expect(article.next_article).to be_nil
+      end
     end
 
     context "同一の親Categoryに属すArticleが存在する" do
       context "article_orderが大さいArticleが存在する" do
-        it "次のArticleを取得できること"
+        let!(:article_gt) {
+          create(:article, article_order: 3,
+                           category_id: categories.first.id)
+        }
+
+        it "次のArticleを取得できること" do
+          expect(article.next_article).to eq article_gt
+        end
       end
 
       context "article_orderが大さいArticleが存在しない" do
-        it "nilが返されること"
+        let!(:article_lt) {
+          create(:article, article_order: 1,
+                           category_id: categories.first.id)
+        }
+
+        it "nilが返されること" do
+          expect(article.next_article).to be_nil
+        end
       end
 
-      context "article_orderがタイだが、idが大さいArticleが存在する" do
-        it "次のArticleを取得できること"
-      end
+      context "article_orderがタイのArticleが存在する" do
+        let!(:article_eq) {
+          create(:article, article_order: 2,
+                           category_id: categories.first.id)
+        }
 
-      context "article_orderがタイだが、idが大さいArticleが存在しない" do
-        it "nilが返されること"
+        context "idが大さいArticleが存在する" do
+          it "次のArticleを取得できること" do
+            expect(article.next_article).to eq article_eq
+          end
+        end
+
+        context "idが大さいArticleが存在しない" do
+          it "nilが返されること" do
+            expect(article_eq.next_article).to be_nil
+          end
+        end
       end
     end
   end

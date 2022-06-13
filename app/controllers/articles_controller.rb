@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def show
-    @breadcrumb_list = @category.breadcrumb_list
+    @category_tree = @category.category_tree
     @previous_article = login_filter(@article.previous_article)
     @next_article = login_filter(@article.next_article)
   end

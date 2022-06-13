@@ -47,7 +47,7 @@ RSpec.describe "AttachmentsControllers", type: :request do
         sign_in user
         expect { delete attachment_path(attachment) }.to \
           change { Attachment.count }.by(-1)
-        expect(json["filename"]).to eq "画像を削除しました"
+        expect(json["message"]).to eq "画像を削除しました"
       end
     end
   end

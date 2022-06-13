@@ -1,1 +1,1 @@
-json.filename "画像を削除しました"
+json.message "画像を削除しました"

@@ -1,8 +1,14 @@
 FactoryBot.define do
   factory :attachment do
-    after(:build) do |attachment|
-      attachment.image.attach(io: File.open("spec/fixtures/kitten.jpg"),
-                              filename: "kitten.jpg", content_type: "image/jpg")
+    transient do
+      image { "kitten.jpg" }
+      content_type { "image/jpeg" }
+    end
+
+    after(:build) do |attachment, evaluator|
+      attachment.image.attach(io: File.open("spec/fixtures/#{evaluator.image}"),
+                              filename: evaluator.image,
+                              content_type: evaluator.content_type)
     end
   end
 end

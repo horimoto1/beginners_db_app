@@ -7,7 +7,7 @@
           ホーム
         <% end %>
       </li>
-      <% @breadcrumb_list.each do |category| %>
+      <% @category_tree.each do |category| %>
         <li>
           <span class="fa fa-angle-right"></span>
           <%= link_to category_path(category) do %>
