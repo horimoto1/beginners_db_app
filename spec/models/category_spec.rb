@@ -11,48 +11,60 @@ RSpec.describe Category, type: :model do
     end
 
     context "nameが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        category.name = ""
-        expect(category).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          category.name = ""
+          expect(category).not_to be_valid
+        end
       end
 
-      it "重複するならばバリデーションが通らないこと" do
-        category.save
-        duplicate_category = build(:category, name: category.name)
-        expect(duplicate_category).not_to be_valid
+      context "重複する場合" do
+        it "バリデーションが通らないこと" do
+          category.save
+          duplicate_category = build(:category, name: category.name)
+          expect(duplicate_category).not_to be_valid
+        end
       end
     end
 
     context "titleが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        category.title = ""
-        expect(category).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          category.title = ""
+          expect(category).not_to be_valid
+        end
       end
 
-      it "重複するならばバリデーションが通らないこと" do
-        category.save
-        duplicate_category = build(:category, title: category.title)
-        expect(duplicate_category).not_to be_valid
+      context "重複する場合" do
+        it "バリデーションが通らないこと" do
+          category.save
+          duplicate_category = build(:category, title: category.title)
+          expect(duplicate_category).not_to be_valid
+        end
       end
     end
 
     context "category_orderが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        category.category_order = nil
-        expect(category).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          category.category_order = nil
+          expect(category).not_to be_valid
+        end
       end
     end
 
     context "parent_category_idが不正の場合" do
-      it "参照先が存在しなければバリデーションが通らないこと" do
-        category.parent_category_id = -1
-        expect(category).not_to be_valid
+      context "参照先が存在しない場合" do
+        it "バリデーションが通らないこと" do
+          category.parent_category_id = -1
+          expect(category).not_to be_valid
+        end
       end
     end
   end
 
   describe "スコープ" do
-    context "category_orderの昇順でソートされ、タイはidの昇順でソートされること" do
+    describe "#sorted" do
       # 最小のcategory_orderを持つCategoryを複数作成する
       let!(:category_3) { create(:category, category_order: 3) }
       let!(:category_2) { create(:category, category_order: 2) }
@@ -63,7 +75,7 @@ RSpec.describe Category, type: :model do
       end
     end
 
-    context "ルートCategory一覧を取得すること" do
+    describe "#root_categories" do
       let!(:root_categories) { create_list(:category, 3) }
       let!(:child_categories) {
         create_list(:category, 3,
@@ -228,7 +240,7 @@ RSpec.describe Category, type: :model do
     let!(:grandchild_category) { create(:category, parent_category_id: child_category.id) }
     let!(:category_list) { [root_category, child_category, grandchild_category] }
 
-    it "祖先Categoryを全て含むツリーを取得できること" do
+    it "呼び出し元と祖先Categoryを全て取得できること" do
       category_list.each do |category|
         expect(grandchild_category.category_tree).to include category
       end

@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe ApplicationHelper, type: :helper do
   describe "#full_title" do
-    context "引数無しの場合" do
-      it "BeginnersDBを返す" do
+    context "引数無しで呼び出された場合" do
+      it "BeginnersDBを返すこと" do
         expect(full_title).to eq "BeginnersDB"
       end
     end
 
-    context "引数有りの場合" do
-      it "引数 | BeginnersDBを返す" do
+    context "引数有りで呼び出された場合" do
+      it "引数 | BeginnersDBを返すこと" do
         title = "sample"
         expect(full_title title).to eq "#{title} | BeginnersDB"
       end
@@ -20,7 +20,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     context "引数がCategoryの場合" do
       let!(:category) { create(:category) }
 
-      it "categories/:idを返す" do
+      it "Categoryのパスを返すこと" do
         expect(object_path category).to eq category_path(category)
       end
     end
@@ -28,7 +28,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     context "引数がArticleの場合" do
       let!(:article) { create(:article) }
 
-      it "categories/:category_id/Articles/:article_idを返す" do
+      it "Articleのパスを返すこと" do
         expect(object_path article).to eq category_article_path(
                                             article.category, article
                                           )
@@ -36,7 +36,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     context "引数がそれ以外の場合" do
-      it "nilを返す" do
+      it "nilを返すこと" do
         expect(object_path "sample").to be_nil
       end
     end
@@ -56,7 +56,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         context "modelがArticleの場合" do
           let!(:articles) { Article.all }
 
-          it "未公開のArticleが全て含まれない" do
+          it "未公開のArticleが全て含まれないこと" do
             private_articles.each do |private_article|
               expect(helper.login_filter articles).not_to include private_article
             end
@@ -66,27 +66,32 @@ RSpec.describe ApplicationHelper, type: :helper do
         context "modelがArticleではない場合" do
           let!(:categories) { Category.all }
 
-          it "引数をそのまま返す" do
+          it "引数をそのまま返すこと" do
             expect(helper.login_filter categories).to eq categories
           end
         end
       end
 
       context "引数がArticleの場合" do
-        let!(:published_article) { published_articles.first }
-        let!(:private_article) { private_articles.first }
+        context "公開している場合" do
+          let!(:published_article) { published_articles.first }
 
-        it "公開している場合はそのまま返す" do
-          expect(helper.login_filter published_article).to eq published_article
+          it "引数をそのまま返すこと" do
+            expect(helper.login_filter published_article).to eq published_article
+          end
         end
 
-        it "未公開の場合はnilを返す" do
-          expect(helper.login_filter private_article).to be_nil
+        context "公開していない場合" do
+          let!(:private_article) { private_articles.first }
+
+          it "nilを返すこと" do
+            expect(helper.login_filter private_article).to be_nil
+          end
         end
       end
 
       context "引数がそれ以外の場合" do
-        it "引数をそのまま返す" do
+        it "引数をそのまま返すこと" do
           object = "sample"
           expect(helper.login_filter object).to be object
         end
@@ -106,7 +111,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         context "modelがArticleの場合" do
           let!(:articles) { Article.all }
 
-          it "未公開のArticleも全て取得する" do
+          it "未公開のArticleも全て取得すること" do
             private_articles.each do |private_article|
               expect(helper.login_filter articles).to include private_article
             end
@@ -116,27 +121,32 @@ RSpec.describe ApplicationHelper, type: :helper do
         context "modelがArticleではない場合" do
           let!(:categories) { Category.all }
 
-          it "引数をそのまま返す" do
+          it "引数をそのまま返すこと" do
             expect(helper.login_filter categories).to eq categories
           end
         end
       end
 
       context "引数がArticleの場合" do
-        let!(:published_article) { published_articles.first }
-        let!(:private_article) { private_articles.first }
+        context "公開している場合" do
+          let!(:published_article) { published_articles.first }
 
-        it "公開している場合はそのまま返す" do
-          expect(helper.login_filter published_article).to eq published_article
+          it "引数をそのまま返すこと" do
+            expect(helper.login_filter published_article).to eq published_article
+          end
         end
 
-        it "公開していない場合もそのまま返す" do
-          expect(helper.login_filter private_article).to eq private_article
+        context "公開していない場合" do
+          let!(:private_article) { private_articles.first }
+
+          it "引数をそのまま返すこと" do
+            expect(helper.login_filter private_article).to eq private_article
+          end
         end
       end
 
       context "引数がそれ以外の場合" do
-        it "引数をそのまま返す" do
+        it "引数をそのまま返すこと" do
           object = "sample"
           expect(helper.login_filter object).to be object
         end

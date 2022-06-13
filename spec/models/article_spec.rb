@@ -12,67 +12,85 @@ RSpec.describe Article, type: :model do
     end
 
     context "nameが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        article.name = ""
-        expect(article).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          article.name = ""
+          expect(article).not_to be_valid
+        end
       end
 
-      it "重複するならばバリデーションが通らないこと" do
-        article.save
-        duplicate_article = build(:article, name: article.name)
-        expect(duplicate_article).not_to be_valid
+      context "重複する場合" do
+        it "バリデーションが通らないこと" do
+          article.save
+          duplicate_article = build(:article, name: article.name)
+          expect(duplicate_article).not_to be_valid
+        end
       end
     end
 
     context "titleが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        article.title = ""
-        expect(article).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          article.title = ""
+          expect(article).not_to be_valid
+        end
       end
 
-      it "重複するならばバリデーションが通らないこと" do
-        article.save
-        duplicate_article = build(:article, title: article.title)
-        expect(duplicate_article).not_to be_valid
+      context "重複する場合" do
+        it "バリデーションが通らないこと" do
+          article.save
+          duplicate_article = build(:article, title: article.title)
+          expect(duplicate_article).not_to be_valid
+        end
       end
     end
 
     context "contentが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        article.content = ""
-        expect(article).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          article.content = ""
+          expect(article).not_to be_valid
+        end
       end
     end
 
     context "article_orderが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        article.article_order = nil
-        expect(article).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          article.article_order = nil
+          expect(article).not_to be_valid
+        end
       end
     end
 
     context "statusが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        article.status = ""
-        expect(article).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          article.status = ""
+          expect(article).not_to be_valid
+        end
       end
     end
 
     context "category_idが不正の場合" do
-      it "空ならばバリデーションが通らないこと" do
-        article.category_id = nil
-        expect(article).not_to be_valid
+      context "空の場合" do
+        it "バリデーションが通らないこと" do
+          article.category_id = nil
+          expect(article).not_to be_valid
+        end
       end
 
-      it "参照先が存在しなければバリデーションが通らないこと" do
-        article.category_id = -1
-        expect(article).not_to be_valid
+      context "参照先が存在しない場合" do
+        it "バリデーションが通らないこと" do
+          article.category_id = -1
+          expect(article).not_to be_valid
+        end
       end
     end
   end
 
   describe "スコープ" do
-    context "article_orderの昇順でソートされ、タイはidの昇順でソートされること" do
+    describe "#sorted" do
       # 最小のarticle_orderを持つArticleを複数作成する
       let!(:article_3) { create(:article, article_order: 3) }
       let!(:article_2) { create(:article, article_order: 2) }
@@ -83,7 +101,7 @@ RSpec.describe Article, type: :model do
       end
     end
 
-    context "公開されているArticle一覧を取得すること" do
+    describe "#published" do
       let!(:published_articles) { create_list(:article, 3, published: true) }
       let!(:private_articles) { create_list(:article, 3) }
 

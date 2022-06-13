@@ -47,7 +47,7 @@ RSpec.describe MarkdownHelper, type: :helper do
         expect(markdown(text)).to include %(<a href="https://www.google.com/">Google</a>)
       end
 
-      # 効果なし
+      # 適用されないため削除
       #   xit "通常記法のコードブロックを解析しないこと" do
       #     # 通常記法では、各行の先頭にある4つのスペースを持つテキストをコードブロックに変換する
       #     text = <<-EOS
@@ -72,7 +72,7 @@ RSpec.describe MarkdownHelper, type: :helper do
         expect(markdown(text)).to include "<div>aaa</div>"
       end
 
-      # 効果なし
+      # 適用されないため削除
       # xit "#の後に空白が無ければ見出しと認めないこと" do
       #   text = "#aaa"
 
@@ -91,7 +91,7 @@ RSpec.describe MarkdownHelper, type: :helper do
         expect(markdown(text)).to include "<strong>aaa</strong>"
       end
 
-      # 効果なし
+      # 適用されないため削除
       # xit "ハイライトを解析すること" do
       #   text = "==aaa=="
 
