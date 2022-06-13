@@ -71,7 +71,7 @@ RSpec.describe Category, type: :model do
       }
 
       it "ルートCategoryが全て含まれること" do
-        root_categories.each do |category|
+        root_categories.each do |root_category|
           expect(Category.root_categories).to include root_category
         end
       end
