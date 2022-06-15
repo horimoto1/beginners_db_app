@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "HomeControllers", type: :request do
-  let(:base_title) { "BeginnersDB" }
-
   describe "GET / to #top" do
+    let(:base_title) { "BeginnersDB" }
+
     before do
       get root_url
     end

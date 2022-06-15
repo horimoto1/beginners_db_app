@@ -92,12 +92,12 @@ RSpec.describe Article, type: :model do
   describe "スコープ" do
     describe "#sorted" do
       # 最小のarticle_orderを持つArticleを複数作成する
-      let!(:article_3) { create(:article, article_order: 3) }
-      let!(:article_2) { create(:article, article_order: 2) }
-      let!(:articles_1) { create_list(:article, 3, article_order: 1) }
+      let!(:article_order_3) { create(:article, article_order: 3) }
+      let!(:article_order_2) { create(:article, article_order: 2) }
+      let!(:articles_order_1) { create_list(:article, 3, article_order: 1) }
 
       it "article_orderとidが最小のArticleが先頭に来ること" do
-        expect(Article.sorted.first).to eq articles_1.min_by { |article| article.id }
+        expect(Article.sorted.first).to eq articles_order_1.min_by { |article| article.id }
       end
     end
 
@@ -124,7 +124,7 @@ RSpec.describe Article, type: :model do
 
     it "nameが更新されるとslugも自動で更新されること" do
       new_article_name = "sample"
-      article.update_attributes(name: new_article_name)
+      article.update(name: new_article_name)
       expect(article.slug).to eq new_article_name.parameterize
     end
   end

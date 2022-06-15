@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "ArticlesControllers", type: :request do
+  let!(:base_title) { "BeginnersDB" }
+
   describe "GET /categories/:category_id/articles/:id to #show" do
-    let!(:base_title) { "BeginnersDB" }
     let!(:article) { create(:article, published: true) }
 
     before do
@@ -31,10 +32,17 @@ RSpec.describe "ArticlesControllers", type: :request do
     end
 
     context "ログイン時" do
-      it "取得に成功すること" do
+      before do
         sign_in user
         get new_category_article_path(category)
+      end
+
+      it "取得に成功すること" do
         expect(response).to have_http_status(200)
+      end
+
+      it "タイトルが正しいこと" do
+        expect(response.body).to include "記事投稿 | #{base_title}"
       end
     end
   end
@@ -83,10 +91,17 @@ RSpec.describe "ArticlesControllers", type: :request do
     end
 
     context "ログイン時" do
-      it "取得に成功すること" do
+      before do
         sign_in user
         get edit_category_article_path(article.category, article)
+      end
+
+      it "取得に成功すること" do
         expect(response).to have_http_status(200)
+      end
+
+      it "タイトルが正しいこと" do
+        expect(response.body).to include "記事編集 | #{base_title}"
       end
     end
   end

@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "UsersControllers", type: :request do
-  let(:base_title) { "BeginnersDB" }
-
   describe "GET /profile to #show" do
+    let(:base_title) { "BeginnersDB" }
+
     before do
       get profile_path
     end

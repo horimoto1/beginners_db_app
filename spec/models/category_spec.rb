@@ -66,12 +66,12 @@ RSpec.describe Category, type: :model do
   describe "スコープ" do
     describe "#sorted" do
       # 最小のcategory_orderを持つCategoryを複数作成する
-      let!(:category_3) { create(:category, category_order: 3) }
-      let!(:category_2) { create(:category, category_order: 2) }
-      let!(:categories_1) { create_list(:category, 3, category_order: 1) }
+      let!(:category_order_3) { create(:category, category_order: 3) }
+      let!(:category_order_2) { create(:category, category_order: 2) }
+      let!(:categories_order_1) { create_list(:category, 3, category_order: 1) }
 
       it "category_orderとidが最小のCategoryが先頭に来ること" do
-        expect(Category.sorted.first).to eq categories_1.min_by { |category| category.id }
+        expect(Category.sorted.first).to eq categories_order_1.min_by { |category| category.id }
       end
     end
 
@@ -115,7 +115,7 @@ RSpec.describe Category, type: :model do
 
     it "nameが更新されるとslugも自動で更新されること" do
       new_category_name = "sample"
-      category.update_attributes(name: new_category_name)
+      category.update(name: new_category_name)
       expect(category.slug).to eq new_category_name.parameterize
     end
   end

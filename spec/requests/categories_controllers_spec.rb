@@ -19,6 +19,7 @@ RSpec.describe "CategoriesControllers", type: :request do
   end
 
   describe "GET /categories/new to #new" do
+    let!(:base_title) { "BeginnersDB" }
     let!(:user) { create(:user) }
 
     context "ログアウト時" do
@@ -30,10 +31,17 @@ RSpec.describe "CategoriesControllers", type: :request do
     end
 
     context "ログイン時" do
-      it "取得に成功すること" do
+      before do
         sign_in user
         get new_category_path
+      end
+
+      it "取得に成功すること" do
         expect(response).to have_http_status(200)
+      end
+
+      it "タイトルが正しいこと" do
+        expect(response.body).to include "カテゴリー新規作成 | #{base_title}"
       end
     end
   end
@@ -63,6 +71,7 @@ RSpec.describe "CategoriesControllers", type: :request do
   end
 
   describe "GET /categories/:id/edit to #edit" do
+    let!(:base_title) { "BeginnersDB" }
     let!(:user) { create(:user) }
     let!(:category) { create(:category) }
 
@@ -75,10 +84,17 @@ RSpec.describe "CategoriesControllers", type: :request do
     end
 
     context "ログイン時" do
-      it "取得に成功すること" do
+      before do
         sign_in user
         get edit_category_path(category)
+      end
+
+      it "取得に成功すること" do
         expect(response).to have_http_status(200)
+      end
+
+      it "タイトルが正しいこと" do
+        expect(response.body).to include "カテゴリー編集 | #{base_title}"
       end
     end
   end

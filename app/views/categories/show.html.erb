@@ -6,41 +6,20 @@
 <% if user_signed_in? %>
   <div class="action-menu">
     <ul class="left-list">
-      <li class="custom-form">
-        <%= form_with(url: new_category_path, scope: :category,
-                      method: :get, local: true) do |f| %>
-          <%= hidden_field_tag :parent_category_id, @category.id %>
-          <div class="action-field">
-            <%= f.submit "カテゴリー作成" %>
-          </div>
-        <% end %>
+      <li>
+        <%= link_to "カテゴリー作成", new_category_path(parent_category_id: @category.id) %>
       </li>
-      <li class="custom-form">
-        <%= form_with(url: edit_category_path(@category),
-                      method: :get, local: true) do |f| %>
-          <div class="action-field">
-            <%= f.submit "カテゴリー編集" %>
-          </div>
-        <% end %>
+      <li>
+        <%= link_to "カテゴリー編集", edit_category_path(@category) %>
       </li>
-      <li class="custom-form">
-        <%= form_with(url: new_category_article_path(@category),
-                      method: :get, local: true) do |f| %>
-          <div class="action-field">
-            <%= f.submit "記事投稿" %>
-          </div>
-        <% end %>
+      <li>
+        <%= link_to "記事投稿", new_category_article_path(@category) %>
       </li>
     </ul>
     <ul class="right-list">
-      <li class="custom-form">
-        <%= form_with(url: category_path(@category),
-                      method: :delete, local: true,
-                      data: { confirm: "Are you sure?" }) do |f| %>
-          <div class="action-field">
-            <%= f.submit "カテゴリー削除" %>
-          </div>
-        <% end %>
+      <li>
+        <%= link_to "カテゴリー削除", category_path(@category),
+                    method: :delete, data: { confirm: "Are you sure?" } %>
       </li>
     </ul>
   </div>

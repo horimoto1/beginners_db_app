@@ -6,24 +6,14 @@
 <% if user_signed_in? %>
   <div class="action-menu">
     <ul class="left-list">
-      <li class="custom-form">
-        <%= form_with(url: edit_category_article_path(@category, @article),
-                      method: :get, local: true) do |f| %>
-          <div class="action-field">
-            <%= f.submit "記事編集" %>
-          </div>
-        <% end %>
+      <li>
+        <%= link_to "記事編集", edit_category_article_path(@category, @article) %>
       </li>
     </ul>
     <ul class="right-list">
-      <li class="custom-form">
-        <%= form_with(url: category_article_path(@category, @article),
-                      method: :delete, local: true,
-                      data: { confirm: "Are you sure?" }) do |f| %>
-          <div class="action-field">
-            <%= f.submit "記事削除" %>
-          </div>
-        <% end %>
+      <li>
+        <%= link_to "記事削除", category_article_path(@category, @article),
+                    method: :delete, data: { confirm: "Are you sure?" } %>
       </li>
     </ul>
   </div>
