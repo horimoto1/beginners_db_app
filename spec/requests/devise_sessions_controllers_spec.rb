@@ -42,25 +42,30 @@ RSpec.describe "DeviseSessionsControllers", type: :request do
         post user_session_path, params: { user: login_form }
         expect(flash).to be_any
         expect(response).to redirect_to(root_path)
+        expect(controller.user_signed_in?).to be_truthy
+        expect(controller.current_user.email).to eq user.email
       end
     end
 
     context "ログイン時" do
-      it "ログインに失敗すること" do
+      it "ログイン状態のままであること" do
         sign_in user
         post user_session_path, params: { user: login_form }
         expect(flash).to be_any
         expect(response).to redirect_to(root_path)
+        expect(controller.user_signed_in?).to be_truthy
+        expect(controller.current_user.email).to eq user.email
       end
     end
   end
 
   describe "DELETE /logout to #destroy" do
     context "ログアウト時" do
-      it "ログアウトに失敗すること" do
+      it "ログアウト状態のままであること" do
         delete destroy_user_session_path
         expect(flash).to be_any
         expect(response).to redirect_to(root_path)
+        expect(controller.user_signed_in?).to be_falsey
       end
     end
 
@@ -72,6 +77,7 @@ RSpec.describe "DeviseSessionsControllers", type: :request do
         delete destroy_user_session_path
         expect(flash).to be_any
         expect(response).to redirect_to(root_path)
+        expect(controller.user_signed_in?).to be_falsey
       end
     end
   end
