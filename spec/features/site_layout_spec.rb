@@ -1,16 +1,16 @@
 require "rails_helper"
 
-RSpec.feature "SiteLayouts", type: :feature, js: true do
-  feature "ヘッダー" do
-    given!(:root_categories) { create_list(:category, 4) }
+RSpec.feature "SiteLayouts", type: :feature do
+  feature "ヘッダーのレイアウト" do
+    given!(:root_categories) { create_list(:category, 3) }
 
     background do
       visit root_path
     end
 
-    context "画面幅が800pxより大きい場合" do
+    context "画面幅が800pxより大きい場合", driver: :selenium do
       background do
-        width = 1000 # 801pxだとパスしないため1000pxに調整
+        width = 1000 # 801pxだとパスしないため余裕を持って1000pxに調整
         height = 800
         current_window.resize_to(width, height)
       end
@@ -18,7 +18,7 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
       scenario "ロゴ、検索フォーム、メニューバーが表示されること" do
         # ロゴが表示されること
         within "div.header-logo" do
-          # TOPへのリンクが表示されること
+          # トップページへのリンクが表示されること
           expect(page).to have_link nil, href: root_path
         end
 
@@ -33,7 +33,7 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
 
         # メニューバーが表示されること
         within "div.menu-bar" do
-          # TOPへのリンクが表示されること
+          # トップページへのリンクが表示されること
           expect(page).to have_link nil, href: root_path
 
           # ルートカテゴリーへのリンクが表示されること
@@ -45,7 +45,7 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
       end
     end
 
-    context "画面幅が800px以下の場合" do
+    context "画面幅が800px以下の場合", driver: :selenium do
       background do
         width = 800
         height = 800
@@ -55,22 +55,26 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
       scenario "ロゴ、サイドメニューが表示されること" do
         # ロゴが表示されること
         within "div.header-logo" do
-          # TOPへのリンクが表示されること
+          # トップページへのリンクが表示されること
           expect(page).to have_link nil, href: root_path
         end
 
         # ヘッダーの検索フォームが表示されないこと
         expect(page).to have_no_selector "div.header-nav"
 
+        # サイドメニューの外側の要素を取得
+        outside_side_menu = find("body")
+
         # サイドメニューが表示されること
         within "div.side-menu" do
-          # 初期状態はサイドメニューリストが表示されないこと
+          # サイドメニューリストが表示されていないこと
           expect(page).to have_no_checked_field "side-menu-toggle"
           expect(page).to have_no_selector "div.side-menu-list"
 
-          # チェックボックスをクリックしてサイドメニューリストを表示する
-          label = find("label[for=side-menu-toggle]")
-          label.click
+          # チェックボックスをチェックしてサイドメニューリストを表示する
+          # チェックボックス本体は非表示にしているため、ラベルをクリックして代用する
+          side_menu_label = find("label[for=side-menu-toggle]")
+          side_menu_label.click
 
           # サイドメニューリストが表示されること
           within "div.side-menu-list" do
@@ -80,7 +84,7 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
               expect(page).to have_button
             end
 
-            # TOPへのリンクが表示されること
+            # トップページへのリンクが表示されること
             expect(page).to have_link nil, href: root_path
 
             # ルートカテゴリーへのリンクが表示されること
@@ -89,6 +93,13 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
                                         href: category_path(root_category)
             end
           end
+
+          # サイドメニューの外側の要素をクリックする
+          outside_side_menu.click
+
+          # サイドメニューが非表示になること
+          expect(page).to have_no_checked_field "side-menu-toggle"
+          expect(page).to have_no_selector "div.side-menu-list"
         end
 
         # メニューバーが表示されないこと
@@ -97,8 +108,14 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
     end
   end
 
-  feature "フッター" do
-    given!(:user) { create(:user) }
+  feature "フッターのレイアウト" do
+    scenario "プロフィールへのリンクが表示されること" do
+      visit root_path
+
+      within "div.footer-menu" do
+        expect(page).to have_link "プロフィール", href: profile_path
+      end
+    end
 
     context "ログアウト時" do
       scenario "プロフィール、ログインへのリンクが表示されること" do
@@ -106,7 +123,6 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
 
         within "div.footer-menu" do
           expect(page).to have_link "ログイン", href: new_user_session_path
-          expect(page).to have_link "プロフィール", href: profile_path
 
           # ログアウトへのリンクが表示されないこと
           expect(page).to have_no_link "ログアウト", href: destroy_user_session_path
@@ -115,13 +131,14 @@ RSpec.feature "SiteLayouts", type: :feature, js: true do
     end
 
     context "ログイン時" do
+      given!(:user) { create(:user) }
+
       scenario "プロフィール、ログアウトへのリンクが表示されること" do
         sign_in user
         visit root_path
 
         within "div.footer-menu" do
           expect(page).to have_link "ログアウト", href: destroy_user_session_path
-          expect(page).to have_link "プロフィール", href: profile_path
 
           # ログインへのリンクが表示されないこと
           expect(page).to have_no_link "ログイン", href: new_user_session_path

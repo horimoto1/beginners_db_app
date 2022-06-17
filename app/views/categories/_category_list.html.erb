@@ -1,14 +1,8 @@
-<% if login_filter(category.articles).any? %>
-  <% login_filter(category.articles.sorted).each do |article| %>
-    <li class="article-navi">
-      <%= link_to category_article_path(category, article) do %>
-        <span class="fa fa-file"></span>
-        <%= article.title %>
-      <% end %>
-    </li>
-  <% end %>
-<% else %>
+<% login_filter(category.articles.sorted).each do |article| %>
   <li class="article-navi">
-    まだ記事がありません
+    <%= link_to category_article_path(category, article) do %>
+      <span class="fa fa-file"></span>
+      <%= article.title %>
+    <% end %>
   </li>
 <% end %>

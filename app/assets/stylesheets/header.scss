@@ -72,9 +72,9 @@
   }
 
   /* チェック状態ならラベルを非表示にする */
-  input[type="checkbox"]:checked ~ label:before {
-    display: none;
-  }
+  // input[type="checkbox"]:checked ~ label {
+  //   display: none;
+  // }
 
   /* チェック状態ならメニューを表示する */
   input[type="checkbox"]:checked ~ .side-menu-list {
