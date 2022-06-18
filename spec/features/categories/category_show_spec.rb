@@ -2,56 +2,57 @@ require "rails_helper"
 
 RSpec.feature "CategoryShows", type: :feature do
   given!(:root_categories) { create_list(:category, 3) }
+  given!(:root_category) { root_categories[1] }
   given!(:child_categories) {
     create_list(:category, 3,
-                parent_category_id: root_categories[1].id)
+                parent_category_id: root_category.id)
   }
+  given!(:child_category) { child_categories[1] }
   given!(:root_category_articles) {
     create_list(:article, 3,
-                category_id: root_categories[1].id,
+                category_id: root_category.id,
                 published: true)
   }
   given!(:child_category_articles) {
     create_list(:article, 3,
-                category_id: child_categories[1].id,
+                category_id: child_category.id,
                 published: true)
   }
 
   feature "カテゴリー詳細ページのレイアウト" do
     background do
-      visit category_path(root_categories[1])
+      visit category_path(root_category)
     end
 
     scenario "パンくずリスト、作成日時、更新日時が表示されること" do
       # パンくずリストが表示されること
       within "div.breadcrumb" do
         expect(page).to have_link "ホーム", href: root_path
-        expect(page).to have_link root_categories[1].title,
-                                  href: category_path(root_categories[1])
+        expect(page).to have_link root_category.title,
+                                  href: category_path(root_category)
       end
 
       # 作成日時、更新日時が表示されること
       within "div.info" do
-        expect(page).to have_content root_categories[1].
+        expect(page).to have_content root_category.
                                        created_at.strftime("%Y/%m/%d")
-        expect(page).to have_content root_categories[1].
+        expect(page).to have_content root_category.
                                        updated_at.strftime("%Y/%m/%d")
       end
     end
 
-    # CSSアニメーションが含まれるためjsを有効にする
     scenario "見出し、目次、メニューが表示されること", driver: :selenium do
       # 見出しが表示されること
       within "div.heading" do
-        expect(page).to have_selector "h1", text: root_categories[1].title
+        expect(page).to have_selector "h1", text: root_category.title
       end
 
       # 目次が表示されること
       within "div.toc" do
         # 目次のページ内リンク一覧が表示されること
         within "div.toc-table" do
-          expect(page).to have_link root_categories[1].title,
-                                    href: "##{root_categories[1].slug}"
+          expect(page).to have_link root_category.title,
+                                    href: "##{root_category.slug}"
           child_categories.each do |child_category|
             expect(page).to have_link child_category.title,
                                       href: "##{child_category.slug}"
@@ -70,8 +71,8 @@ RSpec.feature "CategoryShows", type: :feature do
 
         # 目次のページ内リンク一覧が再表示されること
         within "div.toc-table" do
-          expect(page).to have_link root_categories[1].title,
-                                    href: "##{root_categories[1].slug}"
+          expect(page).to have_link root_category.title,
+                                    href: "##{root_category.slug}"
           child_categories.each do |child_category|
             expect(page).to have_link child_category.title,
                                       href: "##{child_category.slug}"
@@ -81,7 +82,7 @@ RSpec.feature "CategoryShows", type: :feature do
 
       # メニューが表示されること
       within "div.category-menu" do
-        expect(page).to have_content root_categories[1].title
+        expect(page).to have_content root_category.title
 
         # 記事一覧が表示されること
         root_category_articles.each do |root_category_article|
@@ -128,15 +129,15 @@ RSpec.feature "CategoryShows", type: :feature do
     context "ログアウト時" do
       given!(:root_category_private_articles) {
         create_list(:article, 3,
-                    category_id: root_categories[1].id)
+                    category_id: root_category.id)
       }
       given!(:child_category_private_articles) {
         create_list(:article, 3,
-                    category_id: child_categories[1].id)
+                    category_id: child_category.id)
       }
 
       background do
-        visit category_path(root_categories[1])
+        visit category_path(root_category)
       end
 
       scenario "アクションメニューが表示されないこと" do
@@ -168,16 +169,16 @@ RSpec.feature "CategoryShows", type: :feature do
       given!(:user) { create(:user) }
       given!(:root_category_private_articles) {
         create_list(:article, 3,
-                    category_id: root_categories[1].id)
+                    category_id: root_category.id)
       }
       given!(:child_category_private_articles) {
         create_list(:article, 3,
-                    category_id: child_categories[1].id)
+                    category_id: child_category.id)
       }
 
       background do
         sign_in user
-        visit category_path(root_categories[1])
+        visit category_path(root_category)
       end
 
       scenario "アクションメニューが表示されること" do
@@ -185,22 +186,22 @@ RSpec.feature "CategoryShows", type: :feature do
           # カテゴリー作成ページへのリンクが表示されること
           expect(page).to have_link "カテゴリー作成",
                                     href: new_category_path(
-                                      parent_category_id: root_categories[1].id,
+                                      parent_category_id: root_category.id,
                                     )
 
           # カテゴリー編集ページへのリンクが表示されること
           expect(page).to have_link "カテゴリー編集",
-                                    href: edit_category_path(root_categories[1])
+                                    href: edit_category_path(root_category)
 
           # 記事投稿ページへのリンクが表示されること
           expect(page).to have_link "記事投稿",
                                     href: new_category_article_path(
-                                      root_categories[1]
+                                      root_category
                                     )
 
           # カテゴリー削除ページへのリンクが表示されること
           expect(page).to have_link "カテゴリー削除",
-                                    href: category_path(root_categories[1])
+                                    href: category_path(root_category)
         end
       end
 

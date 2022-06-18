@@ -8,6 +8,14 @@ RSpec.feature "SiteLayouts", type: :feature do
       visit root_path
     end
 
+    scenario "ロゴが表示されること" do
+      # ロゴが表示されること
+      within "div.header-logo" do
+        # トップページへのリンクが表示されること
+        expect(page).to have_link nil, href: root_path
+      end
+    end
+
     context "画面幅が800pxより大きい場合", driver: :selenium do
       background do
         width = 1000 # 801pxだとパスしないため余裕を持って1000pxに調整
@@ -15,13 +23,7 @@ RSpec.feature "SiteLayouts", type: :feature do
         current_window.resize_to(width, height)
       end
 
-      scenario "ロゴ、検索フォーム、メニューバーが表示されること" do
-        # ロゴが表示されること
-        within "div.header-logo" do
-          # トップページへのリンクが表示されること
-          expect(page).to have_link nil, href: root_path
-        end
-
+      scenario "検索フォーム、メニューバーが表示されること" do
         # ヘッダーの検索フォームが表示されること
         within "div.header-nav" do
           expect(page).to have_field "keyword"
@@ -52,13 +54,7 @@ RSpec.feature "SiteLayouts", type: :feature do
         current_window.resize_to(width, height)
       end
 
-      scenario "ロゴ、サイドメニューが表示されること" do
-        # ロゴが表示されること
-        within "div.header-logo" do
-          # トップページへのリンクが表示されること
-          expect(page).to have_link nil, href: root_path
-        end
-
+      scenario "サイドメニューが表示されること" do
         # ヘッダーの検索フォームが表示されないこと
         expect(page).to have_no_selector "div.header-nav"
 
