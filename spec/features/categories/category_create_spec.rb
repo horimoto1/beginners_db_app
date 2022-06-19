@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CategoryCreates", type: :feature do
+RSpec.feature "Categories::CategoryCreates", type: :feature do
   given!(:user) { create(:user) }
   given!(:root_categories) { create_list(:category, 3) }
   given!(:root_category) { root_categories[1] }
@@ -14,27 +14,40 @@ RSpec.feature "CategoryCreates", type: :feature do
   end
 
   context "トップページから作成する場合" do
-    scenario "カテゴリーの並び順に初期値が入力され、親カテゴリーIDが空欄であること" do
+    scenario "入力項目一覧が表示され、初期値が入力されていること" do
       visit root_path
 
       click_on "カテゴリー作成"
 
       expect(page.current_path).to eq new_category_path
 
+      expect(find_field("スラッグ名").text).to be_blank
+
+      expect(find_field("タイトル").text).to be_blank
+
+      expect(find_field("サマリー").text).to be_blank
+
       expect(page).to have_field "カテゴリーの並び順",
                                  with: Category.root_categories.count + 1
 
+      # 親カテゴリーIDは空欄になっていること
       expect(find_field("親カテゴリーID").text).to be_blank
     end
   end
 
   context "カテゴリー詳細ページから作成する場合" do
-    scenario "カテゴリーの並び順と親カテゴリーIDに初期値が入力されていること" do
+    scenario "入力項目一覧が表示され、初期値が入力されていること" do
       visit category_path(root_category)
 
       click_on "カテゴリー作成"
 
       expect(page.current_path).to eq new_category_path
+
+      expect(find_field("スラッグ名").text).to be_blank
+
+      expect(find_field("タイトル").text).to be_blank
+
+      expect(find_field("サマリー").text).to be_blank
 
       expect(page).to have_field "カテゴリーの並び順",
                                  with: root_category.child_categories.count + 1

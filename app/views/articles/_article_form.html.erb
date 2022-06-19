@@ -19,13 +19,14 @@
 
     <div class="block-field">
       <%= f.label :content, "コンテンツ" %>
-      <%= f.text_area :content, id: "markdown_editor" %>
+      <%= f.text_area :content %>
     </div>
 
     <div class="inline-field">
       <%= f.label :status, "ステータス" %>
-      <%= f.select :status, { "非公開": "private", "公開": "published" },
-                   required: true %>
+        <%= f.select :status, { "非公開": "private", "公開": "published" },
+                     required: true,
+                     selected: @article.published? ? "published" : "private" %>
     </div>
 
     <div class="inline-field">

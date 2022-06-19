@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "CategoryDestroys", type: :feature, js: true do
+RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
   given!(:user) { create(:user) }
   given!(:root_category) { create(:category) }
   given!(:articles) {
@@ -17,7 +17,7 @@ RSpec.feature "CategoryDestroys", type: :feature, js: true do
     visit category_path(root_category)
   end
 
-  context "確認ダイアログでキャンセルする" do
+  context "確認ダイアログでキャンセルを選択する" do
     scenario "カテゴリーが削除されないこと" do
       count = Category.count
 
@@ -32,7 +32,7 @@ RSpec.feature "CategoryDestroys", type: :feature, js: true do
     end
   end
 
-  context "確認ダイアログでOKする" do
+  context "確認ダイアログでOKを選択する" do
     scenario "カテゴリーが削除され、フラッシュが表示されること" do
       accept_alert "本当に削除しますか？" do
         click_on "カテゴリー削除"

@@ -90,10 +90,10 @@ class Category < ApplicationRecord
 
   # 親カテゴリーIDがnullまたは存在するかバリデーションする
   def parent_category_id_should_be_null_or_exists
-    if parent_category_id
-      unless Category.exists?(self.parent_category_id)
-        errors.add(:parent_category_id, "がnullではないか存在しません")
-      end
+    return if self.parent_category_id.nil?
+
+    unless Category.exists?(self.parent_category_id)
+      errors.add(:parent_category_id, "がnullではないか存在しません")
     end
   end
 end

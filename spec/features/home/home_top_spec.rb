@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "HomeTops", type: :feature do
+RSpec.feature "Home::HomeTops", type: :feature do
   feature "トップページのレイアウト" do
     given!(:root_categories) { create_list(:category, 3) }
 

@@ -3,7 +3,7 @@ class Article < ApplicationRecord
   include FriendlyId
   friendly_id :name, use: :slugged
 
-  belongs_to :category
+  belongs_to :category, optional: true # 関連先を検査しないようにする
 
   PUBLISHED_STATUS = "published"
 

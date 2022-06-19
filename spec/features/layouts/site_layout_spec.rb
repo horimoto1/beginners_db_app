@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "SiteLayouts", type: :feature do
+RSpec.feature "Layouts::SiteLayouts", type: :feature do
   feature "ヘッダーのレイアウト" do
     given!(:root_categories) { create_list(:category, 3) }
 

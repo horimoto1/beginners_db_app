@@ -8,7 +8,7 @@ var simplemde = null;
 
 // turbolinksでページ読み込み時にMarkdownエディタを設定する
 window.addEventListener("turbolinks:load", () => {
-  const element = document.getElementById("markdown_editor");
+  const element = document.getElementById("article_content");
   if (element != null) {
     // プレビュー時のオプション
     marked.setOptions({

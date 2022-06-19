@@ -1,11 +1,30 @@
 require "rails_helper"
 
-RSpec.feature "CategoryUpdates", type: :feature do
+RSpec.feature "Categories::CategoryUpdates", type: :feature do
   given!(:user) { create(:user) }
-  given!(:category) { create(:category) }
+  given!(:root_category) { create(:category) }
+  given!(:category) { create(:category, parent_category_id: root_category.id) }
 
   background do
     sign_in user
+  end
+
+  scenario "入力項目一覧が表示され、初期値が入力されていること" do
+    visit category_path(category)
+
+    click_on "カテゴリー編集"
+
+    expect(page.current_path).to eq edit_category_path(category)
+
+    expect(page).to have_field "スラッグ名", with: category.name
+
+    expect(page).to have_field "タイトル", with: category.title
+
+    expect(page).to have_field "サマリー", with: category.summary
+
+    expect(page).to have_field "カテゴリーの並び順", with: category.category_order
+
+    expect(page).to have_field "親カテゴリーID", with: category.parent_category_id
   end
 
   context "入力値が無効な場合" do
@@ -38,7 +57,7 @@ RSpec.feature "CategoryUpdates", type: :feature do
       valid_fields = [{ locator: "スラッグ名", value: "sample1" },
                       { locator: "タイトル", value: "サンプル1" },
                       { locator: "サマリー", value: "サンプル1" },
-                      { locator: "カテゴリーの並び順", value: "1" },
+                      { locator: "カテゴリーの並び順", value: "10" },
                       { locator: "親カテゴリーID", value: "" }]
 
       valid_fields.each do |valid_field|
