@@ -16,7 +16,7 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
       end
     end
 
-    context "画面幅が800pxより大きい場合", driver: :selenium do
+    context "画面幅が800pxより大きい場合", js: true do
       background do
         width = 1000 # 801pxだとパスしないため余裕を持って1000pxに調整
         height = 800
@@ -47,7 +47,7 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
       end
     end
 
-    context "画面幅が800px以下の場合", driver: :selenium do
+    context "画面幅が800px以下の場合", js: true do
       background do
         width = 800
         height = 800
@@ -68,7 +68,6 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
           expect(page).to have_no_selector "div.side-menu-list"
 
           # チェックボックスをチェックしてサイドメニューリストを表示する
-          # チェックボックス本体は非表示にしているため、ラベルをクリックして代用する
           side_menu_label = find("label[for=side-menu-toggle]")
           side_menu_label.click
 
