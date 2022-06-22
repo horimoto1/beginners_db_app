@@ -31,7 +31,7 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
       end
 
       # 作成日時、更新日時が表示されること
-      within "div.info" do
+      within "div.meta" do
         expect(page).to have_content root_category.
                                        created_at.strftime("%Y/%m/%d")
         expect(page).to have_content root_category.
@@ -113,7 +113,7 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
     scenario "ページャが表示されること" do
       visit category_path(root_category)
 
-      within "div.pager-navi" do
+      within "div.pager" do
         # 前のカテゴリーへのリンクが表示されること
         within "div.previous" do
           expect(page).to have_link root_categories[0].title,

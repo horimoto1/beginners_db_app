@@ -1,5 +1,5 @@
 <% provide(:title, @category.title) %>
-<%= render "shared/main_header", object: @category %>
+<%= render "shared/breadcrumb", object: @category %>
 
 <div class="clear"></div>
 
@@ -31,6 +31,10 @@
   <h1><%= @category.title %></h1>
   <%= simple_format(@category.summary) %>
 </div>
+
+<%= render "shared/meta", object: @category %>
+
+<div class="clear"></div>
 
 <div class="toc">
   <p>目次</p>
@@ -78,7 +82,7 @@
   </ul>
 </div>
 
-<%= render "shared/main_footer", previous_object: @previous_category,
-                                 next_object: @next_category %>
+<%= render "shared/pager", previous_object: @previous_category,
+                           next_object: @next_category %>
 
 <div class="clear"></div>

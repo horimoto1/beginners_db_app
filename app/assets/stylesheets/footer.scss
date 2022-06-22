@@ -15,12 +15,20 @@
     li {
       float: right;
 
-      a, span {
+      span {
         color: #777;
         display: inline-block;
         font-size: 1rem;
         padding-left: 1rem;
         line-height: 3rem;
+      }
+
+      a {
+        @extend span;
+
+        &:hover {
+          color: #1a0dab;
+        }
       }
     }
   }

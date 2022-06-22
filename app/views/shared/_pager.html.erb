@@ -1,0 +1,18 @@
+<div class="pager">
+  <% if previous_object %>
+    <div class ="previous">
+      <%= link_to object_path(previous_object) do %>
+        &lsaquo; 前
+        <%= previous_object.title %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if next_object %>
+    <div class ="next">
+      <%= link_to object_path(next_object) do %>
+        <%= next_object.title %>
+        次 &rsaquo;
+      <% end %>
+    </div>
+  <% end %>
+</div>

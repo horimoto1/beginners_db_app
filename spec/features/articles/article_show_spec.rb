@@ -21,7 +21,7 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
       end
 
       # 作成日時、更新日時が表示されること
-      within "div.info" do
+      within "div.meta" do
         expect(page).to have_content article.created_at.strftime("%Y/%m/%d")
         expect(page).to have_content article.updated_at.strftime("%Y/%m/%d")
       end
@@ -74,7 +74,7 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
     scenario "ページャが表示されること" do
       visit category_article_path(article.category, article)
 
-      within "div.pager-navi" do
+      within "div.pager" do
         # 前の記事へのリンクが表示されること
         within "div.previous" do
           expect(page).to have_link articles[0].title,

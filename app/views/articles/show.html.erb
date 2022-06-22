@@ -1,5 +1,5 @@
 <% provide(:title, @article.title) %>
-<%= render "shared/main_header", object: @article %>
+<%= render "shared/breadcrumb", object: @article %>
 
 <div class="clear"></div>
 
@@ -26,6 +26,10 @@
   <%= simple_format(@article.summary) %>
 </div>
 
+<%= render "shared/meta", object: @category %>
+
+<div class="clear"></div>
+
 <div class="toc">
   <p>目次</p>
   <%= check_box_tag("toc-toggle") %>
@@ -39,7 +43,7 @@
   <%= markdown(@article.content) %>
 </div>
 
-<%= render "shared/main_footer", previous_object: @previous_article,
-                                 next_object: @next_article %>
+<%= render "shared/pager", previous_object: @previous_article,
+                           next_object: @next_article %>
 
 <div class="clear"></div>
