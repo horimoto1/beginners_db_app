@@ -21,6 +21,8 @@ gem "rails-i18n"
 gem "seed_dump"
 gem "font-awesome-rails"
 gem "devise"
+gem "ransack"
+gem "kaminari"
 
 group :development, :test do
   gem "sqlite3", "~> 1.4"

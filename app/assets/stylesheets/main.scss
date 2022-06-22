@@ -12,8 +12,6 @@
 
     /* ヘッダー */
     .main-header {
-      height: 2rem;
-
       /* ぱんくずリスト */
       .breadcrumb {
         float: left;
@@ -30,6 +28,10 @@
         a {
           color: #777;
           line-height: 2rem;
+
+          &:hover {
+            color: #0000EE;
+          }
         }
       }
 
@@ -164,15 +166,17 @@
       }
     }
 
-    /* フツター */
+    /* フッター */
     .main-footer {
-      height: 2rem;
-
-        /* ページング機能 */
+      /* ページング機能 */
       .pager-navi{
         a {
           color: #777;
           line-height: 2rem;
+
+          &:hover {
+            color: #0000EE;
+          }
         }
 
         .previous {

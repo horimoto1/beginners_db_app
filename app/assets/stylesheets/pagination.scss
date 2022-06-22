@@ -1,0 +1,31 @@
+/* ページネーション */
+.pagination-wrapper {
+  text-align: center;
+
+  .pagination {
+    display: inline-block;
+
+    span {
+      margin-right: 0.5rem;
+      line-height: 2rem;
+      color: #333;
+      display: inline-block;
+    }
+
+    .current {
+      font-weight: bold;
+    }
+
+    .gap {
+      display: none;
+    }
+
+    a {
+      color: #777;
+
+      &:hover {
+        color: #0000EE;
+      }
+    }
+  }
+}

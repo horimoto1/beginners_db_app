@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :attachments, only: [:create, :destroy]
 
+  resources :searches, only: :index
+  
   get "profile", to: "users#show"
 
   devise_for :users, skip: :all

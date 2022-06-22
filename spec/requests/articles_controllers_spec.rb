@@ -1,9 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "ArticlesControllers", type: :request do
-  let!(:base_title) { "BeginnersDB" }
-
   describe "GET /categories/:category_id/articles/:id to #show" do
+    let(:base_title) { "BeginnersDB" }
     let!(:article) { create(:article, published: true) }
 
     before do
@@ -20,6 +19,7 @@ RSpec.describe "ArticlesControllers", type: :request do
   end
 
   describe "GET /categories/:category_id/articles/new to #new" do
+    let(:base_title) { "BeginnersDB" }
     let!(:user) { create(:user) }
     let!(:category) { create(:category) }
 
@@ -79,6 +79,7 @@ RSpec.describe "ArticlesControllers", type: :request do
   end
 
   describe "GET /categories/:category_id/articles/:id/edit to #edit" do
+    let(:base_title) { "BeginnersDB" }
     let!(:user) { create(:user) }
     let!(:article) { create(:article) }
 

@@ -58,7 +58,7 @@
         <%= @category.title %>
       </h2>
     </li>
-    <%= render "category_list", category: @category %>
+    <%= render "article_list", category: @category %>
   
     <li class="child-category-navi">
       <% @child_categories.each do |category| %>
@@ -71,7 +71,7 @@
               </h2>
             <% end %>
           </li>
-          <%= render "category_list", category: category %>
+          <%= render "article_list", category: category %>
         </ul>
       <% end %>
     </li>

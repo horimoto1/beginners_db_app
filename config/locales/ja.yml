@@ -1,2 +1,18 @@
 ja:
   hello: "こんにちは"
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: "<b>%{total}</b>件中の<b>%{first}～%{last}</b>件目を表示しています。"
+      one_page:
+        display_entries:
+          one: "<b>%{count}</b>件を表示中です。"
+          other: "<b>%{count}</b>件を表示中です。"
+          zero: "キーワードが見つかりませんでした。"
