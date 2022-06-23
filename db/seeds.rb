@@ -7,6 +7,7 @@ table_names = %w(
   users
   categories
   articles
+  attachments
 )
 
 table_names.each do |table_name|

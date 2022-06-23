@@ -86,6 +86,14 @@ code {
   letter-spacing: 0.1em;
 }
 
+img {
+  max-width: 100%; /* 画像サイズは親要素のサイズを最大値として物理サイズで表示する */
+  display: block; /* 画像の下側にある余白を消す */
+  /* background-image: url("loading.gif");
+  background-repeat: no-repeat;
+  background-position: center center; */
+}
+
 body {
   margin: 0px;
   background-color: #eee;

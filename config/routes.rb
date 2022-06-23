@@ -5,10 +5,10 @@ Rails.application.routes.draw do
     resources :articles, except: :index
   end
 
-  resources :attachments, only: [:create, :destroy]
+  resources :attachments, only: [:index, :create, :destroy]
 
   resources :searches, only: :index
-  
+
   get "profile", to: "users#show"
 
   devise_for :users, skip: :all

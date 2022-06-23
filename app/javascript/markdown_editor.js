@@ -9,7 +9,7 @@ var simplemde = null;
 // turbolinksでページ読み込み時にMarkdownエディタを設定する
 window.addEventListener("turbolinks:load", () => {
   const element = document.getElementById("article_content");
-  if (element != null) {
+  if (element !== null) {
     // プレビュー時のオプション
     marked.setOptions({
       // 改行を<br>に変換する

@@ -1,3 +1,35 @@
-// Place all the styles related to the attachments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+/* 画像一覧 */
+.image-list {
+  p {
+    padding-top: 1rem;
+    color: red;
+    font-weight: bold;
+  }
+
+  /* コピーボタン */
+  .copy-to-clip {
+    input {
+      width: 12rem;
+      height: 2rem;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background-color: #eee;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 4rem;
+      height: 2rem;
+      background-color: #3a3a3a;
+      color: white;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: #7a7a7a;
+      }
+    }
+  }
+}

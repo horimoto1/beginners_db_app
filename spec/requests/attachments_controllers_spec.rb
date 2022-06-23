@@ -1,8 +1,36 @@
 require "rails_helper"
 
 RSpec.describe "AttachmentsControllers", type: :request do
+  let!(:user) { create(:user) }
+
+  describe "GET /attachments to #index" do
+    let(:base_title) { "BeginnersDB" }
+
+    context "ログアウト時" do
+      it "取得に失敗すること" do
+        get attachments_path
+        expect(flash).to be_any
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context "ログイン時" do
+      before do
+        sign_in user
+        get attachments_path
+      end
+
+      it "取得に成功すること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it "タイトルが正しいこと" do
+        expect(response.body).to include "画像一覧 | #{base_title}"
+      end
+    end
+  end
+
   describe "POST /attachments to #create" do
-    let!(:user) { create(:user) }
     let!(:image) {
       Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/fixtures/kitten.jpg"),
                                    "image/jpg")
@@ -29,7 +57,6 @@ RSpec.describe "AttachmentsControllers", type: :request do
   end
 
   describe "DELETE /attachments/:id to #destroy" do
-    let!(:user) { create(:user) }
     let!(:attachment) { create(:attachment) }
     let(:json) { JSON.parse(response.body) }
 
@@ -47,7 +74,8 @@ RSpec.describe "AttachmentsControllers", type: :request do
         sign_in user
         expect { delete attachment_path(attachment) }.to \
           change { Attachment.count }.by(-1)
-        expect(json["message"]).to eq "画像を削除しました"
+        expect(flash).to be_any
+        expect(response).to redirect_to(attachments_path)
       end
     end
   end

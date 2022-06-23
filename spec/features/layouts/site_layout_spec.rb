@@ -113,7 +113,7 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
     end
 
     context "ログアウト時" do
-      scenario "プロフィール、ログインへのリンクが表示されること" do
+      scenario "ログインへのリンクが表示されること" do
         visit root_path
 
         within "div.footer-menu" do
@@ -121,6 +121,9 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
 
           # ログアウトへのリンクが表示されないこと
           expect(page).to have_no_link "ログアウト", href: destroy_user_session_path
+
+          # 画像一覧へのリンクが表示されないこと
+          expect(page).to have_no_link "画像一覧", href: attachments_path
         end
       end
     end
@@ -128,15 +131,17 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
     context "ログイン時" do
       given!(:user) { create(:user) }
 
-      scenario "プロフィール、ログアウトへのリンクが表示されること" do
+      scenario "ログアウト、画像一覧へのリンクが表示されること" do
         sign_in user
         visit root_path
 
         within "div.footer-menu" do
-          expect(page).to have_link "ログアウト", href: destroy_user_session_path
-
           # ログインへのリンクが表示されないこと
           expect(page).to have_no_link "ログイン", href: new_user_session_path
+
+          expect(page).to have_link "ログアウト", href: destroy_user_session_path
+
+          expect(page).to have_link "画像一覧", href: attachments_path
         end
       end
     end

@@ -15,6 +15,14 @@
         <li>
           <%= link_to "プロフィール", profile_path %>
         </li>
+        <% if user_signed_in? %>
+          <li>
+            <span>|</span>
+          </li>
+          <li>
+            <%= link_to "画像一覧", attachments_path %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
