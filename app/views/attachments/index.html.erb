@@ -8,7 +8,7 @@
   <div class="image-list">
     <ul>
       <% @attachments.each do |attachment| %>
-        <li>
+        <li id=<%= "image-item-#{attachment.id}" %>>
           <% if attachment.image.attached? %>
             <%= image_tag attachment.image %>
           <% else %>
@@ -18,8 +18,8 @@
             <% if attachment.image.attached? %>
               <ul class="left-list">
                 <li class="copy-to-clip">
-                  <input id=<%= "text-#{attachment.id}" %> value=<%= url_for(attachment.image) %> readonly>
-                  <button class="clip-button" data-clipboard-target=<%= "#text-#{attachment.id}" %>>
+                  <input id=<%= "copy-text-#{attachment.id}" %> value=<%= url_for(attachment.image) %> readonly>
+                  <button class="clip-button" data-clipboard-target=<%= "#copy-text-#{attachment.id}" %>>
                     <span class="fa fa-clipboard"></span>
                   </button>
                 </li>

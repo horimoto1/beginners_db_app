@@ -27,8 +27,8 @@ function search_form_check(e) {
   }
 }
 
-// HTML全体が読み込まれてからイベントを登録する
 document.addEventListener("turbolinks:load", () => {
+  // HTML全体が読み込まれてからイベントを登録する
   document.addEventListener("click", (e) => {
     // サイドメニューの外側をクリックした際はサイドメニューを閉じる
     if(!e.target.closest(".side-menu")) {

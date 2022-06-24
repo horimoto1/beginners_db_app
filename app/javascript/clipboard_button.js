@@ -2,8 +2,8 @@ import ClipboardJS from "clipboard";
 
 var clip = null;
 
-// クリップボードへのコピーボタンを設定する
 document.addEventListener("turbolinks:load", () => {
+  // クリップボードへのコピーボタンを設定する
   if ($(".clip-button").length > 0) {
     clip = new ClipboardJS(".clip-button");
   }

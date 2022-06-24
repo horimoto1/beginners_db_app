@@ -6,9 +6,11 @@ FactoryBot.define do
     end
 
     after(:build) do |attachment, evaluator|
-      attachment.image.attach(io: File.open("spec/fixtures/#{evaluator.image}"),
-                              filename: evaluator.image,
-                              content_type: evaluator.content_type)
+      if evaluator.image.present? && evaluator.content_type.present?
+        attachment.image.attach(io: File.open("spec/fixtures/#{evaluator.image}"),
+                                filename: evaluator.image,
+                                content_type: evaluator.content_type)
+      end
     end
   end
 end
