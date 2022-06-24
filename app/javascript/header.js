@@ -28,7 +28,7 @@ function search_form_check(e) {
 }
 
 // HTML全体が読み込まれてからイベントを登録する
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbolinks:load", () => {
   document.addEventListener("click", (e) => {
     // サイドメニューの外側をクリックした際はサイドメニューを閉じる
     if(!e.target.closest(".side-menu")) {
@@ -40,10 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
       search_form_check(e);
     }
   })
-})
+});
 
-// turbolinksでページ遷移時の調整
-window.addEventListener("turbolinks:visit", () => {
-  // 一瞬だけサイドメニューが表示されてしまう場合があるため
+// ページ遷移時のリセット処理
+document.addEventListener("turbolinks:visit", () => {
+  // 一瞬だけ前ページのサイドメニューが表示されてしまう場合があるため
   close_side_menu();
-})
+});

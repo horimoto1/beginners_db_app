@@ -7,7 +7,7 @@ import { marked } from "marked";
 var simplemde = null;
 
 // turbolinksでページ読み込み時にMarkdownエディタを設定する
-window.addEventListener("turbolinks:load", () => {
+document.addEventListener("turbolinks:load", () => {
   const element = document.getElementById("article_content");
   if (element !== null) {
     // プレビュー時のオプション
@@ -65,14 +65,13 @@ window.addEventListener("turbolinks:load", () => {
       onFileUploadResponse: (response) => { show_error_messages(response) },
     });
   }
-})
+});
 
-// turbolinksでページ遷移時にMarkdownエディタを削除する
-// 戻るボタンでページ遷移するとMarkdownエディタが増殖するため
-window.addEventListener("turbolinks:visit", () => {
+// ページ遷移時のリセット処理
+document.addEventListener("turbolinks:visit", () => {
+  // 戻るボタンでページ遷移するとMarkdownエディタが増殖するため削除する
   if (simplemde !== null) {
-    // Markdownエディタをtextareaに戻す
     simplemde.toTextArea();
     simplemde = null;
   }
-})
+});

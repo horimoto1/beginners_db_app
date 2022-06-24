@@ -3,13 +3,14 @@ import ClipboardJS from "clipboard";
 var clip = null;
 
 // クリップボードへのコピーボタンを設定する
-window.addEventListener("turbolinks:load", () => {
+document.addEventListener("turbolinks:load", () => {
   if ($(".clip-button").length > 0) {
     clip = new ClipboardJS(".clip-button");
   }
 });
 
-window.addEventListener("turbolinks:visit", () => {
+// ページ遷移時のリセット処理
+document.addEventListener("turbolinks:visit", () => {
   if (clip !== null) {
     clip.destroy();
     clip = null;

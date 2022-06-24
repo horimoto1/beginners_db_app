@@ -14,11 +14,11 @@ function reset_toc() {
   }
 }
 
-// turbolinksでページ遷移時の調整
-window.addEventListener("turbolinks:visit", () => {
-  // 一瞬だけ前のフラッシュが表示されるため
+// ページ遷移時のリセット処理
+document.addEventListener("turbolinks:visit", () => {
+  // 一瞬だけ前ページのフラッシュが表示されるため
   erase_flash();
 
-  // 一瞬だけ前の目次の開閉状態が表示されるため
+  // 一瞬だけ前ページの目次の開閉状態が表示されるため
   reset_toc();
-})
+});
