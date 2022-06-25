@@ -41,6 +41,7 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
+  overflow-wrap: break-word; /* 単語の途中でも折り返す */
 }
 
 input {
@@ -73,6 +74,7 @@ h3 {
 p {
   font-size: 1rem; /* 16px以下に可変 */
   line-height: 2;
+  overflow-wrap: break-word;
 }
 
 pre {

@@ -23,6 +23,7 @@ gem "font-awesome-rails"
 gem "devise"
 gem "ransack"
 gem "kaminari"
+gem "pragmatic_segmenter"
 
 group :development, :test do
   gem "sqlite3", "~> 1.4"

@@ -6,15 +6,15 @@
 
   li {
     padding-top: 1rem;
-    padding-bottom: 2px;
-    border-bottom: 1px solid #eee;
-
-    &::before {
-      content: "・";
-    }
   }
 
   a {
+    font-size: 1.25rem; /* 20px以下に可変 */
     font-weight: bold;
+  }
+
+  p {
+    font-size: 0.875rem; /* 14px以下に可変 */
+    color: #4d5156;
   }
 }

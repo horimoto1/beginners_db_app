@@ -1,7 +1,7 @@
 <% provide(:title, "画像一覧") %>
 <div class="heading">
   <h1>画像一覧</h1>
-  <p><%= page_entries_info @attachments %></p>
+  <p><%= page_entries_info @attachments, entry_name: "画像" %></p>
 </div>
 
 <% if @attachments.any? %>

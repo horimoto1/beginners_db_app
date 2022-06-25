@@ -25,13 +25,14 @@ RSpec.feature "Searches::Searches", type: :feature do
           fill_in "keyword", with: keyword
           click_button
           expect(page.current_path).to eq searches_path
+
+          # キーワードが検索フォームに保持されること
+          expect(page).to have_field "keyword", with: keyword
         end
 
         # 見出しが表示されること
         within "div.heading" do
           expect(page).to have_selector "h1", text: "検索結果"
-          expect(page).to have_content keyword
-          expect(page).to have_content "キーワードが見つかりませんでした。"
         end
 
         # 検索結果が表示されていないこと
@@ -52,14 +53,14 @@ RSpec.feature "Searches::Searches", type: :feature do
             fill_in "keyword", with: keyword
             click_button
             expect(page.current_path).to eq searches_path
+
+            # キーワードが検索フォームに保持されること
+            expect(page).to have_field "keyword", with: keyword
           end
 
           # 見出しが表示されること
           within "div.heading" do
             expect(page).to have_selector "h1", text: "検索結果"
-            expect(page).to have_content keyword
-            # 公開済みの記事の件数のみ表示されること
-            expect(page).to have_content "20件中の1～10件目を表示しています。"
           end
 
           # 検索結果が表示されること
@@ -104,14 +105,14 @@ RSpec.feature "Searches::Searches", type: :feature do
             fill_in "keyword", with: keyword
             click_button
             expect(page.current_path).to eq searches_path
+
+            # キーワードが検索フォームに保持されること
+            expect(page).to have_field "keyword", with: keyword
           end
 
           # 見出しが表示されること
           within "div.heading" do
             expect(page).to have_selector "h1", text: "検索結果"
-            expect(page).to have_content keyword
-            # 非公開の記事の件数も含まれること
-            expect(page).to have_content "40件中の1～10件目を表示しています。"
           end
 
           # 検索結果が表示されること
@@ -135,6 +136,33 @@ RSpec.feature "Searches::Searches", type: :feature do
                                           keyword: keyword, page: n,
                                         )
             end
+          end
+        end
+      end
+    end
+
+    context "複数のキーワードをスペース区切りで指定した場合" do
+      scenario "AND検索ができること" do
+        keyword = "テスト1 テスト2 テスト3"
+
+        # 検索する
+        within "div.header-nav" do
+          fill_in "keyword", with: keyword
+          click_button
+          expect(page.current_path).to eq searches_path
+
+          # キーワードが検索フォームに保持されること
+          expect(page).to have_field "keyword", with: keyword
+        end
+
+        # 検索結果が表示されること
+        within "div.search-result" do
+          Article.published.order(updated_at: :desc).limit(10)
+            .each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
           end
         end
       end
@@ -175,14 +203,35 @@ RSpec.feature "Searches::Searches", type: :feature do
       end
 
       scenario "検索できること" do
+        keyword = "test"
+
         # チェックボックスをチェックしてサイドメニューリストを表示する
         side_menu_label = find("label[for=side-menu-toggle]")
         side_menu_label.click
 
         within "li.side-menu-nav" do
-          fill_in "keyword", with: "test"
+          fill_in "keyword", with: keyword
           click_button
           expect(page.current_path).to eq searches_path
+        end
+
+        side_menu_label = find("label[for=side-menu-toggle]")
+        side_menu_label.click
+
+        within "li.side-menu-nav" do
+          # キーワードが検索フォームに保持されること
+          expect(page).to have_field "keyword", with: keyword
+        end
+
+        # 検索結果が表示されること
+        within "div.search-result" do
+          Article.published.order(updated_at: :desc).limit(10)
+            .each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
         end
       end
     end

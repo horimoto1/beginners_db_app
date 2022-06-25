@@ -1,8 +1,8 @@
 <% provide(:title, "検索結果") %>
 <div class="heading">
   <h1>検索結果</h1>
-  <p>キーワード：<%= @keyword %></p>
-  <p><%= page_entries_info @articles %></p>
+  <p>キーワード：<%= @keywords.join(" ") %></p>
+  <p><%= page_entries_info @articles, entry_name: "キーワード" %></p>
 </div>
 
 <% if @articles.any? %>
@@ -11,10 +11,11 @@
       <% @articles.each do |article| %>
         <li>
           <%= link_to category_article_path(article.category, article) do %>
-            <span class="fa fa-file"></span>
             <%= article.title %>
           <% end %>
         </li>
+        <p><%= extract_substring(article.summary + plaintext(article.content),
+                                 @keywords) %></p>
       <% end %>
     </ul>
   </div>

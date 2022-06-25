@@ -15,4 +15,4 @@ ja:
         display_entries:
           one: "<b>%{count}</b>件を表示中です。"
           other: "<b>%{count}</b>件を表示中です。"
-          zero: "キーワードが見つかりませんでした。"
+          zero: "%{entry_name}が見つかりませんでした。"
