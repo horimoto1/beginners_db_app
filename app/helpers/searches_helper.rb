@@ -13,15 +13,15 @@ module SearchesHelper
     ps.segment.each do |segment|
       if result.empty? && pattern.match?(segment) ||
          !result.empty? && result.length < max_length
-        result += segment
+        result += (segment + " ")
       end
     end
 
-    # キーワードが見つからなければ先頭から指定の文字数を抽出する
+    # キーワードが見つからなければ最初の文から指定の文字数を抽出する
     if result.empty?
       ps.segment.each do |segment|
         if result.length < max_length
-          result += segment
+          result += (segment + " ")
         end
       end
     end
