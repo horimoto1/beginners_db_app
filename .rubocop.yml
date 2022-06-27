@@ -4,7 +4,6 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   Exclude:
     - "db/**/*"
-    - "config/**/*"
     - "spec/**/*"
     - "tmp/**/*"
     - "vendor/**/*"
@@ -19,7 +18,7 @@ AsciiComments:
 
 # Windows以外で使用することになった場合、改行コードをLFに強要する
 Style/EndOfLine:
-  EnforcedStyle: false
+  Enabled: false
 # EnforcedStyle: lf
 
 # ドキュメントの無い public class を許可する
