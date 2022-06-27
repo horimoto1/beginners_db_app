@@ -12,7 +12,7 @@ function search_form_check(e) {
   // クリック位置によっては子要素がイベント発生元になるため調整する
   while (element.getAttribute("class") !== "search-button") {
     element = element.parentElement;
-    if(element === null) {
+    if (element === null) {
       return;
     }
   }
@@ -21,7 +21,7 @@ function search_form_check(e) {
   const keyword = element.previousElementSibling;
 
   // 空文字はfalseと評価される
-  if(!keyword.value.trim()) {
+  if (!keyword.value.trim()) {
     // クリックをキャンセルする
     e.preventDefault();
   }
@@ -31,15 +31,15 @@ document.addEventListener("turbolinks:load", () => {
   // HTML全体が読み込まれてからイベントを登録する
   document.addEventListener("click", (e) => {
     // サイドメニューの外側をクリックした際はサイドメニューを閉じる
-    if(!e.target.closest(".side-menu")) {
+    if (!e.target.closest(".side-menu")) {
       close_side_menu();
     }
 
     // キーワードが未入力かどうかチェックする
-    if(e.target.closest(".search-button")) {
+    if (e.target.closest(".search-button")) {
       search_form_check(e);
     }
-  })
+  });
 });
 
 // ページ遷移時のリセット処理

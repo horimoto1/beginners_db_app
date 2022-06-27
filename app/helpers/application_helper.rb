@@ -1,8 +1,8 @@
 module ApplicationHelper
   # ページごとの完全なタイトルを返す
-  def full_title(page_title = "")
-    base_title = "BeginnersDB"
-    page_title.empty? ? base_title : page_title + " | " + base_title
+  def full_title(page_title = '')
+    base_title = 'BeginnersDB'
+    page_title.empty? ? base_title : "#{page_title} | #{base_title}"
   end
 
   # 型に応じたパスを返す

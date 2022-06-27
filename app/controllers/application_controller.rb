@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
   include ApplicationError
 
   # 例外処理
-  rescue_from StandardError, with: :render_500
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
-  rescue_from ActionController::RoutingError, with: :render_404
+  rescue_from StandardError, with: :server_error
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActionController::RoutingError, with: :not_found
   rescue_from ApplicationError::NotPublishedError, with: :not_published
 
   before_action :set_menu
@@ -16,24 +16,24 @@ class ApplicationController < ActionController::Base
     @root_categories = Category.root_categories.sorted
   end
 
-  def render_404(exception = nil)
+  def not_found(exception = nil)
     if exception
       logger.info "Rendering 404 with exception: #{exception.message}"
     end
 
-    render template: "errors/error_404", status: 404, layout: "application"
+    render template: 'errors/error_404', status: 404, layout: 'application'
   end
 
-  def render_500(exception = nil)
+  def server_error(exception = nil)
     if exception
       logger.info "Rendering 500 with exception: #{exception.message}"
     end
 
-    render template: "errors/error_500", status: 500, layout: "application"
+    render template: 'errors/error_500', status: 500, layout: 'application'
   end
 
   def not_published(exception = nil)
     @message = exception.message if exception
-    render template: "errors/not_published", status: 404, layout: "application"
+    render template: 'errors/not_published', status: 404, layout: 'application'
   end
 end

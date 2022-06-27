@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "ApplicationControllers", type: :request do
   let(:base_title) { "BeginnersDB" }
 
-  describe "#render_404" do
+  describe "#not_found" do
     shared_examples "404エラーページ" do
       it "404エラーページを表示すること" do
         expect(response).to have_http_status(404)
@@ -65,7 +65,7 @@ RSpec.describe "ApplicationControllers", type: :request do
     end
   end
 
-  describe "#render_500" do
+  describe "#server_error" do
     let!(:category) { create(:category) }
 
     before do

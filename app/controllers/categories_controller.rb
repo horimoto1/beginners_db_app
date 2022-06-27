@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
     if params[:parent_category_id]
       parent_category = Category.friendly.find(params[:parent_category_id])
       @category = parent_category.child_categories.build(
-        category_order: parent_category.child_categories.count + 1,
+        category_order: parent_category.child_categories.count + 1
       )
     else
       @category = Category.new
@@ -24,30 +24,29 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
-      flash[:success] = "カテゴリーを作成しました"
+      flash[:success] = 'カテゴリーを作成しました'
       redirect_to category_path(@category)
     else
-      render "new"
+      render 'new'
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @category.update(category_params)
-      flash[:success] = "カテゴリーを更新しました"
+      flash[:success] = 'カテゴリーを更新しました'
       @category.reload
       redirect_to category_path(@category)
     else
-      render "edit"
+      render 'edit'
     end
   end
 
   def destroy
     parent_category = @category.parent_category
     @category.destroy
-    flash[:success] = "カテゴリーを削除しました"
+    flash[:success] = 'カテゴリーを削除しました'
     if parent_category
       redirect_to category_path(parent_category)
     else

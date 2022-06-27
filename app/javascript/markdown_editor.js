@@ -23,17 +23,31 @@ document.addEventListener("turbolinks:load", () => {
   simplemde = new SimpleMDE({
     element: element,
     // ツールバーのカスタマイズ
-    toolbar: ["bold", "strikethrough", "heading", "|",
-              "quote","code", "unordered-list", "ordered-list", "|",
-              "link", "image", "table", "|",
-              "preview", "side-by-side", "fullscreen"],
+    toolbar: [
+      "bold",
+      "strikethrough",
+      "heading",
+      "|",
+      "quote",
+      "code",
+      "unordered-list",
+      "ordered-list",
+      "|",
+      "link",
+      "image",
+      "table",
+      "|",
+      "preview",
+      "side-by-side",
+      "fullscreen",
+    ],
     // スペルチェックを無効にする
     spellChecker: false,
     // 編集内容を元のtextareaに即座に反映する
     forceSync: true,
     // プレビューを有効にする
-    previewRender: function(plainText, preview) {
-      setTimeout( function() {
+    previewRender: function (plainText, preview) {
+      setTimeout(function () {
         preview.innerHTML = marked(plainText);
       }, 250);
 
@@ -65,7 +79,9 @@ document.addEventListener("turbolinks:load", () => {
     uploadFieldName: "image", // パラメータのキー
     allowedTypes: ["image/jpeg", "image/png", "image/gif", "image/svg+xml"],
     extraHeaders: { "X-CSRF-Token": Rails.csrfToken() }, // CSRF対策
-    onFileUploadResponse: (response) => { show_error_messages(response) },
+    onFileUploadResponse: (response) => {
+      show_error_messages(response);
+    },
   });
 });
 

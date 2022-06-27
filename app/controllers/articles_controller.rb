@@ -11,36 +11,35 @@ class ArticlesController < ApplicationController
 
   def new
     @article = @category.articles.build(
-      article_order: @category.articles.count + 1,
+      article_order: @category.articles.count + 1
     )
   end
 
   def create
     @article = Article.new(article_params)
     if @article.save
-      flash[:success] = "記事を投稿しました"
+      flash[:success] = '記事を投稿しました'
       redirect_to category_article_path(@article.category, @article)
     else
-      render "new"
+      render 'new'
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @article.update(article_params)
-      flash[:success] = "記事を更新しました"
+      flash[:success] = '記事を更新しました'
       @article.reload
       redirect_to category_article_path(@article.category, @article)
     else
-      render "edit"
+      render 'edit'
     end
   end
 
   def destroy
     @article.destroy
-    flash[:success] = "記事を削除しました"
+    flash[:success] = '記事を削除しました'
     redirect_to category_path(@category)
   end
 
@@ -59,7 +58,7 @@ class ArticlesController < ApplicationController
     @article = @category.articles.friendly.find(params[:id])
 
     unless login_filter(@article)
-      message = "この記事は非公開になっています。"
+      message = 'この記事は非公開になっています。'
       raise ApplicationError::NotPublishedError, message
     end
   end

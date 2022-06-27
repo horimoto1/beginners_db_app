@@ -1,14 +1,14 @@
 module MarkdownHelper
-  require "redcarpet"
-  require "redcarpet/render_strip"
-  require "coderay"
+  require 'redcarpet'
+  require 'redcarpet/render_strip'
+  require 'coderay'
 
   # マークダウンをHTMLに変換する
   def markdown(text)
     # レンダラーのオプション
     options = {
       with_toc_data: true, # 見出しにアンカーを付ける
-      hard_wrap: true, # 改行を<br>に変換する
+      hard_wrap: true # 改行を<br>に変換する
     }
 
     # パーサーの拡張機能
@@ -25,7 +25,7 @@ module MarkdownHelper
       underline: true, # _強調_
       # highlight: true, # ==ハイライト==
       quote: true, # >引用符
-      footnotes: true, # 注釈[^1]、[^1]: 脚注リンク
+      footnotes: true # 注釈[^1]、[^1]: 脚注リンク
     }
 
     renderer = CustomRender.new(options)
@@ -37,22 +37,20 @@ module MarkdownHelper
   class CustomRender < Redcarpet::Render::HTML
     # コードブロックにシンタックスハイライトを適用する
     def block_code(code, language)
-      language &&= language.split(":")[0]
+      language &&= language.split(':')[0]
 
       # CodeRayの記法に合わせる
       case language.to_s
-      when "rb"
-        lang = "ruby"
-      when "yml"
-        lang = "yaml"
-      when ""
-        lang = "md"
-      else
-        lang = language
+      when 'rb'
+        language = 'ruby'
+      when 'yml'
+        language = 'yaml'
+      when ''
+        language = 'md'
       end
 
       # インラインCSSスタイルでシンタックスハイライトを適用する
-      CodeRay.scan(code, lang).div
+      CodeRay.scan(code, language).div
     end
 
     # テーブルをdivタグで囲って出力する
@@ -64,7 +62,7 @@ module MarkdownHelper
   # 目次を生成する
   def toc(text)
     extensions = {
-      nesting_level: 1..3, # h1からh3まで目次を作成する
+      nesting_level: 1..3 # h1からh3まで目次を作成する
     }
 
     renderer = Redcarpet::Render::HTML_TOC
