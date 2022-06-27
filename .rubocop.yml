@@ -3,7 +3,7 @@ inherit_from: .rubocop_todo.yml
 # 検査対象から除外する
 AllCops:
   Exclude:
-    - "db/**/*"
+    - "db/schema.rb"
     - "spec/**/*"
     - "tmp/**/*"
     - "vendor/**/*"
@@ -44,6 +44,11 @@ Style/PerlBackrefs:
 # シンボルの配列に%記法を強要しない
 Style/SymbolArray:
   EnforcedStyle: brackets
+
+# マイグレーションファイルについては(&:メソッド名)イディオムを強要しない
+Style/SymbolProc:
+  Exclude:
+    - "db/migrate/*"
 
 ########## Metrics ##########
 

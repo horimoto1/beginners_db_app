@@ -1,5 +1,5 @@
 Category.all.each do |category|
-  create_list(:article, 5, category_id: category.id)
+  FactoryBot.create_list(:article, 5, category_id: category.id)
 
-  create_list(:article, 5, category_id: category.id, published: true)
+  FactoryBot.create_list(:article, 5, category_id: category.id, published: true)
 end
