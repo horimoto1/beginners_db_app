@@ -6,21 +6,21 @@
 </div>
 
 <% if @articles.any? %>
-  <div class="search-result">
-    <ul>
-      <% @articles.each do |article| %>
-        <li>
-          <%= link_to category_article_path(article.category, article) do %>
-            <%= article.title %>
-          <% end %>
-        </li>
-        <p><%= extract_substring(article.summary + plaintext(article.content),
-                                 @keywords) %></p>
+<div class="search-result">
+  <ul>
+    <% @articles.each do |article| %>
+    <li>
+      <%= link_to category_article_path(article.category, article) do %>
+      <%= article.title %>
       <% end %>
-    </ul>
-  </div>
+    </li>
+    <p><%= extract_substring(article.summary + plaintext(article.content),
+                                 @keywords) %></p>
+    <% end %>
+  </ul>
+</div>
 
-  <div class="pagination-wrapper">
-    <%= paginate @articles, params: { controller: :searches, action: :index } %>
-  </div>
+<div class="pagination-wrapper">
+  <%= paginate @articles, params: { controller: :searches, action: :index } %>
+</div>
 <% end %>

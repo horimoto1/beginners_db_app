@@ -2,18 +2,18 @@
   <ul>
     <li>
       <%= link_to root_path do %>
-        <span class="fa fa-home fa-fw"></span>
-        ホーム
+      <span class="fa fa-home fa-fw"></span>
+      ホーム
       <% end %>
     </li>
     <% @category_tree.each do |category| %>
-      <li>
-        <span class="fa fa-angle-right"></span>
-        <%= link_to category_path(category) do %>
-          <span class="fa fa-folder fa-fw"></span>
-          <%= category.title %>
-        <% end %>
-      </li>
+    <li>
+      <span class="fa fa-angle-right"></span>
+      <%= link_to category_path(category) do %>
+      <span class="fa fa-folder fa-fw"></span>
+      <%= category.title %>
+      <% end %>
+    </li>
     <% end %>
   </ul>
 </div>

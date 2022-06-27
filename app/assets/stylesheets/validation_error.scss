@@ -15,7 +15,7 @@
     ul {
       counter-reset: error_counter;
     }
-  
+
     li {
       padding: 1rem 1rem 0px 1rem;
       color: red;
@@ -34,7 +34,9 @@
     color: red;
   }
 
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     border-color: #a94442;
     color: #a94442;
   }

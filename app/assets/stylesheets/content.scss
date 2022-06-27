@@ -2,7 +2,12 @@
 .content {
   padding-bottom: 1rem;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     padding-top: 1rem;
     border-bottom: 1px solid #777;
   }
@@ -34,7 +39,7 @@
     color: #555;
 
     /* 引用アイコンを表示する */
-    &::before{
+    &::before {
       display: inline-block;
       position: absolute;
       top: 0.5rem;
@@ -85,7 +90,8 @@
     table {
       border-collapse: collapse; /* 表の枠線を1本にする */
 
-      th, td {
+      th,
+      td {
         padding: 3px 5px;
         border: 1px solid #bbb;
         background-color: white;

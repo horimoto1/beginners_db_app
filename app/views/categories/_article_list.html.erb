@@ -1,8 +1,8 @@
 <% login_filter(category.articles.sorted).each do |article| %>
-  <li class="article-navi">
-    <%= link_to category_article_path(category, article) do %>
-      <span class="fa fa-file"></span>
-      <%= article.title %>
-    <% end %>
-  </li>
+<li class="article-navi">
+  <%= link_to category_article_path(category, article) do %>
+  <span class="fa fa-file"></span>
+  <%= article.title %>
+  <% end %>
+</li>
 <% end %>

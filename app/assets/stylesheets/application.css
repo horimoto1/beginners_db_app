@@ -20,7 +20,9 @@
   box-sizing: border-box; /* paddingとborderを要素のサイズに含める */
 }
 
-ul, ol, li {
+ul,
+ol,
+li {
   list-style-type: none; /* リストの黒点や連番を取り消す */
   padding: 0;
   margin: 0;
@@ -39,7 +41,13 @@ a:hover {
   color: #b22222;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
   overflow-wrap: break-word; /* 単語の途中でも折り返す */
 }

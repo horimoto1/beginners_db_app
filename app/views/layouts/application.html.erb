@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= full_title(yield(:title)) %></title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
-    <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
+  <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+  <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
 
-  <body>
-    <%= render "layouts/header" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-    <div class="main-wrapper">
-      <%= render "shared/flash_messages" %>
+<body>
+  <%= render "layouts/header" %>
 
-      <div class="main">
-        <%= yield %>
-      </div>
+  <div class="main-wrapper">
+    <%= render "shared/flash_messages" %>
 
-      <% if Rails.env.development? %>
-        <%= debug(params) %>
-        <% console %>
-      <% end %>
+    <div class="main">
+      <%= yield %>
     </div>
 
-    <%= render "layouts/footer" %>
-  </body>
+    <% if Rails.env.development? %>
+    <%= debug(params) %>
+    <% console %>
+    <% end %>
+  </div>
+
+  <%= render "layouts/footer" %>
+</body>
+
 </html>

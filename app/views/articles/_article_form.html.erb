@@ -1,46 +1,38 @@
 <div class="custom-form">
   <%= form_with(model: [@category, @article], local: true) do |f| %>
-    <%= render "shared/error_messages", object: f.object %>
-
-    <div class="block-field">
-      <%= f.label :name, "スラッグ名" %>
-      <%= f.text_field :name %>
-    </div>
-
-    <div class="block-field">
-      <%= f.label :title, "タイトル" %>
-      <%= f.text_field :title %>
-    </div>
-
-    <div class="block-field">
-      <%= f.label :summary, "サマリー" %>
-      <%= f.text_area :summary %>
-    </div>
-
-    <div class="block-field">
-      <%= f.label :content, "コンテンツ" %>
-      <%= f.text_area :content %>
-    </div>
-
-    <div class="inline-field">
-      <%= f.label :status, "ステータス" %>
-        <%= f.select :status, { "非公開": "private", "公開": "published" },
-                     required: true,
-                     selected: @article.published? ? "published" : "private" %>
-    </div>
-
-    <div class="inline-field">
-      <%= f.label :article_order, "記事の並び順" %>
-      <%= f.number_field :article_order %> 
-    </div>
-
-    <div class="inline-field">
-      <%= f.label :category_id, "カテゴリーID" %>
-      <%= f.number_field :category_id %>
-    </div>
-
-    <div class="action-field">
-      <%= f.submit yield(:button_text) %>
-    </div>
+  <%= render "shared/error_messages", object: f.object %>
+  <div class="block-field">
+    <%= f.label :name, "スラッグ名" %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="block-field">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="block-field">
+    <%= f.label :summary, "サマリー" %>
+    <%= f.text_area :summary %>
+  </div>
+  <div class="block-field">
+    <%= f.label :content, "コンテンツ" %>
+    <%= f.text_area :content %>
+  </div>
+  <div class="inline-field">
+    <%= f.label :status, "ステータス" %>
+    <%= f.select :status, { "非公開": "private", "公開": "published" },
+                   required: true,
+                   selected: @article.published? ? "published" : "private" %>
+  </div>
+  <div class="inline-field">
+    <%= f.label :article_order, "記事の並び順" %>
+    <%= f.number_field :article_order %>
+  </div>
+  <div class="inline-field">
+    <%= f.label :category_id, "カテゴリーID" %>
+    <%= f.number_field :category_id %>
+  </div>
+  <div class="action-field">
+    <%= f.submit yield(:button_text) %>
+  </div>
   <% end %>
 </div>

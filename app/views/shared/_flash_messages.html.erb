@@ -1,9 +1,9 @@
 <!-- deviseのflash[:timeout]を削除する -->
 <% flash.delete(:timedout) %>
 <% if flash.any? %>
-  <div class="flash">
-    <% flash.each do |message_type, message| %>
-      <%= content_tag(:p, message, class: message_type) %>
-    <% end %>
-  </div>
+<div class="flash">
+  <% flash.each do |message_type, message| %>
+  <%= content_tag(:p, message, class: message_type) %>
+  <% end %>
+</div>
 <% end %>

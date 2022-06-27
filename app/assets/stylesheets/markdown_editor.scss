@@ -1,6 +1,7 @@
 @import "simplemde/dist/simplemde.min";
 
-.CodeMirror, .CodeMirror-scroll {
+.CodeMirror,
+.CodeMirror-scroll {
   min-height: 25rem;
-	max-height: 50rem;
+  max-height: 50rem;
 }
