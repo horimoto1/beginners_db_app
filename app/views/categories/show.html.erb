@@ -4,27 +4,27 @@
 <div class="clear"></div>
 
 <% if user_signed_in? %>
-<div class="action-menu">
-  <ul class="left-list">
-    <li>
-      <%= link_to "カテゴリー作成", new_category_path(parent_category_id: @category.id) %>
-    </li>
-    <li>
-      <%= link_to "カテゴリー編集", edit_category_path(@category) %>
-    </li>
-    <li>
-      <%= link_to "記事投稿", new_category_article_path(@category) %>
-    </li>
-  </ul>
-  <ul class="right-list">
-    <li>
-      <%= link_to "カテゴリー削除", category_path(@category),
+  <div class="action-menu">
+    <ul class="left-list">
+      <li>
+        <%= link_to "カテゴリー作成", new_category_path(parent_category_id: @category.id) %>
+      </li>
+      <li>
+        <%= link_to "カテゴリー編集", edit_category_path(@category) %>
+      </li>
+      <li>
+        <%= link_to "記事投稿", new_category_article_path(@category) %>
+      </li>
+    </ul>
+    <ul class="right-list">
+      <li>
+        <%= link_to "カテゴリー削除", category_path(@category),
                     method: :delete, data: { confirm: "本当に削除しますか？" } %>
-    </li>
-  </ul>
-</div>
+      </li>
+    </ul>
+  </div>
 
-<div class="clear"></div>
+  <div class="clear"></div>
 <% end %>
 
 <div class="heading">
@@ -46,9 +46,9 @@
         <%= link_to "#{@category.title}", "##{@category.slug}" %>
       </li>
       <% @child_categories.each do |category| %>
-      <li>
-        <%= link_to "#{category.title}", "##{category.slug}" %>
-      </li>
+        <li>
+          <%= link_to "#{category.title}", "##{category.slug}" %>
+        </li>
       <% end %>
     </ul>
   </div>
@@ -62,21 +62,22 @@
         <%= @category.title %>
       </h2>
     </li>
+
     <%= render "article_list", category: @category %>
 
     <li class="child-category-navi">
       <% @child_categories.each do |category| %>
-      <ul>
-        <li class="category-navi">
-          <%= link_to category_path(category) do %>
-          <h2 id="<%= category.slug %>">
-            <span class="fa fa-folder fa-fw"></span>
-            <%= category.title %>
-          </h2>
-          <% end %>
-        </li>
-        <%= render "article_list", category: category %>
-      </ul>
+        <ul>
+          <li class="category-navi">
+            <%= link_to category_path(category) do %>
+              <h2 id="<%= category.slug %>">
+                <span class="fa fa-folder fa-fw"></span>
+                <%= category.title %>
+              </h2>
+            <% end %>
+          </li>
+          <%= render "article_list", category: category %>
+        </ul>
       <% end %>
     </li>
   </ul>

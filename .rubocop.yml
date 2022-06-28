@@ -1,22 +1,20 @@
 inherit_from: .rubocop_todo.yml
 
-# 検査対象から除外する
 AllCops:
+  # 検査対象から除外する
   Exclude:
     - "db/schema.rb"
-    - "spec/**/*"
-    - "tmp/**/*"
-    - "vendor/**/*"
     - "bin/**/*"
-  DisplayCopNames: true # 警告にCop名を表示する
+  # 警告にCop名を表示する
+  DisplayCopNames: true
 
-# 日本語でのコメントを許可
+# 日本語でのコメントを許可する
 AsciiComments:
   Enabled: false
 
 ########## Style ##########
 
-# Windows以外で使用することになった場合、改行コードをLFに強要する
+# Windows以外で開発することになった場合、改行コードをLFに強要する
 Style/EndOfLine:
   Enabled: false
 # EnforcedStyle: lf
@@ -25,7 +23,7 @@ Style/EndOfLine:
 Style/Documentation:
   Enabled: false
 
-# 文字列リテラルを凍結するマジックコメントを強要しない
+# 文字列リテラルを凍結するためのマジックコメントを強要しない
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -43,9 +41,9 @@ Style/PerlBackrefs:
 
 # シンボルの配列に%記法を強要しない
 Style/SymbolArray:
-  EnforcedStyle: brackets
+  Enabled: false
 
-# マイグレーションファイルについては(&:メソッド名)イディオムを強要しない
+# (&:メソッド名)記法を強要しない
 Style/SymbolProc:
   Exclude:
     - "db/migrate/*"
@@ -64,10 +62,10 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Max: 20
 
-# 分岐の数：10まで許可する
+# 分岐の数：10回まで許可する
 Metrics/PerceivedComplexity:
   Max: 10
 
-# 1行の長さは160文字まで許可する
+# 1行の長さは160文字まで許可する(なるべく80文字以下にする)
 Metrics/LineLength:
   Max: 160

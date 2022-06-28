@@ -1,7 +1,7 @@
 <div class="search-form">
   <%= form_tag searches_path, { method: "get" } do %>
-  <% keyword = @keywords ? @keywords.join(" ") : "" %>
-  <input type="search" placeholder="サイト内検索" name="keyword" value="<%= keyword %>">
-  <button class="search-button"><span class="fa fa-search"></span></button>
+    <% keyword = @keywords ? @keywords.join(" ") : "" %>
+    <input type="search" placeholder="サイト内検索" name="keyword" value="<%= keyword %>">
+    <button class="search-button"><span class="fa fa-search"></span></button>
   <% end %>
 </div>

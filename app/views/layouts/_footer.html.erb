@@ -4,9 +4,9 @@
       <ul>
         <li>
           <% if user_signed_in? %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
           <% else %>
-          <%= link_to "ログイン", new_user_session_path %>
+            <%= link_to "ログイン", new_user_session_path %>
           <% end %>
         </li>
         <li>
@@ -16,12 +16,12 @@
           <%= link_to "プロフィール", profile_path %>
         </li>
         <% if user_signed_in? %>
-        <li>
-          <span>|</span>
-        </li>
-        <li>
-          <%= link_to "画像一覧", attachments_path, data: { "turbolinks" => false } %>
-        </li>
+          <li>
+            <span>|</span>
+          </li>
+          <li>
+            <%= link_to "画像一覧", attachments_path, data: { "turbolinks" => false } %>
+          </li>
         <% end %>
       </ul>
     </div>
