@@ -29,9 +29,7 @@ RSpec.describe ApplicationHelper, type: :helper do
       let!(:article) { create(:article) }
 
       it 'Articleのパスを返すこと' do
-        expect(object_path(article)).to eq category_article_path(
-             article.category, article
-           )
+        expect(object_path(article)).to eq category_article_path(article.category, article)
       end
     end
 

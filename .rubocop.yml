@@ -1,4 +1,5 @@
 require:
+  - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
 
@@ -125,10 +126,6 @@ Naming/VariableNumber:
 
 ########## Rails ##########
 
-# rubocop Railsを有効化
-Rails:
-  Enabled: true
-
 # putsなどの利用を警告する
 Rails/Output:
   Exclude:
@@ -141,10 +138,6 @@ Rails/OutputSafety:
     - "app/helpers/searches_helper.rb"
 
 ########## RSpec ##########
-
-# rubocop RSpecを有効化
-RSpec:
-  Enabled: true
 
 # モックのallow_any_instance_ofを許可する
 RSpec/AnyInstance:
