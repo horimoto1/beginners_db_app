@@ -23,19 +23,27 @@ class Category < ApplicationRecord
   # 前のカテゴリーを取得する
   def previous_category
     sql = <<~SQL
-      SELECT *
-        FROM categories
-        WHERE id =
-          (SELECT previous_category_id
-            FROM
-              (SELECT id,
-                LAG(id ,1) OVER (PARTITION BY parent_category_id
+      SELECT
+        *
+      FROM
+        categories
+      WHERE
+        id = (
+          SELECT
+            previous_category_id
+          FROM
+            (
+              SELECT
+                id,
+                LAG(id, 1) OVER(PARTITION BY parent_category_id
                   ORDER BY category_order ASC, id ASC) AS previous_category_id
-                FROM categories
-              )
-            WHERE id = #{id}
-            LIMIT 1
-          )
+              FROM
+                categories
+            )
+          WHERE
+            id = #{id}
+          LIMIT 1
+        )
     SQL
 
     Category.find_by_sql(sql).first
@@ -44,19 +52,27 @@ class Category < ApplicationRecord
   # 次のカテゴリーを取得する
   def next_category
     sql = <<~SQL
-      SELECT *
-        FROM categories
-        WHERE id =
-          (SELECT next_category_id
-            FROM
-              (SELECT id,
-                LEAD(id ,1) OVER (PARTITION BY parent_category_id
+      SELECT
+        *
+      FROM
+        categories
+      WHERE
+        id = (
+          SELECT
+            next_category_id
+          FROM
+            (
+              SELECT
+                id,
+                LEAD(id, 1) OVER(PARTITION BY parent_category_id
                   ORDER BY category_order ASC, id ASC) AS next_category_id
-                FROM categories
-              )
-            WHERE id = #{id}
-            LIMIT 1
-          )
+              FROM
+                categories
+            )
+          WHERE
+            id = #{id}
+          LIMIT 1
+        )
     SQL
 
     Category.find_by_sql(sql).first
@@ -65,17 +81,26 @@ class Category < ApplicationRecord
   # 祖先Categoryを全て含むツリーを取得する
   def category_tree
     sql = <<~SQL
-      WITH RECURSIVE tmp AS (
-        SELECT *
-          FROM categories
-          WHERE id = #{id}
+      WITH RECURSIVE tmp AS(
+        SELECT
+          *
+        FROM
+          categories
+        WHERE
+          id = #{id}
         UNION ALL
-        SELECT categories.*
-          FROM tmp, categories
-          WHERE tmp.parent_category_id = categories.id
+        SELECT
+          categories.*
+        FROM
+          tmp,
+          categories
+        WHERE
+          tmp.parent_category_id = categories.id
       )
-      SELECT *
-        FROM tmp
+      SELECT
+        *
+      FROM
+        tmp
     SQL
 
     Category.find_by_sql(sql).reverse
