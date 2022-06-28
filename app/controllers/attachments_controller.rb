@@ -16,7 +16,7 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.find(params[:id])
     @attachment.image.purge if @attachment.image.attached?
     @attachment.destroy
-    flash[:success] = '画像を削除しました'
+    flash[:success] = "画像を削除しました"
     redirect_to attachments_path
   end
 end

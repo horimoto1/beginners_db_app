@@ -1,7 +1,7 @@
 module MarkdownHelper
-  require 'redcarpet'
-  require 'redcarpet/render_strip'
-  require 'coderay'
+  require "redcarpet"
+  require "redcarpet/render_strip"
+  require "coderay"
 
   # マークダウンをHTMLに変換する
   def markdown(text)
@@ -37,16 +37,16 @@ module MarkdownHelper
   class CustomRender < Redcarpet::Render::HTML
     # コードブロックにシンタックスハイライトを適用する
     def block_code(code, language)
-      language &&= language.split(':')[0]
+      language &&= language.split(":")[0]
 
       # CodeRayの記法に合わせる
       case language.to_s
-      when 'rb'
-        language = 'ruby'
-      when 'yml'
-        language = 'yaml'
-      when ''
-        language = 'md'
+      when "rb"
+        language = "ruby"
+      when "yml"
+        language = "yaml"
+      when ""
+        language = "md"
       end
 
       # インラインCSSスタイルでシンタックスハイライトを適用する

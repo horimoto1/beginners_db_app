@@ -24,10 +24,10 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
-      flash[:success] = 'カテゴリーを作成しました'
+      flash[:success] = "カテゴリーを作成しました"
       redirect_to category_path(@category)
     else
-      render 'new'
+      render "new"
     end
   end
 
@@ -35,18 +35,18 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      flash[:success] = 'カテゴリーを更新しました'
+      flash[:success] = "カテゴリーを更新しました"
       @category.reload
       redirect_to category_path(@category)
     else
-      render 'edit'
+      render "edit"
     end
   end
 
   def destroy
     parent_category = @category.parent_category
     @category.destroy
-    flash[:success] = 'カテゴリーを削除しました'
+    flash[:success] = "カテゴリーを削除しました"
     if parent_category
       redirect_to category_path(parent_category)
     else

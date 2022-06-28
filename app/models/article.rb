@@ -5,7 +5,7 @@ class Article < ApplicationRecord
 
   belongs_to :category, optional: true # 関連先を検査しないようにする
 
-  PUBLISHED_STATUS = 'published'.freeze
+  PUBLISHED_STATUS = "published".freeze
 
   scope :sorted, -> { order(article_order: :asc, id: :asc) }
   scope :published, -> { where(status: PUBLISHED_STATUS) }
@@ -91,7 +91,7 @@ class Article < ApplicationRecord
   # カテゴリーIDが存在するかバリデーションする
   def category_id_should_be_exists
     unless Category.exists?(category_id)
-      errors.add(:category_id, 'が存在しません')
+      errors.add(:category_id, "が存在しません")
     end
   end
 end

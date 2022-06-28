@@ -1,4 +1,4 @@
-FactoryBot.definition_file_paths = [Rails.root.join('spec/factories')]
+FactoryBot.definition_file_paths = [Rails.root.join("spec/factories")]
 FactoryBot.reload
 
 table_names = %w[

@@ -2,12 +2,12 @@ module SearchesHelper
   # 文字列からキーワードを含む部分文字列を抽出する
   def extract_substring(text, keywords, max_length = 100)
     # 文単位で区切る
-    ps = PragmaticSegmenter::Segmenter.new(text: text, language: 'jp')
+    ps = PragmaticSegmenter::Segmenter.new(text: text, language: "jp")
 
     keywords = keywords.map { |keyword| Regexp.escape(keyword) }
-    pattern = /#{keywords.join('|')}/
+    pattern = /#{keywords.join("|")}/
 
-    result = ''
+    result = ""
 
     # 最初にキーワードが見つかった文を先頭に指定の文字数を抽出する
     ps.segment.each do |segment|

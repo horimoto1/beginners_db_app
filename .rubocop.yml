@@ -65,6 +65,10 @@ Style/BlockDelimiters:
   Exclude:
     - "spec/**/*"
 
+# 文字列リテラルにはダブルクォートを使用する
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
 ########## Metrics ##########
 
 # メソッドの複雑さ：30以上は警告する

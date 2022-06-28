@@ -3,11 +3,11 @@ class Category < ApplicationRecord
   include FriendlyId
   friendly_id :name, use: :slugged
 
-  has_many :child_categories, class_name: 'Category',
-                              foreign_key: 'parent_category_id',
+  has_many :child_categories, class_name: "Category",
+                              foreign_key: "parent_category_id",
                               dependent: :destroy,
                               inverse_of: :parent_category
-  belongs_to :parent_category, class_name: 'Category',
+  belongs_to :parent_category, class_name: "Category",
                                optional: true,
                                inverse_of: :child_categories
   has_many :articles, dependent: :destroy
@@ -119,7 +119,7 @@ class Category < ApplicationRecord
     return if parent_category_id.nil?
 
     unless Category.exists?(parent_category_id)
-      errors.add(:parent_category_id, 'がnullではないか存在しません')
+      errors.add(:parent_category_id, "がnullではないか存在しません")
     end
   end
 end

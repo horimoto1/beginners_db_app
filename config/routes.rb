@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'home#top'
+  root "home#top"
 
   resources :categories, except: :index do
     resources :articles, except: :index
@@ -9,12 +9,12 @@ Rails.application.routes.draw do
 
   resources :searches, only: :index
 
-  get 'profile', to: 'users#show'
+  get "profile", to: "users#show"
 
   devise_for :users, skip: :all
   devise_scope :user do
-    get 'login', to: 'devise/sessions#new', as: :new_user_session
-    post 'login', to: 'devise/sessions#create', as: :user_session
-    delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
+    get "login", to: "devise/sessions#new", as: :new_user_session
+    post "login", to: "devise/sessions#create", as: :user_session
+    delete "logout", to: "devise/sessions#destroy", as: :destroy_user_session
   end
 end

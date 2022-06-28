@@ -23,7 +23,7 @@ class SearchesController < ApplicationController
     return [] if keyword.blank?
 
     # キーワードに前後のスペースがあれば削除する
-    keyword.gsub!(/(^[[:space:]]+)|([[:space:]]+$)/, '')
+    keyword.gsub!(/(^[[:space:]]+)|([[:space:]]+$)/, "")
 
     # キーワードをスペースで分割する
     keyword.split(/[[:space:]]/).reject(&:blank?)

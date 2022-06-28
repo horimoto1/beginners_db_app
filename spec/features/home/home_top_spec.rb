@@ -1,23 +1,23 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.feature 'Home::HomeTops', type: :feature do
-  feature 'トップページのレイアウト' do
+RSpec.feature "Home::HomeTops", type: :feature do
+  feature "トップページのレイアウト" do
     given!(:root_categories) { create_list(:category, 3) }
 
-    scenario '見出しが表示されること' do
+    scenario "見出しが表示されること" do
       visit root_path
 
       # 見出しが表示されること
-      within 'div.heading' do
-        expect(page).to have_selector 'h1', text: 'TOP PAGE'
+      within "div.heading" do
+        expect(page).to have_selector "h1", text: "TOP PAGE"
       end
     end
 
-    scenario 'メニューが表示されること' do
+    scenario "メニューが表示されること" do
       visit root_path
 
       # メニューが表示されること
-      within 'div.top-menu' do
+      within "div.top-menu" do
         # ルートカテゴリーへのリンクが表示されること
         root_categories.each do |root_category|
           expect(page).to have_link root_category.title,
@@ -26,24 +26,24 @@ RSpec.feature 'Home::HomeTops', type: :feature do
       end
     end
 
-    context 'ログアウト時' do
-      scenario 'アクションメニューが表示されないこと' do
+    context "ログアウト時" do
+      scenario "アクションメニューが表示されないこと" do
         visit root_path
 
-        expect(page).to have_no_selector 'div.action-menu'
+        expect(page).to have_no_selector "div.action-menu"
       end
     end
 
-    context 'ログイン時' do
+    context "ログイン時" do
       given!(:user) { create(:user) }
 
-      scenario 'アクションメニューが表示されること' do
+      scenario "アクションメニューが表示されること" do
         sign_in user
         visit root_path
 
-        within 'div.action-menu' do
+        within "div.action-menu" do
           # カテゴリー作成ページへのリンクが表示されること
-          expect(page).to have_link 'カテゴリー作成', href: new_category_path
+          expect(page).to have_link "カテゴリー作成", href: new_category_path
         end
       end
     end

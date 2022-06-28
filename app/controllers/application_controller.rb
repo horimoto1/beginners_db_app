@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       logger.info "Rendering 404 with exception: #{exception.message}"
     end
 
-    render template: 'errors/error_404', status: :not_found, layout: 'application'
+    render template: "errors/error_404", status: :not_found, layout: "application"
   end
 
   def server_error(exception = nil)
@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
       logger.info "Rendering 500 with exception: #{exception.message}"
     end
 
-    render template: 'errors/error_500', status: :internal_server_error, layout: 'application'
+    render template: "errors/error_500", status: :internal_server_error, layout: "application"
   end
 
   def not_published(exception = nil)
     @message = exception.message if exception
-    render template: 'errors/not_published', status: :not_found, layout: 'application'
+    render template: "errors/not_published", status: :not_found, layout: "application"
   end
 end
