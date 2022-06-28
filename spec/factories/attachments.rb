@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :attachment do
     transient do
-      image { "kitten.jpg" }
-      content_type { "image/jpeg" }
+      image { 'kitten.jpg' }
+      content_type { 'image/jpeg' }
     end
 
     after(:build) do |attachment, evaluator|

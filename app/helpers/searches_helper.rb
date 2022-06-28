@@ -5,7 +5,7 @@ module SearchesHelper
     ps = PragmaticSegmenter::Segmenter.new(text: text, language: 'jp')
 
     keywords = keywords.map { |keyword| Regexp.escape(keyword) }
-    pattern = /#{keywords.join("|")}/
+    pattern = /#{keywords.join('|')}/
 
     result = ''
 

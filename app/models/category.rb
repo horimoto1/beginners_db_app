@@ -5,10 +5,11 @@ class Category < ApplicationRecord
 
   has_many :child_categories, class_name: 'Category',
                               foreign_key: 'parent_category_id',
-                              dependent: :destroy
+                              dependent: :destroy,
+                              inverse_of: :parent_category
   belongs_to :parent_category, class_name: 'Category',
-                               foreign_key: 'parent_category_id',
-                               optional: true
+                               optional: true,
+                               inverse_of: :child_categories
   has_many :articles, dependent: :destroy
 
   scope :sorted, -> { order(category_order: :asc, id: :asc) }

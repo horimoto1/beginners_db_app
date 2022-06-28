@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
+RSpec.feature 'Categories::CategoryDestroys', type: :feature, js: true do
   given!(:user) { create(:user) }
   given!(:root_category) { create(:category) }
   given!(:articles) {
@@ -17,13 +17,13 @@ RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
     visit category_path(root_category)
   end
 
-  feature "カテゴリー削除機能" do
-    context "確認ダイアログでキャンセルを選択する" do
-      scenario "カテゴリーが削除されないこと" do
+  feature 'カテゴリー削除機能' do
+    context '確認ダイアログでキャンセルを選択する' do
+      scenario 'カテゴリーが削除されないこと' do
         count = Category.count
 
-        dismiss_confirm "本当に削除しますか？" do
-          click_on "カテゴリー削除"
+        dismiss_confirm '本当に削除しますか？' do
+          click_on 'カテゴリー削除'
         end
 
         # Ajaxの処理完了を待機する
@@ -33,10 +33,10 @@ RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
       end
     end
 
-    context "確認ダイアログでOKを選択する" do
-      scenario "カテゴリーが削除され、フラッシュが表示されること" do
-        accept_alert "本当に削除しますか？" do
-          click_on "カテゴリー削除"
+    context '確認ダイアログでOKを選択する' do
+      scenario 'カテゴリーが削除され、フラッシュが表示されること' do
+        accept_alert '本当に削除しますか？' do
+          click_on 'カテゴリー削除'
         end
 
         # Ajaxの処理完了を待機する
@@ -52,16 +52,16 @@ RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
         expect(Category.where(parent_category_id: root_category.id).count).to eq 0
 
         # トップページに遷移すること
-        expect(page.current_path).to eq root_path
+        expect(page).to have_current_path root_path, ignore_query: true
 
         # フラッシュが表示されること
-        within "div.flash" do
-          expect(page).to have_selector "p.success"
+        within 'div.flash' do
+          expect(page).to have_selector 'p.success'
         end
 
         # リロードしたらフラッシュが消えること
         visit current_path
-        expect(page).to have_no_selector "div.flash"
+        expect(page).to have_no_selector 'div.flash'
       end
     end
   end

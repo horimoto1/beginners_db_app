@@ -1,3 +1,7 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
 inherit_from: .rubocop_todo.yml
 
 AllCops:
@@ -5,10 +9,11 @@ AllCops:
   Exclude:
     - "db/schema.rb"
     - "bin/**/*"
+    - "tmp/seeds.rb"
   # 警告にCop名を表示する
   DisplayCopNames: true
 
-# 日本語でのコメントを許可する
+# 日本語のコメントを許可する
 AsciiComments:
   Enabled: false
 
@@ -39,33 +44,146 @@ Style/IfUnlessModifier:
 Style/PerlBackrefs:
   Enabled: false
 
-# シンボルの配列に%記法を強要しない
+# シンボル配列に%iなどの%記法を強要しない
 Style/SymbolArray:
   Enabled: false
 
-# (&:メソッド名)記法を強要しない
+# 文字列配列に%wなどの%記法を強要しない
+Style/WordArray:
+  Enabled: false
+
+# (&:メソッド名)記法が可能なら強要する
 Style/SymbolProc:
+  # マイグレーションファイルは強要しない
   Exclude:
     - "db/migrate/*"
 
+# ブロック構文を1行なら{...}、複数行ならdo...endに強要する
+Style/BlockDelimiters:
+  # テストコードは複数行ブロックの{...}も許可する
+  Exclude:
+    - "spec/**/*"
+
 ########## Metrics ##########
 
-# メソッドの複雑さ：30まで許可する
+# メソッドの複雑さ：30以上は警告する
 Metrics/AbcSize:
   Max: 30
 
-# メソッドの複雑さ：10まで許可する
+# メソッドの複雑さ：10以上は警告する
 Metrics/CyclomaticComplexity:
   Max: 10
 
-# メソッドの行数：20行まで許可する
+# メソッドの行数：20行以上は警告する
 Metrics/MethodLength:
   Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
+    - "app/models/*.rb"
 
-# 分岐の数：10回まで許可する
+# クラスの行数：350行以上は警告する
+Metrics/ClassLength:
+  Max: 350
+
+# 分岐の数：10回以上は警告する
 Metrics/PerceivedComplexity:
   Max: 10
 
-# 1行の長さは160文字まで許可する(なるべく80文字以下にする)
+# 1行の文字数：160文字以上は警告する(なるべく80文字以下にする)
 Metrics/LineLength:
   Max: 160
+
+########## Lint ##########
+
+# ブロック内で()無しの引数を渡すことを警告する
+Lint/AmbiguousBlockAssociation:
+  # テストコードは許可する
+  Exclude:
+    - "spec/**/*"
+
+########## Layout ##########
+
+# 複数行に跨る配列の最初の要素は1段インデントする
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+# 複数行に跨る引数の最初の引数は1段インデントする
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+
+########## Naming ##########
+
+# ヒアドキュメントの区切り文字にEOSなど単純な文字列を禁止する
+Naming/HeredocDelimiterNaming:
+  # テストコードは許可する
+  Exclude:
+    - "spec/**/*"
+
+# 引数名の末尾の数字はスネークケースにする
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+########## Rails ##########
+
+# rubocop Railsを有効化
+Rails:
+  Enabled: true
+
+# putsなどの利用を警告する
+Rails/Output:
+  Exclude:
+    - "db/seeds.rb"
+
+# html_safeなどの利用を警告する
+Rails/OutputSafety:
+  Exclude:
+    - "app/helpers/markdown_helper.rb"
+    - "app/helpers/searches_helper.rb"
+
+########## RSpec ##########
+
+# rubocop RSpecを有効化
+RSpec:
+  Enabled: true
+
+# モックのallow_any_instance_ofを許可する
+RSpec/AnyInstance:
+  Exclude:
+    - "spec/**/*"
+
+# フィーチャースペックのエイリアスメソッドを許可する
+RSpec/Capybara/FeatureMethods:
+  Exclude:
+    - "spec/features/**/*"
+
+# 日本語のcontextを許可する
+RSpec/ContextWording:
+  Enabled: false
+
+# テスト対象のクラスでもプレフィックスで明示する
+RSpec/DescribedClass:
+  EnforcedStyle: explicit
+
+# テスト項目の行数：10行まで許可する
+RSpec/ExampleLength:
+  Max: 10
+  # 複数行の配列、ハッシュ、ヒアドキュメントは1行としてカウントする
+  CountAsOne: ["array", "hash", "heredoc"]
+  # フィーチャースペックは厳しいので除外する
+  Exclude:
+    - "spec/features/**/*"
+
+# Changeマッチャのスタイル統一を強制しない
+RSpec/ExpectChange:
+  Enabled: false
+
+# テスト項目のexpectメソッド呼び出し回数：5回以上は警告する
+RSpec/MultipleExpectations:
+  Max: 5
+  # フィーチャースペックは厳しいので除外する
+  Exclude:
+    - "spec/features/**/*"
+
+# テスト項目のネスト数：5回以上は警告する
+RSpec/NestedGroups:
+  Max: 5
