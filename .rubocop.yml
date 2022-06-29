@@ -11,6 +11,7 @@ AllCops:
     - "db/schema.rb"
     - "bin/**/*"
     - "tmp/seeds.rb"
+    - "lib/tasks/auto_annotate_models.rake"
   # 警告にCop名を表示する
   DisplayCopNames: true
 
@@ -97,6 +98,9 @@ Metrics/PerceivedComplexity:
 # 1行の文字数：160文字以上は警告する(なるべく80文字以下にする)
 Metrics/LineLength:
   Max: 160
+  # ルーティングはannotateで長いコメントが出力されるので除外する
+  Exclude:
+    - "config/routes.rb"
 
 ########## Lint ##########
 
