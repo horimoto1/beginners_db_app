@@ -1,0 +1,32 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jquery": true
+  },
+  "extends": ["airbnb-base"],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": "webpack"
+  },
+  "rules": {
+    // Windows以外で開発することになった場合、改行コードをLFに強要する
+    "linebreak-style": "off",
+    // 文字列リテラルにはダブルクォートを使用する
+    "quotes": ["error", "double"],
+    // 末尾にセミコロンは使用しない
+    "semi": ["error", "never"],
+    // 末尾にカンマを使用しない
+    "comma-dangle": ["error", "never"],
+    // ダイアログの使用を許可する
+    "no-alert": "off",
+    // for文の更新処理で++と--の使用を許可する
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    // コメントの文字数はチェックしない
+    "max-len": ["error", { "ignoreComments": true }],
+    // 引数のプロパティへの代入を許可する
+    "no-param-reassign": ["error", { "props": false }]
+  }
+}
