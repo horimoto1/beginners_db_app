@@ -59,10 +59,8 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
         within "div.toc-table" do
           expect(page).to have_link root_category.title,
                                     href: "##{root_category.slug}"
-          child_categories.each do |child_category|
-            expect(page).to have_link child_category.title,
-                                      href: "##{child_category.slug}"
-          end
+          expect(page).to have_link child_category.title,
+                                    href: "##{child_category.slug}"
         end
 
         # 目次を閉じる
@@ -79,10 +77,8 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
         within "div.toc-table" do
           expect(page).to have_link root_category.title,
                                     href: "##{root_category.slug}"
-          child_categories.each do |child_category|
-            expect(page).to have_link child_category.title,
-                                      href: "##{child_category.slug}"
-          end
+          expect(page).to have_link child_category.title,
+                                    href: "##{child_category.slug}"
         end
       end
     end
@@ -103,11 +99,9 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
                                     )
         end
 
-        # 子カテゴリー一覧が表示されること
-        child_categories.each do |child_category|
-          expect(page).to have_link child_category.title,
-                                    href: category_path(child_category)
-        end
+        # 子カテゴリーが表示されること
+        expect(page).to have_link child_category.title,
+                                  href: category_path(child_category)
 
         # 子カテゴリーの記事一覧が表示されること
         child_category_articles.each do |child_category_article|
@@ -116,24 +110,6 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
                                       child_category_article.category,
                                       child_category_article
                                     )
-        end
-      end
-    end
-
-    scenario "ページャが表示されること" do
-      visit category_path(root_category)
-
-      within "div.pager" do
-        # 前のカテゴリーへのリンクが表示されること
-        within "div.previous" do
-          expect(page).to have_link root_categories[0].title,
-                                    href: category_path(root_categories[0])
-        end
-
-        # 次のカテゴリーへのリンクが表示されること
-        within "div.next" do
-          expect(page).to have_link root_categories[2].title,
-                                    href: category_path(root_categories[2])
         end
       end
     end
@@ -149,6 +125,12 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
       }
 
       background do
+        create_list(:article, 3,
+                    category_id: root_categories[0].id)
+
+        create_list(:article, 3,
+                    category_id: child_categories[0].id)
+
         visit category_path(root_category)
       end
 
@@ -156,23 +138,53 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
         expect(page).to have_no_selector "div.action-menu"
       end
 
-      scenario "非公開の記事が表示されないこと" do
-        # ルートカテゴリーの非公開記事一覧が表示されないこと
-        root_category_private_articles.each do |root_category_private_article|
-          expect(page).to have_no_link root_category_private_article.title,
-                                       href: category_article_path(
-                                         root_category_private_article.category,
-                                         root_category_private_article
-                                       )
+      scenario "非公開記事のみのカテゴリーがメニューに表示されないこと" do
+        within "div.category-menu" do
+          expect(page).to have_no_link child_categories[0].title,
+                                       href: category_path(child_categories[0])
         end
+      end
 
-        # 子カテゴリーの非公開記事一覧が表示されないこと
-        child_category_private_articles.each do |child_category_private_article|
-          expect(page).to have_no_link child_category_private_article.title,
-                                       href: category_article_path(
-                                         child_category_private_article.category,
-                                         child_category_private_article
-                                       )
+      scenario "記事が1つも無いカテゴリーがメニューに表示されないこと" do
+        within "div.category-menu" do
+          expect(page).to have_no_link child_categories[2].title,
+                                       href: category_path(child_categories[2])
+        end
+      end
+
+      scenario "非公開の記事がメニューに表示されないこと" do
+        within "div.category-menu" do
+          # ルートカテゴリーの非公開記事一覧が表示されないこと
+          root_category_private_articles.each do |root_category_private_article|
+            expect(page).to have_no_link root_category_private_article.title,
+                                         href: category_article_path(
+                                           root_category_private_article.category,
+                                           root_category_private_article
+                                         )
+          end
+
+          # 子カテゴリーの非公開記事一覧が表示されないこと
+          child_category_private_articles.each do |child_category_private_article|
+            expect(page).to have_no_link child_category_private_article.title,
+                                         href: category_article_path(
+                                           child_category_private_article.category,
+                                           child_category_private_article
+                                         )
+          end
+        end
+      end
+
+      scenario "非公開記事のみのカテゴリーのページャが表示されないこと" do
+        within "div.pager" do
+          expect(page).to have_no_link root_categories[0].title,
+                                       href: category_path(root_categories[0])
+        end
+      end
+
+      scenario "記事が1つも無いカテゴリーのページャが表示されないこと" do
+        within "div.pager" do
+          expect(page).to have_no_link root_categories[2].title,
+                                       href: category_path(root_categories[2])
         end
       end
     end
@@ -189,6 +201,12 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
       }
 
       background do
+        create_list(:article, 3,
+                    category_id: root_categories[0].id)
+
+        create_list(:article, 3,
+                    category_id: child_categories[0].id)
+
         sign_in user
         visit category_path(root_category)
       end
@@ -217,23 +235,59 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
         end
       end
 
-      scenario "非公開の記事が表示されること" do
-        # ルートカテゴリーの非公開記事一覧が表示されること
-        root_category_private_articles.each do |root_category_private_article|
-          expect(page).to have_link root_category_private_article.title,
-                                    href: category_article_path(
-                                      root_category_private_article.category,
-                                      root_category_private_article
-                                    )
+      scenario "非公開記事のみのカテゴリーがメニューに表示されること" do
+        within "div.category-menu" do
+          expect(page).to have_link child_categories[0].title,
+                                    href: category_path(child_categories[0])
         end
+      end
 
-        # 子カテゴリーの非公開記事一覧が表示されること
-        child_category_private_articles.each do |child_category_private_article|
-          expect(page).to have_link child_category_private_article.title,
-                                    href: category_article_path(
-                                      child_category_private_article.category,
-                                      child_category_private_article
-                                    )
+      scenario "記事が1つも無いカテゴリーがメニューに表示されること" do
+        within "div.category-menu" do
+          expect(page).to have_link child_categories[2].title,
+                                    href: category_path(child_categories[2])
+        end
+      end
+
+      scenario "非公開の記事がメニューに表示されること" do
+        within "div.category-menu" do
+          # ルートカテゴリーの非公開記事一覧が表示されること
+          root_category_private_articles.each do |root_category_private_article|
+            expect(page).to have_link root_category_private_article.title,
+                                      href: category_article_path(
+                                        root_category_private_article.category,
+                                        root_category_private_article
+                                      )
+          end
+
+          # 子カテゴリーの非公開記事一覧が表示されること
+          child_category_private_articles.each do |child_category_private_article|
+            expect(page).to have_link child_category_private_article.title,
+                                      href: category_article_path(
+                                        child_category_private_article.category,
+                                        child_category_private_article
+                                      )
+          end
+        end
+      end
+
+      scenario "非公開記事のみのカテゴリーのページャが表示されること" do
+        within "div.pager" do
+          # 前のカテゴリーへのリンクが表示されること
+          within "div.previous" do
+            expect(page).to have_link root_categories[0].title,
+                                      href: category_path(root_categories[0])
+          end
+        end
+      end
+
+      scenario "記事が1つも無いカテゴリーのページャが表示されること" do
+        within "div.pager" do
+          # 次のカテゴリーへのリンクが表示されること
+          within "div.next" do
+            expect(page).to have_link root_categories[2].title,
+                                      href: category_path(root_categories[2])
+          end
         end
       end
     end

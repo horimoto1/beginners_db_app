@@ -14,20 +14,4 @@ module ApplicationHelper
       category_article_path(object.category, object)
     end
   end
-
-  # ログイン状態に基づきフィルタリングする
-  def login_filter(object)
-    return nil unless object
-
-    return object if user_signed_in?
-
-    case object
-    when ActiveRecord::Relation
-      object.model == Article ? object.published : object
-    when Article
-      object.published? ? object : nil
-    else
-      object
-    end
-  end
 end

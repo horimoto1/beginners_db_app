@@ -63,12 +63,81 @@ RSpec.describe "ApplicationControllers", type: :request do
 
       it_behaves_like "404エラーページ"
     end
+
+    context "ログアウト時" do
+      context "非公開記事のみのカテゴリーにアクセスする" do
+        let!(:category) { create(:category) }
+
+        before do
+          create(:article,
+                 category_id: category.id)
+
+          get category_path(category)
+        end
+
+        it_behaves_like "404エラーページ"
+      end
+
+      context "記事が1つも無いカテゴリーにアクセスする" do
+        let!(:category) { create(:category) }
+
+        before do
+          get category_path(category)
+        end
+
+        it_behaves_like "404エラーページ"
+      end
+    end
+
+    context "ログイン時" do
+      let!(:user) { create(:user) }
+      let!(:category) { create(:category) }
+
+      context "非公開記事のみのカテゴリーにアクセスする" do
+        before do
+          create(:article,
+                 category_id: category.id)
+
+          sign_in user
+          get category_path(category)
+        end
+
+        it "categoriesのshowページを表示すること" do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "タイトルが正しいこと" do
+          expect(response.body).to include "#{category.title} | #{base_title}"
+        end
+      end
+
+      context "記事が1つも無いカテゴリーにアクセスする" do
+        let!(:category) { create(:category) }
+
+        before do
+          sign_in user
+          get category_path(category)
+        end
+
+        it "categoriesのshowページを表示すること" do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "タイトルが正しいこと" do
+          expect(response.body).to include "#{category.title} | #{base_title}"
+        end
+      end
+    end
   end
 
   describe "#server_error" do
     let!(:category) { create(:category) }
 
     before do
+      create(:article,
+             category_id: category.id,
+             published: true)
+
       # モックでStandardErrorを発生させるようにする
       allow_any_instance_of(CategoriesController).to \
         receive(:show).and_raise(StandardError)

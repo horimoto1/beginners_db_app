@@ -3,6 +3,9 @@ class AttachmentsController < ApplicationController
 
   def index
     @attachments = Attachment.all.order(created_at: :desc).page(params[:page])
+
+    # 事前に画像一覧をキャッシュしておく
+    @attachments = @attachments.with_attached_image
   end
 
   def create

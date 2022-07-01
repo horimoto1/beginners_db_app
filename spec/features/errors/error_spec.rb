@@ -25,6 +25,10 @@ RSpec.feature "Errors::Errors", type: :feature do
     given!(:category) { create(:category) }
 
     background do
+      create(:article,
+             category_id: category.id,
+             published: true)
+
       # モックでStandardErrorを発生させるようにする
       allow_any_instance_of(CategoriesController).to \
         receive(:show).and_raise(StandardError)

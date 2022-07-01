@@ -35,6 +35,7 @@ end
 
 group :development do
   gem "annotate"
+  gem "bullet"
   gem "listen", ">= 3.1.5"
   gem "rubocop", require: false
   gem "rubocop-performance", require: false

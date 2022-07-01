@@ -37,6 +37,7 @@ class Article < ApplicationRecord
 
   scope :sorted, -> { order(article_order: :asc, id: :asc) }
   scope :published, -> { where(status: PUBLISHED_STATUS) }
+  scope :with_category, -> { includes(:category) }
 
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true

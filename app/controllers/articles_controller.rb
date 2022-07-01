@@ -5,8 +5,14 @@ class ArticlesController < ApplicationController
 
   def show
     @category_tree = @category.category_tree
-    @previous_article = login_filter(@article.previous_article)
-    @next_article = login_filter(@article.next_article)
+    @previous_article = @article.previous_article
+    @next_article = @article.next_article
+
+    # ログイン状態に基づきフィルタリングする
+    unless user_signed_in?
+      @previous_article = nil unless @previous_article&.published?
+      @next_article = nil unless @next_article&.published?
+    end
   end
 
   def new
@@ -57,7 +63,7 @@ class ArticlesController < ApplicationController
   def set_article
     @article = @category.articles.friendly.find(params[:id])
 
-    unless login_filter(@article)
+    if !user_signed_in? && !@article.published?
       message = "この記事は非公開になっています。"
       raise ApplicationError::NotPublishedError, message
     end

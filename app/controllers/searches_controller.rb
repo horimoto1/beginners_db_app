@@ -12,8 +12,13 @@ class SearchesController < ApplicationController
     @articles = Article.ransack(slug_or_title_or_summary_or_content_i_cont_all: @keywords).result
                        .order(updated_at: :desc).page(params[:page])
 
-    # 非公開記事はフィルタリングする
-    @articles = login_filter(@articles)
+    # ログイン状態に基づきフィルタリングする
+    unless user_signed_in?
+      @articles = @articles.published
+    end
+
+    # 事前にカテゴリーをキャッシュしておく
+    @articles = @articles.with_category
   end
 
   private

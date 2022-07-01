@@ -99,6 +99,12 @@ Metrics/PerceivedComplexity:
 Metrics/LineLength:
   Max: 160
 
+# ブロックの行数：25行以上は警告する
+Metrics/BlockLength:
+  # 設定ファイルは除外する
+  Exclude:
+    - "config/**/*"
+
 ########## Lint ##########
 
 # ブロック内で()無しの引数を渡すことを警告する

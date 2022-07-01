@@ -6,6 +6,10 @@ RSpec.describe "CategoriesControllers", type: :request do
     let!(:category) { create(:category) }
 
     before do
+      create(:article,
+             category_id: category.id,
+             published: true)
+
       get category_path(category)
     end
 

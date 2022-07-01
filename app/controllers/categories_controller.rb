@@ -7,6 +7,16 @@ class CategoriesController < ApplicationController
     @category_tree = @category.category_tree
     @previous_category = @category.previous_category
     @next_category = @category.next_category
+
+    # 事前に記事一覧をキャッシュしておく
+    @child_categories = @child_categories.with_articles.merge(Article.sorted)
+
+    # ログイン状態に基づきフィルタリングする
+    unless user_signed_in?
+      @child_categories = @child_categories.merge(Article.published)
+      @previous_category = nil if @previous_category && @previous_category.articles.published.count.zero?
+      @next_category = nil if @next_category && @next_category.articles.published.count.zero?
+    end
   end
 
   def new
@@ -62,6 +72,18 @@ class CategoriesController < ApplicationController
   end
 
   def set_category
-    @category = Category.friendly.find(params[:id])
+    @category = Category.where(slug: params[:id]).or(Category.where(id: params[:id]))
+
+    # 事前に記事一覧をキャッシュしておく
+    @category = @category.with_articles.merge(Article.sorted)
+
+    # ログイン状態に基づきフィルタリングする
+    unless user_signed_in?
+      @category = @category.merge(Article.published)
+    end
+
+    @category = @category.to_a.first
+
+    raise ActiveRecord::RecordNotFound unless @category
   end
 end

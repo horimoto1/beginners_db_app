@@ -27,17 +27,21 @@ class Category < ApplicationRecord
   include FriendlyId
   friendly_id :name, use: :slugged
 
-  has_many :child_categories, class_name: "Category",
-                              foreign_key: "parent_category_id",
-                              dependent: :destroy,
-                              inverse_of: :parent_category
-  belongs_to :parent_category, class_name: "Category",
-                               optional: true,
-                               inverse_of: :child_categories
-  has_many :articles, dependent: :destroy
+  has_many :child_categories,
+           class_name: "Category",
+           foreign_key: "parent_category_id",
+           dependent: :destroy,
+           inverse_of: :parent_category
+  belongs_to :parent_category,
+             class_name: "Category",
+             optional: true,
+             inverse_of: :child_categories
+  has_many :articles,
+           dependent: :destroy
 
   scope :sorted, -> { order(category_order: :asc, id: :asc) }
   scope :root_categories, -> { where(parent_category_id: nil) }
+  scope :with_articles, -> { eager_load(:articles) }
 
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true
