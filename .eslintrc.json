@@ -13,7 +13,8 @@
   },
   "rules": {
     // Windows以外で開発することになった場合、改行コードをLFに強要する
-    "linebreak-style": "off",
+    "linebreak-style": ["error", "unix"],
+    // "linebreak-style": "off",
     // 文字列リテラルにはダブルクォートを使用する
     "quotes": ["error", "double"],
     // 末尾にセミコロンは使用しない
