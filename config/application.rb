@@ -16,6 +16,9 @@ module BeginnersDbApp
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    # JavaScriptの動作しないブラウザをサポートする
+    config.action_view.embed_authenticity_token_in_remote_forms = true
+
     # 日本語対応
     config.i18n.default_locale = :ja
     config.time_zone = "Tokyo"
