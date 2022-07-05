@@ -57,7 +57,8 @@ input {
 }
 
 html {
-  font-family: "Avenir Next", "Hiragino Sans", sans-serif;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", Meiryo, sans-serif;
   line-height: 1.5; /* 文字の高さ(フォントサイズの1.5倍) */
   letter-spacing: 0.1em; /* 文字の間隔 */
   font-size: 16px; /* remの基準値 */
@@ -90,7 +91,6 @@ pre {
 }
 
 code {
-  font-family: "Avenir Next", "Hiragino Sans", sans-serif;
   font-size: 1rem;
   line-height: 2;
   letter-spacing: 0.1em;

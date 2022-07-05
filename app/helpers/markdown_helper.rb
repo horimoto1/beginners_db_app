@@ -76,4 +76,12 @@ module MarkdownHelper
     markdown = Redcarpet::Markdown.new(renderer)
     markdown.render(text)
   end
+
+  # マークダウンファイルを読み込む
+  def markdown_file(path)
+    return unless File.exist?(path)
+
+    lines = File.read(path)
+    markdown(lines)
+  end
 end

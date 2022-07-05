@@ -29,7 +29,7 @@
 
 <div class="heading">
   <h1><%= @category.title %></h1>
-  <%= simple_format(@category.summary) %>
+  <%= markdown(@category.summary) %>
 </div>
 
 <%= render "shared/meta", object: @category %>

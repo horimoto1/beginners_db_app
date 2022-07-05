@@ -12,7 +12,7 @@
 
 <div class="heading">
   <h1>TOP PAGE</h1>
-  <p>当サイトはデータベース初心者を対象に、リレーショナルデータベースを中心としたデータベースの基礎知識を体系的に解説します。</p>
+  <%= markdown_file("app/views/home/top.md") %>
 </div>
 
 <div class="top-menu">
@@ -24,7 +24,7 @@
             <h2><%= root_category.title %></h2>
           <% end %>
         </div>
-        <%= simple_format(root_category.summary) %>
+        <%= markdown(root_category.summary) %>
       </li>
     <% end %>
   </ul>

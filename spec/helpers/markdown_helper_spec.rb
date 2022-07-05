@@ -218,4 +218,20 @@ RSpec.describe MarkdownHelper, type: :helper do
       expect(plaintext(text)).to eq result
     end
   end
+
+  describe "#markdown_file" do
+    context "ファイルが無い場合" do
+      it "nilを返すこと" do
+        path = Rails.root.join("spec/fixtures/nothing.md")
+        expect(markdown_file(path)).to be_nil
+      end
+    end
+
+    context "ファイルが存在する場合" do
+      it "マークダウンをパースした結果を返すこと" do
+        path = Rails.root.join("spec/fixtures/sample.md")
+        expect(markdown_file(path)).to eq "<p>sample_text1<br>\nsample_text2</p>\n"
+      end
+    end
+  end
 end
