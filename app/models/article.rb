@@ -65,7 +65,7 @@ class Article < ApplicationRecord
       FROM
         articles
       WHERE
-        id = (
+        id IN (
           SELECT
             previous_article_id
           FROM
@@ -96,7 +96,7 @@ class Article < ApplicationRecord
       FROM
         articles
       WHERE
-        id = (
+        id IN (
           SELECT
             next_article_id
           FROM

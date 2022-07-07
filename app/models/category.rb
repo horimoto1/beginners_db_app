@@ -66,7 +66,7 @@ class Category < ApplicationRecord
       FROM
         categories
       WHERE
-        id = (
+        id IN (
           SELECT
             previous_category_id
           FROM
@@ -97,7 +97,7 @@ class Category < ApplicationRecord
       FROM
         categories
       WHERE
-        id = (
+        id IN (
           SELECT
             next_category_id
           FROM
