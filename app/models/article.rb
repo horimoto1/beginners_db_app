@@ -58,8 +58,7 @@ class Article < ApplicationRecord
         INNER JOIN (
           SELECT
             id AS id,
-            LAG(id, 1) OVER(PARTITION BY category_id
-              ORDER BY article_order ASC, id ASC) AS previous_article_id
+            LAG(id, 1) OVER(PARTITION BY category_id ORDER BY article_order ASC, id ASC) AS previous_article_id
           FROM
             articles
         ) t2
@@ -83,8 +82,7 @@ class Article < ApplicationRecord
         INNER JOIN (
           SELECT
             id AS id,
-            LEAD(id, 1) OVER(PARTITION BY category_id
-              ORDER BY article_order ASC, id ASC) AS next_article_id
+            LEAD(id, 1) OVER(PARTITION BY category_id ORDER BY article_order ASC, id ASC) AS next_article_id
           FROM
             articles
         ) t2

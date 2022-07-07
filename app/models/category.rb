@@ -59,8 +59,7 @@ class Category < ApplicationRecord
         INNER JOIN (
           SELECT
             id AS id,
-            LAG(id, 1) OVER(PARTITION BY parent_category_id
-              ORDER BY category_order ASC, id ASC) AS previous_category_id
+            LAG(id, 1) OVER(PARTITION BY parent_category_id ORDER BY category_order ASC, id ASC) AS previous_category_id
           FROM
             categories
         ) t2
@@ -84,8 +83,7 @@ class Category < ApplicationRecord
         INNER JOIN (
           SELECT
             id AS id,
-            LEAD(id, 1) OVER(PARTITION BY parent_category_id
-              ORDER BY category_order ASC, id ASC) AS next_category_id
+            LEAD(id, 1) OVER(PARTITION BY parent_category_id ORDER BY category_order ASC, id ASC) AS next_category_id
           FROM
             categories
         ) t2
