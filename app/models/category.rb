@@ -55,7 +55,7 @@ class Category < ApplicationRecord
       SELECT
         t1.*
       FROM
-        categories t1
+        categories AS t1
         INNER JOIN (
           SELECT
             id,
@@ -63,7 +63,7 @@ class Category < ApplicationRecord
               ORDER BY category_order ASC, id ASC) AS previous_category_id
           FROM
             categories
-        ) t2
+        ) AS t2
         ON
           t1.id = t2.previous_category_id
       WHERE
@@ -80,7 +80,7 @@ class Category < ApplicationRecord
       SELECT
         t1.*
       FROM
-        categories t1
+        categories AS t1
         INNER JOIN (
           SELECT
             id,
@@ -88,7 +88,7 @@ class Category < ApplicationRecord
               ORDER BY category_order ASC, id ASC) AS next_category_id
           FROM
             categories
-        ) t2
+        ) AS t2
         ON
           t1.id = t2.next_category_id
       WHERE

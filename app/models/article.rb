@@ -54,7 +54,7 @@ class Article < ApplicationRecord
       SELECT
         t1.*
       FROM
-        articles t1
+        articles AS t1
         INNER JOIN (
           SELECT
             id,
@@ -62,7 +62,7 @@ class Article < ApplicationRecord
               ORDER BY article_order ASC, id ASC) AS previous_article_id
           FROM
             articles
-        ) t2
+        ) AS t2
         ON
           t1.id = t2.previous_article_id
       WHERE
@@ -79,7 +79,7 @@ class Article < ApplicationRecord
       SELECT
         t1.*
       FROM
-        articles t1
+        articles AS t1
         INNER JOIN (
           SELECT
             id,
@@ -87,7 +87,7 @@ class Article < ApplicationRecord
               ORDER BY article_order ASC, id ASC) AS next_article_id
           FROM
             articles
-        ) t2
+        ) AS t2
         ON
           t1.id = t2.next_article_id
       WHERE
