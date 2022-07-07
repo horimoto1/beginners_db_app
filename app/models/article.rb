@@ -65,15 +65,8 @@ class Article < ApplicationRecord
       FROM
         articles
       WHERE
-        id = (
-          SELECT
-            previous_article_id
-          FROM
-            previous_article_tbl
-          WHERE
-            id = #{id}
-          LIMIT 1
-        ) t1
+        id = (SELECT previous_article_id FROM previous_article_tbl
+          WHERE id = #{id} LIMIT 1)
     SQL
 
     Article.find_by_sql(sql).first
@@ -96,15 +89,8 @@ class Article < ApplicationRecord
       FROM
         articles
       WHERE
-        id = (
-          SELECT
-            next_article_id
-          FROM
-            next_article_tbl
-          WHERE
-            id = #{id}
-          LIMIT 1
-        ) t1
+        id = (SELECT next_article_id FROM next_article_tbl
+          WHERE id = #{id} LIMIT 1)
     SQL
 
     Article.find_by_sql(sql).first
