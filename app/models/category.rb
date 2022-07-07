@@ -52,6 +52,14 @@ class Category < ApplicationRecord
   # 前のカテゴリーを取得する
   def previous_category
     sql = <<~SQL
+      WITH previous_category_tbl AS(
+        SELECT
+          id,
+          LAG(id, 1) OVER(PARTITION BY parent_category_id
+            ORDER BY category_order ASC, id ASC) AS previous_category_id
+        FROM
+          categories
+      )
       SELECT
         *
       FROM
@@ -61,14 +69,7 @@ class Category < ApplicationRecord
           SELECT
             previous_category_id
           FROM
-            (
-              SELECT
-                id,
-                LAG(id, 1) OVER(PARTITION BY parent_category_id
-                  ORDER BY category_order ASC, id ASC) AS previous_category_id
-              FROM
-                categories
-            ) AS previous_category_tbl
+            previous_category_tbl
           WHERE
             id = #{id}
           LIMIT 1
@@ -81,6 +82,14 @@ class Category < ApplicationRecord
   # 次のカテゴリーを取得する
   def next_category
     sql = <<~SQL
+      WITH next_category_tbl AS(
+        SELECT
+          id,
+          LEAD(id, 1) OVER(PARTITION BY parent_category_id
+            ORDER BY category_order ASC, id ASC) AS next_category_id
+        FROM
+          categories
+      )
       SELECT
         *
       FROM
@@ -90,14 +99,7 @@ class Category < ApplicationRecord
           SELECT
             next_category_id
           FROM
-            (
-              SELECT
-                id,
-                LEAD(id, 1) OVER(PARTITION BY parent_category_id
-                  ORDER BY category_order ASC, id ASC) AS next_category_id
-              FROM
-                categories
-            ) AS next_category_tbl
+            next_category_tbl
           WHERE
             id = #{id}
           LIMIT 1

@@ -51,6 +51,14 @@ class Article < ApplicationRecord
   # 前の記事を取得する
   def previous_article
     sql = <<~SQL
+      WITH previous_article_tbl AS(
+        SELECT
+          id,
+          LAG(id, 1) OVER(PARTITION BY category_id
+            ORDER BY article_order ASC, id ASC) AS previous_article_id
+        FROM
+          articles
+      )
       SELECT
         *
       FROM
@@ -60,14 +68,7 @@ class Article < ApplicationRecord
           SELECT
             previous_article_id
           FROM
-            (
-              SELECT
-                id,
-                LAG(id, 1) OVER(PARTITION BY category_id
-                  ORDER BY article_order ASC, id ASC) AS previous_article_id
-              FROM
-                articles
-            ) AS previous_article_tbl
+            previous_article_tbl
           WHERE
             id = #{id}
           LIMIT 1
@@ -80,6 +81,14 @@ class Article < ApplicationRecord
   # 次の記事を取得する
   def next_article
     sql = <<~SQL
+      WITH next_article_tbl AS(
+        SELECT
+          id,
+          LEAD(id, 1) OVER(PARTITION BY category_id
+            ORDER BY article_order ASC, id ASC) AS next_article_id
+        FROM
+          articles
+      )
       SELECT
         *
       FROM
@@ -89,14 +98,7 @@ class Article < ApplicationRecord
           SELECT
             next_article_id
           FROM
-            (
-              SELECT
-                id,
-                LEAD(id, 1) OVER(PARTITION BY category_id
-                  ORDER BY article_order ASC, id ASC) AS next_article_id
-              FROM
-                articles
-            ) AS next_article_tbl
+            next_article_tbl
           WHERE
             id = #{id}
           LIMIT 1
