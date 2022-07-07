@@ -74,7 +74,7 @@ class Category < ApplicationRecord
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) AS sub1
     SQL
 
     Category.find_by_sql(sql).first
@@ -105,7 +105,7 @@ class Category < ApplicationRecord
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) AS sub1
     SQL
 
     Category.find_by_sql(sql).first

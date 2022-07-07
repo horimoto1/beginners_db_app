@@ -73,7 +73,7 @@ class Article < ApplicationRecord
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) AS sub1
     SQL
 
     Article.find_by_sql(sql).first
@@ -104,7 +104,7 @@ class Article < ApplicationRecord
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) AS sub1
     SQL
 
     Article.find_by_sql(sql).first
