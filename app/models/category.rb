@@ -60,6 +60,7 @@ class Category < ApplicationRecord
         FROM
           categories
       )
+
       SELECT
         *
       FROM
@@ -73,7 +74,7 @@ class Category < ApplicationRecord
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) AS previous_category_id_tbl
     SQL
 
     Category.find_by_sql(sql).first
@@ -90,6 +91,7 @@ class Category < ApplicationRecord
         FROM
           categories
       )
+
       SELECT
         *
       FROM
@@ -103,7 +105,7 @@ class Category < ApplicationRecord
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) AS next_category_id_tbl
     SQL
 
     Category.find_by_sql(sql).first
@@ -128,6 +130,7 @@ class Category < ApplicationRecord
         WHERE
           tmp.parent_category_id = categories.id
       )
+
       SELECT
         *
       FROM

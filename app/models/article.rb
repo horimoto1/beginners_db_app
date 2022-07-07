@@ -59,6 +59,7 @@ class Article < ApplicationRecord
         FROM
           articles
       )
+
       SELECT
         *
       FROM
@@ -72,7 +73,7 @@ class Article < ApplicationRecord
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) AS previous_article_id_tbl
     SQL
 
     Article.find_by_sql(sql).first
@@ -89,6 +90,7 @@ class Article < ApplicationRecord
         FROM
           articles
       )
+
       SELECT
         *
       FROM
@@ -102,7 +104,7 @@ class Article < ApplicationRecord
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) AS next_article_id_tbl
     SQL
 
     Article.find_by_sql(sql).first
