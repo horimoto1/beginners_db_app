@@ -51,19 +51,22 @@ class Article < ApplicationRecord
   # 前の記事を取得する
   def previous_article
     sql = <<~SQL
+      WITH previous_article_tbl AS(
+        SELECT
+          id,
+          LAG(id, 1) OVER(PARTITION BY category_id
+            ORDER BY article_order ASC, id ASC) AS previous_article_id
+        FROM
+          articles
+      )
+
       SELECT
         t1.*
       FROM
         articles t1
-        INNER JOIN (
-          SELECT
-            id AS id,
-            LAG(id, 1) OVER(PARTITION BY category_id ORDER BY article_order ASC, id ASC) AS previous_article_ida
-          FROM
-            articles
-        ) t2
-        ON
-          t1.id = t2.previous_article_ida
+        INNER JOIN
+          previous_article_tbl t2
+        ON  t1.id = t2.previous_article_id
       WHERE
         t2.id = #{id}
       LIMIT 1
@@ -75,19 +78,22 @@ class Article < ApplicationRecord
   # 次の記事を取得する
   def next_article
     sql = <<~SQL
+      WITH next_article_tbl AS(
+        SELECT
+          id,
+          LEAD(id, 1) OVER(PARTITION BY category_id
+            ORDER BY article_order ASC, id ASC) AS next_article_id
+        FROM
+          articles
+      )
+
       SELECT
         t1.*
       FROM
         articles t1
-        INNER JOIN (
-          SELECT
-            id AS id,
-            LEAD(id, 1) OVER(PARTITION BY category_id ORDER BY article_order ASC, id ASC) AS next_article_id
-          FROM
-            articles
-        ) t2
-        ON
-          t1.id = t2.next_article_id
+        INNER JOIN
+          next_article_tbl t2
+        ON  t1.id = t2.next_article_id
       WHERE
         t2.id = #{id}
       LIMIT 1
