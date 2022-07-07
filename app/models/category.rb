@@ -52,21 +52,20 @@ class Category < ApplicationRecord
   # 前のカテゴリーを取得する
   def previous_category
     sql = <<~SQL
-      WITH previous_category_tbl AS(
-        SELECT
-          id,
-          LAG(id, 1) OVER(PARTITION BY parent_category_id
-            ORDER BY category_order ASC, id ASC) AS previous_category_id
-        FROM
-          categories
-      )
       SELECT
         t1.*
       FROM
         categories t1
-        INNER JOIN
-          previous_category_tbl t2
-        ON  t1.id = t2.previous_category_id
+        INNER JOIN (
+          SELECT
+            id,
+            LAG(id, 1) OVER(PARTITION BY parent_category_id
+              ORDER BY category_order ASC, id ASC) AS previous_category_id
+          FROM
+            categories
+        ) t2
+        ON
+          t1.id = t2.previous_category_id
       WHERE
         t2.id = #{id}
       LIMIT 1
@@ -78,21 +77,20 @@ class Category < ApplicationRecord
   # 次のカテゴリーを取得する
   def next_category
     sql = <<~SQL
-      WITH next_category_tbl AS(
-        SELECT
-          id,
-          LEAD(id, 1) OVER(PARTITION BY parent_category_id
-            ORDER BY category_order ASC, id ASC) AS next_category_id
-        FROM
-          categories
-      )
       SELECT
         t1.*
       FROM
         categories t1
-        INNER JOIN
-          next_category_tbl t2
-        ON  t1.id = t2.next_category_id
+        INNER JOIN (
+          SELECT
+            id,
+            LEAD(id, 1) OVER(PARTITION BY parent_category_id
+              ORDER BY category_order ASC, id ASC) AS next_category_id
+          FROM
+            categories
+        ) t2
+        ON
+          t1.id = t2.next_category_id
       WHERE
         t2.id = #{id}
       LIMIT 1
@@ -120,6 +118,7 @@ class Category < ApplicationRecord
         WHERE
           tmp.parent_category_id = categories.id
       )
+
       SELECT
         *
       FROM
