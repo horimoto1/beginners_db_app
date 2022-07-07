@@ -62,15 +62,19 @@ class Category < ApplicationRecord
       )
 
       SELECT
-        t1.*
+        *
       FROM
-        categories t1
-        INNER JOIN
-          previous_category_tbl t2
-        ON  t1.id = t2.previous_category_id
+        categories
       WHERE
-        t2.id = #{id}
-      LIMIT 1
+        id = (
+          SELECT
+            previous_category_id
+          FROM
+            previous_category_tbl
+          WHERE
+            id = #{id}
+          LIMIT 1
+        )
     SQL
 
     Category.find_by_sql(sql).first
@@ -89,15 +93,19 @@ class Category < ApplicationRecord
       )
 
       SELECT
-        t1.*
+        *
       FROM
-        categories t1
-        INNER JOIN
-          next_category_tbl t2
-        ON  t1.id = t2.next_category_id
+        categories
       WHERE
-        t2.id = #{id}
-      LIMIT 1
+        id = (
+          SELECT
+            next_category_id
+          FROM
+            next_category_tbl
+          WHERE
+            id = #{id}
+          LIMIT 1
+        )
     SQL
 
     Category.find_by_sql(sql).first
