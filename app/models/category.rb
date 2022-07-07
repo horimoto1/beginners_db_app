@@ -5,7 +5,7 @@
 #  id                 :integer          not null, primary key
 #  category_order     :integer          not null
 #  name               :string           not null
-#  slug               :string           not null
+#  slug               :string           default(""), not null
 #  summary            :text
 #  title              :string           not null
 #  created_at         :datetime         not null
@@ -68,7 +68,7 @@ class Category < ApplicationRecord
                   ORDER BY category_order ASC, id ASC) AS previous_category_id
               FROM
                 categories
-            )
+            ) AS previous_category_tbl
           WHERE
             id = #{id}
           LIMIT 1
@@ -97,7 +97,7 @@ class Category < ApplicationRecord
                   ORDER BY category_order ASC, id ASC) AS next_category_id
               FROM
                 categories
-            )
+            ) AS next_category_tbl
           WHERE
             id = #{id}
           LIMIT 1

@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2022_06_28_130606) do
-
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,7 +42,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_130606) do
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "slug", null: false
+    t.string "slug", default: "", null: false
     t.index ["category_id", "article_order"], name: "index_articles_on_category_id_and_article_order"
     t.index ["category_id"], name: "index_articles_on_category_id"
     t.index ["name"], name: "index_articles_on_name", unique: true
@@ -64,7 +63,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_130606) do
     t.integer "parent_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "slug", null: false
+    t.string "slug", default: "", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
     t.index ["slug"], name: "index_categories_on_slug", unique: true
     t.index ["title"], name: "index_categories_on_title", unique: true

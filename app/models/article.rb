@@ -6,7 +6,7 @@
 #  article_order :integer          not null
 #  content       :text             not null
 #  name          :string           not null
-#  slug          :string           not null
+#  slug          :string           default(""), not null
 #  status        :string           not null
 #  summary       :text
 #  title         :string           not null
@@ -67,7 +67,7 @@ class Article < ApplicationRecord
                   ORDER BY article_order ASC, id ASC) AS previous_article_id
               FROM
                 articles
-            )
+            ) AS previous_article_tbl
           WHERE
             id = #{id}
           LIMIT 1
@@ -96,7 +96,7 @@ class Article < ApplicationRecord
                   ORDER BY article_order ASC, id ASC) AS next_article_id
               FROM
                 articles
-            )
+            ) AS next_article_tbl
           WHERE
             id = #{id}
           LIMIT 1
