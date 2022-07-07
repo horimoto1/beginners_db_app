@@ -66,8 +66,15 @@ class Category < ApplicationRecord
       FROM
         categories
       WHERE
-        id = (SELECT previous_category_id FROM previous_category_tbl
-          WHERE id = #{id} LIMIT 1)
+        id = (
+          SELECT
+            previous_category_id
+          FROM
+            previous_category_tbl
+          WHERE
+            id = #{id}
+          LIMIT 1
+        )
     SQL
 
     Category.find_by_sql(sql).first
@@ -90,8 +97,15 @@ class Category < ApplicationRecord
       FROM
         categories
       WHERE
-        id = (SELECT next_category_id FROM next_category_tbl
-          WHERE id = #{id} LIMIT 1)
+        id = (
+          SELECT
+            next_category_id
+          FROM
+            next_category_tbl
+          WHERE
+            id = #{id}
+          LIMIT 1
+        )
     SQL
 
     Category.find_by_sql(sql).first
