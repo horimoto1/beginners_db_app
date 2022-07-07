@@ -59,7 +59,6 @@ class Article < ApplicationRecord
         FROM
           articles
       )
-
       SELECT
         t1.*
       FROM
@@ -86,7 +85,6 @@ class Article < ApplicationRecord
         FROM
           articles
       )
-
       SELECT
         t1.*
       FROM

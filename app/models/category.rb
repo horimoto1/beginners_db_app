@@ -60,7 +60,6 @@ class Category < ApplicationRecord
         FROM
           categories
       )
-
       SELECT
         t1.*
       FROM
@@ -87,7 +86,6 @@ class Category < ApplicationRecord
         FROM
           categories
       )
-
       SELECT
         t1.*
       FROM
@@ -122,7 +120,6 @@ class Category < ApplicationRecord
         WHERE
           tmp.parent_category_id = categories.id
       )
-
       SELECT
         *
       FROM
