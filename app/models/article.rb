@@ -61,19 +61,15 @@ class Article < ApplicationRecord
       )
 
       SELECT
-        *
+        t1.*
       FROM
-        articles
+        articles t1
+        INNER JOIN
+          previous_article_tbl t2
+        ON  t1.id = t2.previous_article_id
       WHERE
-        id IN (
-          SELECT
-            previous_article_id
-          FROM
-            previous_article_tbl
-          WHERE
-            id = #{id}
-          LIMIT 1
-        ) AS sub1
+        t2.id = #{id}
+      LIMIT 1
     SQL
 
     Article.find_by_sql(sql).first
@@ -92,19 +88,15 @@ class Article < ApplicationRecord
       )
 
       SELECT
-        *
+        t1.*
       FROM
-        articles
+        articles t1
+        INNER JOIN
+          next_article_tbl t2
+        ON  t1.id = t2.next_article_id
       WHERE
-        id IN (
-          SELECT
-            next_article_id
-          FROM
-            next_article_tbl
-          WHERE
-            id = #{id}
-          LIMIT 1
-        ) AS sub1
+        t2.id = #{id}
+      LIMIT 1
     SQL
 
     Article.find_by_sql(sql).first
