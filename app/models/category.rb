@@ -55,15 +55,15 @@ class Category < ApplicationRecord
       SELECT
         t1.*
       FROM
-        categories AS t1
+        categories t1
         INNER JOIN (
           SELECT
-            id,
+            id AS id,
             LAG(id, 1) OVER(PARTITION BY parent_category_id
               ORDER BY category_order ASC, id ASC) AS previous_category_id
           FROM
             categories
-        ) AS t2
+        ) t2
         ON
           t1.id = t2.previous_category_id
       WHERE
@@ -80,15 +80,15 @@ class Category < ApplicationRecord
       SELECT
         t1.*
       FROM
-        categories AS t1
+        categories t1
         INNER JOIN (
           SELECT
-            id,
+            id AS id,
             LEAD(id, 1) OVER(PARTITION BY parent_category_id
               ORDER BY category_order ASC, id ASC) AS next_category_id
           FROM
             categories
-        ) AS t2
+        ) t2
         ON
           t1.id = t2.next_category_id
       WHERE

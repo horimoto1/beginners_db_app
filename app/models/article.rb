@@ -54,15 +54,15 @@ class Article < ApplicationRecord
       SELECT
         t1.*
       FROM
-        articles AS t1
+        articles t1
         INNER JOIN (
           SELECT
-            id,
+            id AS id,
             LAG(id, 1) OVER(PARTITION BY category_id
               ORDER BY article_order ASC, id ASC) AS previous_article_id
           FROM
             articles
-        ) AS t2
+        ) t2
         ON
           t1.id = t2.previous_article_id
       WHERE
@@ -79,15 +79,15 @@ class Article < ApplicationRecord
       SELECT
         t1.*
       FROM
-        articles AS t1
+        articles t1
         INNER JOIN (
           SELECT
-            id,
+            id AS id,
             LEAD(id, 1) OVER(PARTITION BY category_id
               ORDER BY article_order ASC, id ASC) AS next_article_id
           FROM
             articles
-        ) AS t2
+        ) t2
         ON
           t1.id = t2.next_article_id
       WHERE
