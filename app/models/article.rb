@@ -58,12 +58,12 @@ class Article < ApplicationRecord
         INNER JOIN (
           SELECT
             id AS id,
-            LAG(id, 1) OVER(PARTITION BY category_id ORDER BY article_order ASC, id ASC) AS previous_article_id
+            LAG(id, 1) OVER(PARTITION BY category_id ORDER BY article_order ASC, id ASC) AS previous_article_ida
           FROM
             articles
         ) t2
         ON
-          t1.id = t2.previous_article_id
+          t1.id = t2.previous_article_ida
       WHERE
         t2.id = #{id}
       LIMIT 1
