@@ -69,11 +69,11 @@ class Article < ApplicationRecord
           SELECT
             previous_article_id
           FROM
-            previous_article_tbl AS t
+            previous_article_tbl
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) t1
     SQL
 
     Article.find_by_sql(sql).first
@@ -100,11 +100,11 @@ class Article < ApplicationRecord
           SELECT
             next_article_id
           FROM
-            next_article_tbl AS t
+            next_article_tbl
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) t1
     SQL
 
     Article.find_by_sql(sql).first

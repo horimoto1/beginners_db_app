@@ -70,11 +70,11 @@ class Category < ApplicationRecord
           SELECT
             previous_category_id
           FROM
-            previous_category_tbl AS t
+            previous_category_tbl
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) t1
     SQL
 
     Category.find_by_sql(sql).first
@@ -101,11 +101,11 @@ class Category < ApplicationRecord
           SELECT
             next_category_id
           FROM
-            next_category_tbl AS t
+            next_category_tbl
           WHERE
             id = #{id}
           LIMIT 1
-        )
+        ) t1
     SQL
 
     Category.find_by_sql(sql).first
