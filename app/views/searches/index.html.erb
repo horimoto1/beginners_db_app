@@ -2,7 +2,7 @@
 
 <div class="heading">
   <h1>検索結果</h1>
-  <p>キーワード：<%= @keywords.join(" ") %></p>
+  <p>キーワード：<%= @keyword %></p>
   <p><%= page_entries_info @articles, entry_name: "キーワード" %></p>
 </div>
 
@@ -16,7 +16,7 @@
           <% end %>
         </li>
         <p><%= extract_substring(article.summary + plaintext(article.content),
-                                 @keywords) %></p>
+                                 @positive_keywords) %></p>
       <% end %>
     </ul>
   </div>
