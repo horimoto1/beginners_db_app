@@ -43,11 +43,11 @@ class SearchesController < ApplicationController
     # キーワードを分割する
     keywords = split_keyword(keyword)
 
-    # LIKE述語の特殊記号をエスケープする
-    keywords.map! { |k| ActiveRecord::Base.sanitize_sql_like(k) }
+    # 一般的なワイルドカードをLIKE述語の形式に変換する
+    keywords = convert_wild_card_to_sql_like(keywords)
 
     # キーワードをグループ化する
-    grouping_keyword(keywords)
+    grouping_keywords(keywords)
   end
 
   # キーワードを分割する
@@ -70,8 +70,23 @@ class SearchesController < ApplicationController
     result
   end
 
+  # ワイルドカードをLIKE述語の形式に変換する
+  def convert_wild_card_to_sql_like(keywords)
+    return [] if keywords.blank?
+
+    # LIKE述語の特殊記号をエスケープする
+    keywords.map! { |k| ActiveRecord::Base.sanitize_sql_like(k) }
+
+    # エスケープされていないワイルドカードを変換する
+    keywords.each do |k|
+      k.gsub!(/(?<!\\)((\\\\)*)(?!\\)(\*|\.)/) do
+        $3 == "\*" ? "#{$1}%" : "#{$1}_"
+      end
+    end
+  end
+
   # キーワードをグループ化する
-  def grouping_keyword(keywords)
+  def grouping_keywords(keywords)
     return [] if keywords.blank?
 
     # キーワードをOR条件で区切る

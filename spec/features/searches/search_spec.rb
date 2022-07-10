@@ -126,37 +126,6 @@ RSpec.feature "Searches::Searches", type: :feature do
       end
     end
 
-    context "複数のキーワードをスペース区切りで指定した場合" do
-      given!(:keyword) { "サンプル1 サンプル2 サンプル3" }
-      given!(:sample_articles) {
-        create_list(:article, 10, category_id: category.id, published: true,
-                                  summary: "テスト サンプル1 サンプル2 サンプル3")
-      }
-
-      background do
-        visit searches_path(keyword: keyword)
-      end
-
-      scenario "AND検索ができること" do
-        # 検索結果が表示されること
-        within "div.search-result" do
-          sample_articles.each do |article|
-            expect(page).to have_link article.title,
-                                      href: category_article_path(
-                                        article.category, article
-                                      )
-          end
-        end
-      end
-
-      scenario "複数のキーワードが検索フォームに保持されること" do
-        within "div.header-nav" do
-          # キーワードが検索フォームに保持されること
-          expect(page).to have_field "keyword", with: keyword
-        end
-      end
-    end
-
     context "キーワードがスペースだけの場合", js: true do
       background do
         visit root_path
@@ -213,6 +182,208 @@ RSpec.feature "Searches::Searches", type: :feature do
         within "li.side-menu-nav" do
           # キーワードが検索フォームに保持されること
           expect(page).to have_field "keyword", with: keyword
+        end
+      end
+    end
+  end
+
+  feature "検索機能" do
+    given!(:category) { create(:category) }
+    given!(:sample_articles_1) {
+      create_list(:article, 3, category_id: category.id, published: true,
+                               summary: "サンプル1 サンプル2 サンプル3")
+    }
+    given!(:sample_articles_2) {
+      create_list(:article, 3, category_id: category.id, published: true,
+                               summary: "サンプル4 サンプル5 サンプル6")
+    }
+    given!(:sample_articles_3) {
+      create_list(:article, 3, category_id: category.id, published: true,
+                               summary: "sample1 sample2 sample3")
+    }
+
+    feature "AND検索" do
+      given!(:keyword) { "サンプル1 サンプル2 サンプル3" }
+
+      background do
+        visit searches_path(keyword: keyword)
+      end
+
+      scenario "AND検索ができること" do
+        within "div.search-result" do
+          # 検索結果に含まれる
+          sample_articles_1.each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
+
+          # 検索結果に含まれない
+          sample_articles_2.each do |article|
+            expect(page).to have_no_link article.title,
+                                         href: category_article_path(
+                                           article.category, article
+                                         )
+          end
+
+          # 検索結果に含まれない
+          sample_articles_3.each do |article|
+            expect(page).to have_no_link article.title,
+                                         href: category_article_path(
+                                           article.category, article
+                                         )
+          end
+        end
+      end
+    end
+
+    feature "OR検索" do
+      given!(:keyword) { "サンプル2 サンプル3 OR サンプル4 サンプル6" }
+
+      background do
+        visit searches_path(keyword: keyword)
+      end
+
+      scenario "OR検索ができること" do
+        within "div.search-result" do
+          # 検索結果に含まれる
+          sample_articles_1.each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
+
+          # 検索結果に含まれる
+          sample_articles_2.each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
+
+          # 検索結果に含まれない
+          sample_articles_3.each do |article|
+            expect(page).to have_no_link article.title,
+                                         href: category_article_path(
+                                           article.category, article
+                                         )
+          end
+        end
+      end
+    end
+
+    feature "除外検索" do
+      given!(:keyword) {
+        "サンプル1 -サンプル4 OR サンプル5 -サンプル6 OR sample -サンプル"
+      }
+
+      background do
+        visit searches_path(keyword: keyword)
+      end
+
+      scenario "除外検索ができること" do
+        within "div.search-result" do
+          # 検索結果に含まれる
+          sample_articles_1.each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
+
+          # 検索結果に含まれない
+          sample_articles_2.each do |article|
+            expect(page).to have_no_link article.title,
+                                         href: category_article_path(
+                                           article.category, article
+                                         )
+          end
+
+          # 検索結果に含まれる
+          sample_articles_3.each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
+        end
+      end
+    end
+
+    feature "フレーズ検索" do
+      given!(:keyword) {
+        %("サンプル1 サンプル2" OR "サンプル4 サンプル6" OR sample1 -"sample2")
+      }
+
+      background do
+        visit searches_path(keyword: keyword)
+      end
+
+      scenario "フレーズ検索ができること" do
+        within "div.search-result" do
+          # 検索結果に含まれる
+          sample_articles_1.each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
+
+          # 検索結果に含まれない
+          sample_articles_2.each do |article|
+            expect(page).to have_no_link article.title,
+                                         href: category_article_path(
+                                           article.category, article
+                                         )
+          end
+
+          # 検索結果に含まれない
+          sample_articles_3.each do |article|
+            expect(page).to have_no_link article.title,
+                                         href: category_article_path(
+                                           article.category, article
+                                         )
+          end
+        end
+      end
+    end
+
+    feature "ワイルドカード検索" do
+      given!(:keyword) {
+        %(-"サ*1 サン..2" OR サ%4 サン..6 OR "s*1 s.....2 s*l.3")
+      }
+
+      background do
+        visit searches_path(keyword: keyword)
+      end
+
+      scenario "ワイルドカード検索ができること" do
+        within "div.search-result" do
+          # 検索結果に含まれない
+          sample_articles_1.each do |article|
+            expect(page).to have_no_link article.title,
+                                         href: category_article_path(
+                                           article.category, article
+                                         )
+          end
+
+          # 検索結果に含まれる
+          sample_articles_2.each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
+
+          # 検索結果に含まれる
+          sample_articles_3.each do |article|
+            expect(page).to have_link article.title,
+                                      href: category_article_path(
+                                        article.category, article
+                                      )
+          end
         end
       end
     end
