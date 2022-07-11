@@ -9,7 +9,6 @@
     "clipboard": "^2.0.11",
     "inline-attachment": "^2.0.3",
     "jquery": "^3.6.0",
-    "marked": "^4.0.16",
     "simplemde": "^1.11.2",
     "turbolinks": "^5.2.0",
     "webpack": "4.46.0",

@@ -4,7 +4,6 @@ import "inline-attachment/src/inline-attachment"
 import "inline-attachment/src/codemirror-4.inline-attachment"
 import SimpleMDE from "simplemde"
 import Rails from "@rails/ujs"
-import { marked } from "marked"
 
 let simplemde = null
 
@@ -26,18 +25,31 @@ function showErrorMessages(response) {
   alert(errorMessages)
 }
 
+// マークダウンをパースする
+function markdownParse(plainText, preview) {
+  const xhr = new XMLHttpRequest()
+  xhr.open("POST", "/preview", true)
+  xhr.setRequestHeader("X-CSRF-Token", Rails.csrfToken())
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+
+  xhr.send(`text=${plainText}`)
+
+  xhr.onload = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      const json = JSON.parse(xhr.response)
+      preview.innerHTML = json.markdown
+    } else {
+      preview.innerHTML = "パースに失敗しました"
+    }
+  }
+}
+
 document.addEventListener("turbolinks:load", () => {
   // Markdownエディタを設定する
   const element = document.getElementById("article_content")
   if (element === null) {
     return
   }
-
-  // プレビュー時のオプション
-  marked.setOptions({
-    // 改行を<br>に変換する
-    breaks: true
-  })
 
   // textareaをMarkdownエディタにする
   simplemde = new SimpleMDE({
@@ -67,13 +79,12 @@ document.addEventListener("turbolinks:load", () => {
     forceSync: true,
     // プレビューを有効にする
     previewRender(plainText, preview) {
-      setTimeout(() => {
-        preview.innerHTML = marked(plainText)
-      }, 250)
+      markdownParse(plainText, preview)
 
       return "Loading..."
     }
   })
+
   // エディタに画像がドラッグ&ドロップされた際の処理
   inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
     uploadUrl: "/attachments", // POSTで送信するパス

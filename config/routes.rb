@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :articles, except: :index
   end
 
+  post "preview", to: "articles#preview"
+
   resources :attachments, only: [:index, :create, :destroy]
 
   resources :searches, only: :index

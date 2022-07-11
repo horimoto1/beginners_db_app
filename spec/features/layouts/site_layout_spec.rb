@@ -18,7 +18,7 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
 
     context "画面幅が800pxより大きい場合", js: true do
       background do
-        width = 1000 # 801pxだとパスしないため余裕を持って1000pxに調整
+        width = 801
         height = 800
         current_window.resize_to(width, height)
       end

@@ -129,7 +129,7 @@ RSpec.feature "Searches::Searches", type: :feature do
     context "キーワードがスペースだけの場合", js: true do
       background do
         visit root_path
-        width = 1000
+        width = 801
         height = 800
         current_window.resize_to(width, height)
       end

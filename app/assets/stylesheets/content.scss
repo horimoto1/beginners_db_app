@@ -78,7 +78,10 @@
 
     /* 整形済みテキスト */
     pre {
+      background-color: transparent;
       margin: 1rem 0px 0px 1rem;
+      padding: 0px;
+      white-space: pre;
     }
   }
 

@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_category
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :preview]
+  before_action :set_category, except: [:preview]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def show
@@ -47,6 +47,12 @@ class ArticlesController < ApplicationController
     @article.destroy
     flash[:success] = "記事を削除しました"
     redirect_to category_path(@category)
+  end
+
+  # マークダウンのプレビュー
+  def preview
+    @text = params[:text]
+    render :preview, formats: :json
   end
 
   private
