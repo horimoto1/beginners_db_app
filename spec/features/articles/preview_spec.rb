@@ -59,7 +59,7 @@ RSpec.feature "Articles::Previews", type: :feature, js: true do
 
     private
 
-    # CodeMirrorを操作する
+    # CodeMirrorにテキストを入力する
     def fill_in_editor_field(text)
       within ".CodeMirror" do
         # Click makes CodeMirror element active:
