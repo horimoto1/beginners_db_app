@@ -3,27 +3,34 @@
   line-height: 3rem;
   padding: 0px 1rem;
 
-  input[type="search"] {
-    width: 12rem;
-    height: 2rem;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    background-color: white;
-    font-size: 1rem;
-  }
+  form {
+    position: relative;
 
-  button {
-    width: 4rem;
-    height: 2rem;
-    background-color: #3a3a3a;
-    color: white;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
+    input[type="search"] {
+      width: 14rem;
+      height: 2rem;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background-color: white;
+      font-size: 1rem;
+      padding-left: 2rem;
+    }
 
-    &:hover {
-      background-color: #7a7a7a;
+    button {
+      position: absolute;
+      top: 0.5rem;
+      left: 0px;
+      width: 2rem;
+      height: 2rem;
+      border: 0;
+      color: #bbb;
+      cursor: pointer;
+      font-size: 1rem;
+      background: inherit;
+
+      &:hover {
+        color: #1a0dab;
+      }
     }
   }
 }

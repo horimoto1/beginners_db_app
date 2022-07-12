@@ -16,11 +16,6 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
 
         # アラートが表示されること
         accept_alert do
-          within ".CodeMirror" do
-            # Click makes CodeMirror element active:
-            current_scope.click
-          end
-
           # ファイルをD&Dする
           file_path = Rails.root.join("spec/fixtures/5MB.png")
           drop_file_editor_field(file_path)
@@ -41,11 +36,6 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
     context "入力値が有効な場合" do
       scenario "投稿に成功し、コンテンツ内に画像パスが追加されること" do
         count = Attachment.count
-
-        within ".CodeMirror" do
-          # Click makes CodeMirror element active:
-          current_scope.click
-        end
 
         # ファイルをD&Dする
         file_path = Rails.root.join("spec/fixtures/kitten.jpg")

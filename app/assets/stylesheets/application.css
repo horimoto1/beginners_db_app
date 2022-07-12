@@ -52,12 +52,14 @@ p {
   overflow-wrap: break-word; /* 単語の途中でも折り返す */
 }
 
-input {
+input,
+textarea,
+select {
   appearance: none; /* プラットフォームネイティブのスタイルを適用しない */
   -webkit-appearance: none; /* Google Chrome/Safari対応 */
   -moz-appearance: none; /* Firefox対応 */
   -o-appearance: none; /* Opera対応 */
-  outline-width: 0; /* カーソル時の枠線を取り消す */
+  outline-width: 0; /* フォーカス時の枠線を取り消す */
 }
 
 html {
@@ -117,20 +119,11 @@ body {
   clear: both; /* フロート状態の要素のサイズをその親要素に含める */
 }
 
-/* タブレット向けレイアウト */
+/* タブレット、スマートフォン向けレイアウト */
 @media screen and (max-width: 800px) {
   /* 共通レイアウト */
   html {
-    /* remの基準値を画面横幅の2%に調整する */
-    font-size: 2vw;
-  }
-}
-
-/* スマートフォン向けレイアウト */
-@media screen and (max-width: 400px) {
-  /* 共通レイアウト */
-  html {
-    /* remの基準値を画面横幅の3%に調整する */
-    font-size: 3vw;
+    /* remの基準値を16px～12pxに調整する */
+    font-size: max(2vw, 12px);
   }
 }
