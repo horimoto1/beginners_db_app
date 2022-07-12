@@ -46,7 +46,7 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
         end
 
         # ファイルをD&Dする
-        file_path = Rails.root.join("spec/fixtures/5MB.png")
+        file_path = Rails.root.join("spec/fixtures/kitten.jpg")
         page.drop_file(".CodeMirror", file_path)
 
         # Ajaxの処理完了を待機する
@@ -64,7 +64,7 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
 
           # コンテンツ内に画像パスが追加されること
           image_path = URI.parse(url_for(Attachment.last.image)).path
-          expect(field.value).to include "![file](#{image_path})"
+          expect(field.value).to include "![kitten.jpg](#{image_path})"
         end
       end
     end

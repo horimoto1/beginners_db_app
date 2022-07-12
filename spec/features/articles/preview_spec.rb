@@ -15,7 +15,7 @@ RSpec.feature "Articles::Previews", type: :feature, js: true do
       end
 
       scenario "マークダウンのプレビューが表示できること" do
-        fill_in_editor_field "# サンプル1\n## サンプル2\n### サンプル3"
+        fill_in_editor_field "# サンプル1\n## サン%プル2\n### サン プル3"
 
         button = first(".fa-eye")
         button.click
@@ -27,8 +27,8 @@ RSpec.feature "Articles::Previews", type: :feature, js: true do
         within "div.content" do
           # マークダウンのパース結果が表示されること
           expect(page).to have_selector "h1#toc_0", text: "サンプル1"
-          expect(page).to have_selector "h2#toc_1", text: "サンプル2"
-          expect(page).to have_selector "h3#toc_2", text: "サンプル3"
+          expect(page).to have_selector "h2#toc_1", text: "サン%プル2"
+          expect(page).to have_selector "h3#toc_2", text: "サン プル3"
         end
       end
     end
@@ -39,7 +39,7 @@ RSpec.feature "Articles::Previews", type: :feature, js: true do
       end
 
       scenario "マークダウンのプレビューが表示できること" do
-        fill_in_editor_field "# サンプル1\n## サンプル2\n### サンプル3"
+        fill_in_editor_field "# サンプル1\n## サン%プル2\n### サン プル3"
 
         button = first(".fa-eye")
         button.click
@@ -51,8 +51,8 @@ RSpec.feature "Articles::Previews", type: :feature, js: true do
         within "div.content" do
           # マークダウンのパース結果が表示されること
           expect(page).to have_selector "h1#toc_0", text: "サンプル1"
-          expect(page).to have_selector "h2#toc_1", text: "サンプル2"
-          expect(page).to have_selector "h3#toc_2", text: "サンプル3"
+          expect(page).to have_selector "h2#toc_1", text: "サン%プル2"
+          expect(page).to have_selector "h3#toc_2", text: "サン プル3"
         end
       end
     end

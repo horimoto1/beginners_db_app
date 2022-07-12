@@ -53,6 +53,10 @@ p {
 }
 
 input {
+  appearance: none; /* プラットフォームネイティブのスタイルを適用しない */
+  -webkit-appearance: none; /* Google Chrome/Safari対応 */
+  -moz-appearance: none; /* Firefox対応 */
+  -o-appearance: none; /* Opera対応 */
   outline-width: 0; /* カーソル時の枠線を取り消す */
 }
 

@@ -39,7 +39,7 @@ RSpec.feature "Attachments::AttachmentIndices", type: :feature do
             within "li.copy-to-clip" do
               copy_text = find_field("copy-text-#{attachment.id}")
               expect(copy_text.readonly?).to eq true
-              expect(copy_text.value).to eq URI.parse(url_for(attachment.image)).path
+              expect(copy_text.value).to eq "![#{attachment.image.filename}](#{URI.parse(url_for(attachment.image)).path})"
               expect(page).to have_button
             end
 

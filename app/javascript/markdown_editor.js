@@ -32,7 +32,10 @@ function markdownParse(plainText, preview) {
   xhr.setRequestHeader("X-CSRF-Token", Rails.csrfToken())
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 
-  xhr.send(`text=${plainText}`)
+  // 送信するデータをURLエンコードする
+  // application/x-www-form-urlencodedのため、空白の%20を+に全て置換する
+  const data = `text=${encodeURIComponent(plainText)}`.replace(/%20/g, "+")
+  xhr.send(data)
 
   xhr.onload = () => {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -87,10 +90,19 @@ document.addEventListener("turbolinks:load", () => {
 
   // エディタに画像がドラッグ&ドロップされた際の処理
   inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
-    uploadUrl: "/attachments", // POSTで送信するパス
-    uploadFieldName: "image", // パラメータのキー
+    // POSTで送信するパス
+    uploadUrl: "/attachments",
+    // パラメータのキー
+    uploadFieldName: "image",
+    // content-type
     allowedTypes: ["image/jpeg", "image/png", "image/gif", "image/svg+xml"],
-    extraHeaders: { "X-CSRF-Token": Rails.csrfToken() }, // CSRF対策
+    // CSRF対策
+    extraHeaders: { "X-CSRF-Token": Rails.csrfToken() },
+    // アップロード後にエディタに埋め込むテキスト
+    urlText: (filename, result) => `![${result.orig_file_name}](${filename})`,
+    // オリジナルのファイル名を渡せるようにする
+    remoteFilename: (file) => file.name,
+    // アップロード後のイベント
     onFileUploadResponse: (response) => {
       showErrorMessages(response)
     }

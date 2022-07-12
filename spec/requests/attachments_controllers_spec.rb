@@ -50,6 +50,8 @@ RSpec.describe "AttachmentsControllers", type: :request do
         sign_in user
         expect { post attachments_path, params: { image: image } }.to \
           change { Attachment.count }.by(1)
+        expect(JSON.parse(response.body)["orig_file_name"]).to \
+          eq Attachment.last.image.filename.to_s
         expect(JSON.parse(response.body)["filename"]).to \
           eq URI.parse(url_for(Attachment.last.image)).path
       end
