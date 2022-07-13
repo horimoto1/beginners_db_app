@@ -15,9 +15,6 @@
     "webpack-cli": "3.3.12"
   },
   "version": "0.1.0",
-  "engines": {
-    "node": "16.14.2"
-  },
   "devDependencies": {
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
