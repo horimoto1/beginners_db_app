@@ -17,14 +17,16 @@
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="inline-field check-box">
+      <div class="check-box">
         <%= f.check_box :remember_me %>
         <%= f.label :remember_me, "ログイン状態を保持する" %>
       </div>
     <% end %>
 
-    <div class="action-field">
+    <div class="form-button right">
       <%= f.submit "ログイン" %>
     </div>
+
+    <div class="clear"></div>
   <% end %>
 </div>

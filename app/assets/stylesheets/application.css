@@ -116,6 +116,14 @@ body {
   min-width: 300px;
 }
 
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
 .clear {
   clear: both; /* フロート状態の要素のサイズをその親要素に含める */
 }
