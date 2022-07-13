@@ -111,7 +111,7 @@ body {
 @media screen and (max-width: 800px) {
   /* 共通レイアウト */
   html {
-    /* remの基準値を16px～12pxに調整する */
-    font-size: #{"max(2vw, 12px)"}; /* Incompatible units対策 */
+    /* remの基準値を12px～16pxに調整する */
+    font-size: clamp(12px, 2vw, 16px);
   }
 }
