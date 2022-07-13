@@ -12,15 +12,13 @@
 
     /* ぱんくずリスト */
     .breadcrumb {
-      float: left;
-
       li {
-        float: left;
+        display: inline-block;
         margin-right: 0.5rem;
       }
 
       .fa-angle-right {
-        margin: 0px 0.5rem;
+        margin-right: 0.5rem;
       }
 
       a {

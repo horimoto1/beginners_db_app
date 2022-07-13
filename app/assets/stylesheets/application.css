@@ -113,10 +113,15 @@ img {
 body {
   margin: 0px;
   background-color: #eee;
+  min-width: 300px;
 }
 
 .clear {
   clear: both; /* フロート状態の要素のサイズをその親要素に含める */
+}
+
+.hidden {
+  display: none;
 }
 
 /* タブレット、スマートフォン向けレイアウト */

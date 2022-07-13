@@ -1,8 +1,6 @@
 <% provide(:title, @category.title) %>
 <%= render "shared/breadcrumb", object: @category %>
 
-<div class="clear"></div>
-
 <% if user_signed_in? %>
   <div class="action-menu">
     <ul class="left-list">

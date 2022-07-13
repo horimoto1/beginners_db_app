@@ -29,15 +29,21 @@
                    selected: @article.published? ? "published" : "private" %>
     </div>
 
+    <div class="clear"></div>
+
     <div class="inline-field">
       <%= f.label :article_order, "記事の並び順" %>
       <%= f.number_field :article_order %>
     </div>
 
+    <div class="clear"></div>
+
     <div class="inline-field">
       <%= f.label :category_id, "カテゴリーID" %>
       <%= f.number_field :category_id %>
     </div>
+
+    <div class="clear"></div>
 
     <div class="action-field">
       <%= f.submit yield(:button_text) %>

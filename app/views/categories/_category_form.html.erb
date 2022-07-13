@@ -22,10 +22,14 @@
       <%= f.number_field :category_order %>
     </div>
 
+    <div class="clear"></div>
+
     <div class="inline-field">
       <%= f.label :parent_category_id, "親カテゴリーID" %>
       <%= f.number_field :parent_category_id %>
     </div>
+
+    <div class="clear"></div>
 
     <div class="action-field">
       <%= f.submit yield(:button_text) %>

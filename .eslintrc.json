@@ -17,8 +17,6 @@
     // "linebreak-style": "off",
     // 文字列リテラルにはダブルクォートを使用する
     "quotes": ["error", "double"],
-    // 末尾にセミコロンは使用しない
-    "semi": ["error", "never"],
     // 末尾にカンマを使用しない
     "comma-dangle": ["error", "never"],
     // ダイアログの使用を許可する
