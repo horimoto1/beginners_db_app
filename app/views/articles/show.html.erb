@@ -1,6 +1,6 @@
 <% provide(:title, @article.title) %>
 
-<%= render "shared/breadcrumb", object: @article %>
+<%= render "shared/breadcrumb" %>
 
 <% if user_signed_in? %>
   <div class="action-menu">
@@ -24,7 +24,7 @@
   <%= markdown(@article.summary) %>
 </div>
 
-<%= render "shared/meta", object: @category %>
+<%= render "shared/meta", object: @article %>
 
 <div class="clear"></div>
 

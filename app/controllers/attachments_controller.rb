@@ -20,6 +20,11 @@ class AttachmentsController < ApplicationController
     @attachment.image.purge if @attachment.image.attached?
     @attachment.destroy
     flash[:success] = "画像を削除しました"
-    redirect_to attachments_path
+
+    if request.referer && URI(request.referer).path == attachments_path
+      redirect_to request.referer
+    else
+      redirect_to attachments_path
+    end
   end
 end

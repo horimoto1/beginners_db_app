@@ -36,7 +36,7 @@ RSpec.feature "Attachments::AttachmentIndices", type: :feature do
             expect(page).to have_selector "img"
 
             # 各画像に画像パスのコピーボタンが表示されること
-            within "li.copy-to-clip" do
+            within "div.copy-to-clip" do
               copy_text = find_field("copy-text-#{attachment.id}")
               expect(copy_text.readonly?).to eq true
               expect(copy_text.value).to eq "![#{attachment.image.filename}](#{URI.parse(url_for(attachment.image)).path})"

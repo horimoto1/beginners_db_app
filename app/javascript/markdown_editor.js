@@ -46,12 +46,9 @@ function showErrorMessages(response) {
     return;
   }
 
-  let errorMessages = "";
+  let errorMessages = "画像を投稿できませんでした";
   for (let i = 0; i < json.errors.length; i++) {
-    errorMessages += json.errors[i];
-    if (i < json.errors.length - 1) {
-      errorMessages += "\n";
-    }
+    errorMessages += `\n${json.errors[i]}`;
   }
 
   alert(errorMessages);

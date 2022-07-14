@@ -22,7 +22,7 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
             drop_file_editor_field(file_path)
 
             # Ajaxの処理完了を待機する
-            sleep 3
+            sleep 1
           end
 
           # 投稿に失敗すること
@@ -43,7 +43,7 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
           drop_file_editor_field(file_path)
 
           # Ajaxの処理完了を待機する
-          sleep 3
+          sleep 1
 
           # 投稿に成功すること
           expect(Attachment.count).to eq(count + 1)
@@ -68,7 +68,7 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
             attach_file("input-file", file_path, make_visible: true)
 
             # Ajaxの処理完了を待機する
-            sleep 3
+            sleep 1
           end
 
           # 投稿に失敗すること
@@ -89,7 +89,7 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
           attach_file("input-file", file_path, make_visible: true)
 
           # Ajaxの処理完了を待機する
-          sleep 3
+          sleep 1
 
           # 投稿に成功すること
           expect(Attachment.count).to eq(count + 1)
