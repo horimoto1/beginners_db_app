@@ -49,11 +49,13 @@
   }
 
   .side-menu-list {
+    width: 30vw;
+    min-width: 150px;
     background-color: #3a3a3a;
     height: 100vh; /* 画面の高さの100% */
     position: fixed;
     top: 0px;
-    right: -100%; // 要素を画面外に隠す
+    right: -100vw; // 要素を画面外に隠す
     z-index: 100;
     // display: none;
     transition: right 300ms 0s ease-in; // アニメーションさせる

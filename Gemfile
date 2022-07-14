@@ -52,6 +52,7 @@ end
 
 group :test do
   gem "capybara"
+  gem "clipboard"
   gem "selenium-webdriver"
 end
 

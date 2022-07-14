@@ -89,4 +89,24 @@ RSpec.feature "Attachments::AttachmentIndices", type: :feature do
       end
     end
   end
+
+  # headlessモードだとコピーできないため、通常モードで動かす
+  feature "画像パスコピー機能", driver: :chromedriver do
+    scenario "クリップボードに画像パスがコピーされること" do
+      visit attachments_path
+
+      within "div.image-list" do
+        Attachment.all.order(created_at: :desc).limit(10).each do |attachment|
+          within "li#image-item-#{attachment.id}" do
+            within "div.copy-to-clip" do
+              copy_text = find_field("copy-text-#{attachment.id}")
+              clip_button = find(".clip-button")
+              clip_button.click
+              expect(copy_text.value).to eq Clipboard.paste
+            end
+          end
+        end
+      end
+    end
+  end
 end
