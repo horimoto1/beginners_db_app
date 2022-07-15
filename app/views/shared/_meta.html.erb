@@ -1,10 +1,18 @@
 <div class="meta">
-  <div class="create">
-    <span class="fa fa-clock-o"></span>
-    <%= object.created_at.strftime("%Y/%m/%d") %>
-  </div>
   <div class="update">
     <span class="fa fa-history"></span>
     <%= object.updated_at.strftime("%Y/%m/%d") %>
   </div>
+
+  <div class="create">
+    <span class="fa fa-clock-o"></span>
+    <%= object.created_at.strftime("%Y/%m/%d") %>
+  </div>
+
+  <% if user_signed_in? && object.class == Article %>
+    <div class="status">
+      <span class="fa fa-flag"></span>
+      <%= object.status == "published" ? "公開中" : "非公開"%>
+    </div>
+  <% end %>
 </div>

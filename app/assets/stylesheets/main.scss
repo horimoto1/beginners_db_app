@@ -85,19 +85,25 @@
 
     /* メタデータ */
     .meta {
-      float: right;
       color: #777;
       line-height: 2rem;
 
+      /* 記事のステータス */
+      .status {
+        float: right;
+        margin-left: 1rem;
+      }
+
       /* 作成日時 */
       .create {
-        margin-right: 1rem;
-        float: left;
+        float: right;
+        margin-left: 1rem;
       }
 
       /* 更新日時 */
       .update {
-        float: left;
+        float: right;
+        margin-left: 1rem;
       }
     }
 

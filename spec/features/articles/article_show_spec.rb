@@ -10,10 +10,11 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
   given!(:article) { articles[1] }
 
   feature "記事詳細ページのレイアウト" do
-    scenario "パンくずリストが表示されること" do
+    background do
       visit category_article_path(article.category, article)
+    end
 
-      # パンくずリストが表示されること
+    scenario "パンくずリストが表示されること" do
       within "div.breadcrumb" do
         expect(page).to have_link "ホーム", href: root_path
         expect(page).to have_link article.category.title,
@@ -22,9 +23,6 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
     end
 
     scenario "作成日時、更新日時が表示されること" do
-      visit category_article_path(article.category, article)
-
-      # 作成日時、更新日時が表示されること
       within "div.meta" do
         expect(page).to have_content article.created_at.strftime("%Y/%m/%d")
         expect(page).to have_content article.updated_at.strftime("%Y/%m/%d")
@@ -32,18 +30,12 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
     end
 
     scenario "見出しが表示されること" do
-      visit category_article_path(article.category, article)
-
-      # 見出しが表示されること
       within "div.heading" do
         expect(page).to have_selector "h1", text: article.title
       end
     end
 
     scenario "目次が表示されること", js: true do
-      visit category_article_path(article.category, article)
-
-      # 目次が表示されること
       within "div.toc" do
         # 目次のページ内リンク一覧が表示されること
         within "div.toc-table" do
@@ -72,9 +64,6 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
     end
 
     scenario "コンテンツが表示されること" do
-      visit category_article_path(article.category, article)
-
-      # コンテンツが表示されること
       within "div.content" do
         # マークダウンのパース結果が表示されること
         expect(page).to have_selector "h1#toc_0", text: "テスト1"
@@ -84,8 +73,6 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
     end
 
     scenario "ページャが表示されること" do
-      visit category_article_path(article.category, article)
-
       within "div.pager" do
         # 前の記事へのリンクが表示されること
         within "div.previous" do
@@ -106,18 +93,50 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
     end
 
     context "ログアウト時" do
-      scenario "アクションメニューが表示されないこと" do
+      background do
         visit category_article_path(article.category, article)
+      end
 
+      scenario "ステータスが表示されないこと" do
+        within "div.meta" do
+          expect(page).to have_no_selector "div.status"
+        end
+      end
+
+      scenario "アクションメニューが表示されないこと" do
         expect(page).to have_no_selector "div.action-menu"
       end
     end
 
     context "ログイン時" do
       given!(:user) { create(:user) }
+      given!(:private_article) { create(:article) }
+
+      background do
+        sign_in user
+      end
+
+      context "記事が非公開" do
+        scenario "ステータスが非公開で表示されること" do
+          visit category_article_path(private_article.category, private_article)
+
+          within "div.meta" do
+            expect(page).to have_content "非公開"
+          end
+        end
+      end
+
+      context "記事が公開中" do
+        scenario "ステータスが公開中で表示されること" do
+          visit category_article_path(article.category, article)
+
+          within "div.meta" do
+            expect(page).to have_content "公開中"
+          end
+        end
+      end
 
       scenario "アクションメニューが表示されること" do
-        sign_in user
         visit category_article_path(article.category, article)
 
         within "div.action-menu" do

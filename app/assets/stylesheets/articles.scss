@@ -1,3 +1,12 @@
-// Place all the styles related to the attachments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+/* 記事のステータス */
+#article_status {
+  /* 非公開 */
+  option:nth-child(1) {
+    color: #ff0000;
+  }
+
+  /* 公開 */
+  option:nth-child(2) {
+    color: #0000ff;
+  }
+}

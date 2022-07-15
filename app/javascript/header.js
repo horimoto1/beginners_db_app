@@ -6,7 +6,15 @@ function closeSideMenu() {
   }
 }
 
-// キーワードが未入力の場合は検索を実行しない
+// 検索フォームを閉じる
+function closeSearchForm() {
+  const toggle = document.getElementById("search-form-toggle");
+  if (toggle !== null) {
+    toggle.checked = false;
+  }
+}
+
+// 検索フォームの入力状態をチェックする
 function searchFormCheck(e) {
   let element = e.target;
   // クリック位置によっては子要素がイベント発生元になるため調整する
@@ -22,19 +30,19 @@ function searchFormCheck(e) {
 
   // 空文字はfalseと評価される
   if (!keyword.value.trim()) {
-    // クリックをキャンセルする
+    // キーワードが未入力の場合は検索を実行しない
     e.preventDefault();
   }
 }
 
 // 検索フォームのトグルボタンを設定する
 function setupSearchFormToggle() {
-  const element = document.getElementById("search-form-toggle");
-  if (element === null) {
+  const toggle = document.getElementById("search-form-toggle");
+  if (toggle === null) {
     return;
   }
 
-  element.addEventListener("change", (e) => {
+  toggle.addEventListener("change", (e) => {
     const searchForm = document.querySelector(".search-form");
     if (searchForm === null) {
       return;
@@ -73,7 +81,6 @@ function handleMatchMedia(e) {
 
 // ページ読み込み時の初期化処理
 document.addEventListener("turbolinks:load", () => {
-  // HTML全体が読み込まれてからイベントを登録する
   document.addEventListener("click", (e) => {
     // サイドメニューの外側をクリックした際はサイドメニューを閉じる
     if (!e.target.closest(".side-menu")) {
@@ -94,10 +101,16 @@ document.addEventListener("turbolinks:load", () => {
   mediaQuery.addEventListener("change", (e) => {
     handleMatchMedia(e);
   });
+
+  // 初期設定
+  handleMatchMedia(mediaQuery);
 });
 
 // ページ遷移時のリセット処理
 document.addEventListener("turbolinks:visit", () => {
-  // 一瞬だけ前ページのサイドメニューが表示されてしまう場合があるため
+  // サイドメニューの表示状態がリセットされない場合があるため
   closeSideMenu();
+
+  // 検索フォームの表示状態がリセットされない場合があるため
+  closeSearchForm();
 });

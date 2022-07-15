@@ -7,7 +7,7 @@ import Rails from "@rails/ujs";
 
 let simplemde = null;
 
-// ファイルをMarkdownエディタにD&Dする
+// ファイルをマークダウンエディタにD&Dする
 function dropFile(file) {
   if (file !== null && simplemde !== null) {
     const event = jQuery.Event("drop", { dataTransfer: { files: [file] } });
@@ -76,7 +76,7 @@ function markdownParse(plainText, preview) {
   };
 }
 
-// Markdownエディタを設定する
+// マークダウンエディタを設定する
 function setupMarkdownEditer() {
   // textareaを取得する
   const element = document.getElementById("article_content");
@@ -84,7 +84,7 @@ function setupMarkdownEditer() {
     return;
   }
 
-  // textareaをMarkdownエディタにする
+  // textareaをマークダウンエディタにする
   simplemde = new SimpleMDE({
     element,
     // ツールバーのカスタマイズ
@@ -148,7 +148,7 @@ function setupMarkdownEditer() {
   });
 }
 
-// Markdownエディタをリセットする
+// マークダウンエディタをリセットする
 function resetMarkdownEditer() {
   if (simplemde !== null) {
     simplemde.toTextArea();
@@ -167,6 +167,6 @@ document.addEventListener("turbolinks:load", () => {
 
 // ページ遷移時のリセット処理
 document.addEventListener("turbolinks:visit", () => {
-  // 戻るボタンなどでページ遷移するとMarkdownエディタが増殖するため
+  // マークダウンエディタの増殖を防止する
   resetMarkdownEditer();
 });
