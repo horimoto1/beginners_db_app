@@ -24,7 +24,7 @@ RSpec.feature "Searches::Searches", type: :feature do
       visit root_path
 
       # 検索する
-      within "div.header-nav" do
+      within "div.search-form" do
         fill_in "keyword", with: keyword
         click_button
         expect(page).to have_current_path searches_path, ignore_query: true
@@ -135,7 +135,7 @@ RSpec.feature "Searches::Searches", type: :feature do
       end
 
       scenario "検索できないこと" do
-        within "div.header-nav" do
+        within "div.search-form" do
           # 空欄
           fill_in "keyword", with: ""
           click_button
@@ -154,7 +154,7 @@ RSpec.feature "Searches::Searches", type: :feature do
       end
     end
 
-    context "サイドメニューの検索フォームから検索する場合", js: true do
+    context "タブレット、スマホ用の検索フォームから検索する場合", js: true do
       background do
         visit root_path
         width = 800
@@ -162,26 +162,17 @@ RSpec.feature "Searches::Searches", type: :feature do
         current_window.resize_to(width, height)
       end
 
-      scenario "キーワードがサイドメニューの検索フォームに保持されること" do
+      scenario "検索できること" do
         keyword = "test"
 
-        # チェックボックスをチェックしてサイドメニューリストを表示する
-        side_menu_label = find("label[for=side-menu-toggle]")
-        side_menu_label.click
+        # チェックボックスをチェックして検索フォームを表示する
+        search_form_label = find("label[for=search-form-toggle]")
+        search_form_label.click
 
-        within "li.side-menu-nav" do
+        within "div.search-form" do
           fill_in "keyword", with: keyword
           click_button
           expect(page).to have_current_path searches_path, ignore_query: true
-        end
-
-        # ページ遷移するのでもう一度サイドメニューリストを表示する
-        side_menu_label = find("label[for=side-menu-toggle]")
-        side_menu_label.click
-
-        within "li.side-menu-nav" do
-          # キーワードが検索フォームに保持されること
-          expect(page).to have_field "keyword", with: keyword
         end
       end
     end

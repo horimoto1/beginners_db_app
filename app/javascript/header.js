@@ -27,6 +27,50 @@ function searchFormCheck(e) {
   }
 }
 
+// 検索フォームのトグルボタンを設定する
+function setupSearchFormToggle() {
+  const element = document.getElementById("search-form-toggle");
+  if (element === null) {
+    return;
+  }
+
+  element.addEventListener("change", (e) => {
+    const searchForm = document.querySelector(".search-form");
+    if (searchForm === null) {
+      return;
+    }
+
+    if (e.target.checked) {
+      searchForm.style.setProperty("display", "block", "");
+    } else {
+      searchForm.style.setProperty("display", "none", "");
+    }
+  });
+}
+
+// メディアクエリを設定する
+function handleMatchMedia(e) {
+  const searchForm = document.querySelector(".search-form");
+  if (searchForm === null) {
+    return;
+  }
+
+  const toggle = document.getElementById("search-form-toggle");
+  if (toggle === null) {
+    return;
+  }
+
+  if (e.matches) {
+    if (toggle.checked) {
+      searchForm.style.setProperty("display", "block", "");
+    } else {
+      searchForm.style.setProperty("display", "none", "");
+    }
+  } else {
+    searchForm.style.setProperty("display", "block", "");
+  }
+}
+
 // ページ読み込み時の初期化処理
 document.addEventListener("turbolinks:load", () => {
   // HTML全体が読み込まれてからイベントを登録する
@@ -40,6 +84,15 @@ document.addEventListener("turbolinks:load", () => {
     if (e.target.closest(".search-button")) {
       searchFormCheck(e);
     }
+  });
+
+  // 検索フォームのトグルボタンを設定する
+  setupSearchFormToggle();
+
+  // メディアクエリを設定する
+  const mediaQuery = window.matchMedia("(max-width: 800px)");
+  mediaQuery.addEventListener("change", (e) => {
+    handleMatchMedia(e);
   });
 });
 

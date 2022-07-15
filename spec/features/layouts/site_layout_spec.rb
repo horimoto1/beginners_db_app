@@ -25,7 +25,7 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
 
       scenario "検索フォームが表示されること" do
         # ヘッダーの検索フォームが表示されること
-        within "div.header-nav" do
+        within "div.search-form" do
           expect(page).to have_field "keyword"
           expect(page).to have_button
         end
@@ -58,9 +58,23 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
         current_window.resize_to(width, height)
       end
 
-      scenario "ヘッダーの検索フォームが表示されないこと" do
-        # ヘッダーの検索フォームが表示されないこと
-        expect(page).to have_no_selector "div.header-nav"
+      scenario "スマホ、タブレット用の検索フォームが表示されること" do
+        # 検索フォームが表示されていないこと
+        expect(page).to have_no_checked_field "search-form-toggle"
+        expect(page).to have_no_selector "div.search-form"
+
+        # チェックボックスをチェックして検索フォームを表示する
+        search_form_label = find("label[for=search-form-toggle]")
+        search_form_label.click
+
+        # 検索フォームが表示されること
+        expect(page).to have_selector "div.search-form"
+
+        # チェックボックスをチェックして検索フォームを閉じる
+        search_form_label.click
+
+        # 検索フォームが非表示になること
+        expect(page).to have_no_selector "div.search-form"
       end
 
       scenario "サイドメニューが表示されること" do
@@ -79,12 +93,6 @@ RSpec.feature "Layouts::SiteLayouts", type: :feature do
 
           # サイドメニューリストが表示されること
           within "div.side-menu-list" do
-            # サイドメニューの検索フォームが表示されること
-            within "li.side-menu-nav" do
-              expect(page).to have_field "keyword"
-              expect(page).to have_button
-            end
-
             # トップページへのリンクが表示されること
             expect(page).to have_link nil, href: root_path
 

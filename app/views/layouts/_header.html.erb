@@ -7,10 +7,14 @@
           BeginnersDB
         <% end %>
       </div>
-      <div class="header-nav">
-        <%= render "shared/search_form" %>
-      </div>
+
+      <%= render "shared/search_form" %>
     </div>
+  </div>
+
+  <div class="search-form-icon">
+    <input type="checkbox" id="search-form-toggle">
+    <label for="search-form-toggle"></label>
   </div>
 
   <div class="side-menu">
@@ -18,9 +22,6 @@
     <label for="side-menu-toggle"><span class="fa fa-bars"></span></label>
     <div class="side-menu-list">
       <ul>
-        <li class="side-menu-nav">
-          <%= render "shared/search_form" %>
-        </li>
         <%= render "layouts/header_menu_list" %>
       </ul>
     </div>

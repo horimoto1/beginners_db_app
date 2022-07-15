@@ -1,13 +1,15 @@
 /* 検索フォーム */
 .search-form {
-  line-height: 3rem;
   padding: 0px 1rem;
+  line-height: 3rem;
+  height: 3rem;
 
   form {
     position: relative;
+    display: inline-block;
+    vertical-align: top;
 
     input[type="search"] {
-      width: 14rem;
       height: 2rem;
       border: 1px solid #bbb;
       border-radius: 4px;
