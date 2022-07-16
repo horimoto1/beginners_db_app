@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     return unless user_signed_in?
 
     @edit_menu_list = [
-      { text: "カテゴリーを作成する", path: new_category_path, method: "get" }
+      { text: "カテゴリーを作成する", path: new_category_path, action: "new" }
     ]
   end
 end

@@ -1,20 +1,33 @@
-<% if @edit_menu_list&.any? %>
-  <div class="edit-menu">
+<div class="edit-menu">
+  <% if @edit_menu_list&.any? %>
     <input type="checkbox" id="edit-menu-toggle">
     <label for="edit-menu-toggle"><span class="fa fa-pencil"></span></label>
     <div class="edit-menu-list">
       <ul>
         <% @edit_menu_list.each do |edit_menu| %>
           <li>
-            <% if edit_menu[:method] == "delete" %>
-              <%= link_to edit_menu[:text], edit_menu[:path],
-                method: :delete, data: { confirm: "本当に削除しますか？" } %>
-            <% else %>
-              <%= link_to edit_menu[:text], edit_menu[:path] %>
+            <% if edit_menu[:action] == "new" %>
+              <%= link_to edit_menu[:path] do %>
+                <span class="fa fa-plus-square-o"></span>
+                <%= edit_menu[:text] %>
+              <% end %>
+            <% elsif edit_menu[:action] == "edit" %>
+              <%= link_to edit_menu[:path] do %>
+                <span class="fa fa-pencil-square-o"></span>
+                <%= edit_menu[:text] %>
+              <% end %>
+            <% elsif edit_menu[:action] == "destroy" %>
+              <%= link_to  edit_menu[:path],
+                method: :delete, data: { confirm: "本当に削除しますか？" } do %>
+                <span class="fa fa-trash-o"></span>
+                <%= edit_menu[:text] %>
+              <% end %>
             <% end %>
           </li>
         <% end %>
       </ul>
     </div>
-  </div>
-<% end %>
+  <% else %>
+    <label class="disable"><span class="fa fa-pencil"></span></label>
+  <% end %>
+</div>

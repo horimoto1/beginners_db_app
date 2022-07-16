@@ -92,10 +92,10 @@ class CategoriesController < ApplicationController
     return unless user_signed_in?
 
     @edit_menu_list = [
-      { text: "カテゴリーを作成する", path: new_category_path(parent_category_id: @category.id), method: "get" },
-      { text: "カテゴリーを編集する", path: edit_category_path(@category), method: "get" },
-      { text: "記事を投稿する", path: new_category_article_path(@category), method: "get" },
-      { text: "カテゴリーを削除する", path: category_path(@category), method: "delete" }
+      { text: "カテゴリーを作成する", path: new_category_path(parent_category_id: @category.id), action: "new" },
+      { text: "カテゴリーを編集する", path: edit_category_path(@category), action: "edit" },
+      { text: "記事を投稿する", path: new_category_article_path(@category), action: "new" },
+      { text: "カテゴリーを削除する", path: category_path(@category), action: "destroy" }
     ]
   end
 end

@@ -140,6 +140,10 @@
     transition: opacity 200ms 0s ease;
   }
 
+  .disable {
+    cursor: default;
+  }
+
   input[type="checkbox"] {
     display: none;
   }

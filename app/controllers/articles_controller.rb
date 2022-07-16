@@ -80,8 +80,8 @@ class ArticlesController < ApplicationController
     return unless user_signed_in?
 
     @edit_menu_list = [
-      { text: "記事を編集する", path: edit_category_article_path(@category, @article), method: "get" },
-      { text: "記事を削除する", path: category_article_path(@category, @article), method: "delete" }
+      { text: "記事を編集する", path: edit_category_article_path(@category, @article), action: "edit" },
+      { text: "記事を削除する", path: category_article_path(@category, @article), action: "destroy" }
     ]
   end
 end
