@@ -60,10 +60,6 @@
     z-index: 3;
 
     &::before {
-      content: none;
-    }
-
-    &::after {
       content: "\02716";
       color: white;
       // font-weight: 900;
@@ -123,6 +119,61 @@
   input[type="checkbox"]:checked ~ .side-menu-list {
     // display: inline-block;
     right: 0px;
+  }
+}
+
+/* 編集メニュー */
+.edit-menu {
+  max-width: 1000px;
+  margin: 0px auto;
+  position: relative;
+
+  label {
+    font-size: 1.5rem;
+    line-height: 3rem;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding-right: 1rem;
+    cursor: pointer;
+    color: white;
+    transition: opacity 200ms 0s ease;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .edit-menu-list {
+    transition: max-height 200ms 0s ease;
+    overflow: hidden;
+    max-height: 0;
+    min-width: 6rem;
+    position: absolute;
+    top: 3rem;
+    right: 1rem;
+    background-color: #3a3a3a;
+    box-shadow: 0px 2px 6px #ccc;
+
+    li:hover {
+      background-color: #7a7a7a;
+    }
+
+    a {
+      display: block;
+      font-size: 1rem;
+      line-height: 2rem;
+      color: white;
+      padding: 0px 0.5rem;
+    }
+  }
+
+  input[type="checkbox"]:checked ~ label {
+    opacity: 0.5;
+  }
+
+  input[type="checkbox"]:checked ~ .edit-menu-list {
+    max-height: 100vh;
   }
 }
 
@@ -188,6 +239,21 @@
   /* サイドメニューを表示する */
   .side-menu {
     display: block;
+  }
+
+  /* 編集メニューのレイアウトを変更する */
+  .edit-menu {
+    position: static; /* relativeを解除する */
+
+    label {
+      color: #333;
+      top: 0px;
+      right: 5rem;
+    }
+
+    .edit-menu-list {
+      right: 6rem;
+    }
   }
 
   /* メニューバーを非表示にする */

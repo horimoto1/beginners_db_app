@@ -27,23 +27,24 @@ RSpec.feature "Home::HomeTops", type: :feature do
     end
 
     context "ログアウト時" do
-      scenario "アクションメニューが表示されないこと" do
+      scenario "編集メニューが表示されないこと" do
         visit root_path
 
-        expect(page).to have_no_selector "div.action-menu"
+        expect(page).to have_no_selector "label[for=edit-menu-toggle]"
       end
     end
 
     context "ログイン時" do
       given!(:user) { create(:user) }
 
-      scenario "アクションメニューが表示されること" do
+      scenario "編集メニューが表示されること" do
         sign_in user
         visit root_path
 
-        within "div.action-menu" do
+        find("label[for=edit-menu-toggle]").click
+        within "div.edit-menu" do
           # カテゴリー作成ページへのリンクが表示されること
-          expect(page).to have_link "カテゴリー作成", href: new_category_path
+          expect(page).to have_link "カテゴリーを作成する", href: new_category_path
         end
       end
     end

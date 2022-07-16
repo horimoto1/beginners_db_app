@@ -23,7 +23,8 @@ RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
         count = Category.count
 
         dismiss_confirm "本当に削除しますか？" do
-          click_on "カテゴリー削除"
+          find("label[for=edit-menu-toggle]").click
+          click_on "カテゴリーを削除する"
         end
 
         # Ajaxの処理完了を待機する
@@ -36,7 +37,8 @@ RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
     context "確認ダイアログでOKを選択する" do
       scenario "カテゴリーが削除され、フラッシュが表示されること" do
         accept_alert "本当に削除しますか？" do
-          click_on "カテゴリー削除"
+          find("label[for=edit-menu-toggle]").click
+          click_on "カテゴリーを削除する"
         end
 
         # Ajaxの処理完了を待機する

@@ -18,7 +18,8 @@ RSpec.feature "Categories::CategoryCreates", type: :feature do
       scenario "入力項目一覧が表示され、初期値が入力されていること" do
         visit root_path
 
-        click_on "カテゴリー作成"
+        find("label[for=edit-menu-toggle]").click
+        click_on "カテゴリーを作成する"
 
         expect(page).to have_current_path new_category_path, ignore_query: true
 
@@ -42,7 +43,8 @@ RSpec.feature "Categories::CategoryCreates", type: :feature do
       scenario "入力項目一覧が表示され、初期値が入力されていること" do
         visit category_path(root_category)
 
-        click_on "カテゴリー作成"
+        find("label[for=edit-menu-toggle]").click
+        click_on "カテゴリーを作成する"
 
         expect(page).to have_current_path new_category_path, ignore_query: true
 

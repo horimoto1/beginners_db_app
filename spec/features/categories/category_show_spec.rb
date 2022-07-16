@@ -134,8 +134,8 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
         visit category_path(root_category)
       end
 
-      scenario "アクションメニューが表示されないこと" do
-        expect(page).to have_no_selector "div.action-menu"
+      scenario "編集メニューが表示されないこと" do
+        expect(page).to have_no_selector "label[for=edit-menu-toggle]"
       end
 
       scenario "非公開記事のみのカテゴリーがメニューに表示されないこと" do
@@ -211,26 +211,27 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
         visit category_path(root_category)
       end
 
-      scenario "アクションメニューが表示されること" do
-        within "div.action-menu" do
+      scenario "編集メニューが表示されること" do
+        find("label[for=edit-menu-toggle]").click
+        within "div.edit-menu" do
           # カテゴリー作成ページへのリンクが表示されること
-          expect(page).to have_link "カテゴリー作成",
+          expect(page).to have_link "カテゴリーを作成する",
                                     href: new_category_path(
                                       parent_category_id: root_category.id
                                     )
 
           # カテゴリー編集ページへのリンクが表示されること
-          expect(page).to have_link "カテゴリー編集",
+          expect(page).to have_link "カテゴリーを編集する",
                                     href: edit_category_path(root_category)
 
           # 記事投稿ページへのリンクが表示されること
-          expect(page).to have_link "記事投稿",
+          expect(page).to have_link "記事を投稿する",
                                     href: new_category_article_path(
                                       root_category
                                     )
 
           # カテゴリー削除機能へのリンクが表示されること
-          expect(page).to have_link "カテゴリー削除",
+          expect(page).to have_link "カテゴリーを削除する",
                                     href: category_path(root_category)
         end
       end

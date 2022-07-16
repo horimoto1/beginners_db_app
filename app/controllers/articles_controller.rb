@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :preview]
   before_action :set_category, except: [:preview]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_edit_menu, only: [:show, :edit]
 
   def show
     @category_tree = @category.category_tree
@@ -73,5 +74,14 @@ class ArticlesController < ApplicationController
       message = "この記事は非公開になっています。"
       raise ApplicationError::NotPublishedError, message
     end
+  end
+
+  def set_edit_menu
+    return unless user_signed_in?
+
+    @edit_menu_list = [
+      { text: "記事を編集する", path: edit_category_article_path(@category, @article), method: "get" },
+      { text: "記事を削除する", path: category_article_path(@category, @article), method: "delete" }
+    ]
   end
 end

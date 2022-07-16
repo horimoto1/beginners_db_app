@@ -103,8 +103,8 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
         end
       end
 
-      scenario "アクションメニューが表示されないこと" do
-        expect(page).to have_no_selector "div.action-menu"
+      scenario "編集メニューが表示されないこと" do
+        expect(page).to have_no_selector "label[for=edit-menu-toggle]"
       end
     end
 
@@ -136,18 +136,19 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
         end
       end
 
-      scenario "アクションメニューが表示されること" do
+      scenario "編集メニューが表示されること" do
         visit category_article_path(article.category, article)
 
-        within "div.action-menu" do
+        find("label[for=edit-menu-toggle]").click
+        within "div.edit-menu" do
           # 記事編集ページへのリンクが表示されること
-          expect(page).to have_link "記事編集",
+          expect(page).to have_link "記事を編集する",
                                     href: edit_category_article_path(
                                       article.category, article
                                     )
 
           # 記事削除機能へのリンクが表示されること
-          expect(page).to have_link "記事削除",
+          expect(page).to have_link "記事を削除する",
                                     href: category_article_path(
                                       article.category, article
                                     )

@@ -31,45 +31,6 @@
       }
     }
 
-    /* アクションメニュー */
-    .action-menu {
-      a {
-        display: inline-block;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 1rem;
-        min-width: 6rem;
-        height: 2rem;
-        line-height: calc(2rem - 4px);
-        text-align: center;
-        padding: 1px 6px;
-        letter-spacing: normal;
-        background-color: #3a3a3a;
-        color: white;
-        cursor: pointer;
-
-        &:hover {
-          background-color: #7a7a7a;
-        }
-      }
-
-      .left-list {
-        li {
-          margin-top: 1rem;
-          margin-right: 0.5rem;
-          float: left;
-        }
-      }
-
-      .right-list {
-        li {
-          margin-top: 1rem;
-          margin-left: 0.5rem;
-          float: right;
-        }
-      }
-    }
-
     /* 見出し */
     .heading {
       padding: 1rem 0px;

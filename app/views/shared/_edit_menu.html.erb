@@ -1,0 +1,20 @@
+<% if @edit_menu_list&.any? %>
+  <div class="edit-menu">
+    <input type="checkbox" id="edit-menu-toggle">
+    <label for="edit-menu-toggle"><span class="fa fa-pencil"></span></label>
+    <div class="edit-menu-list">
+      <ul>
+        <% @edit_menu_list.each do |edit_menu| %>
+          <li>
+            <% if edit_menu[:method] == "delete" %>
+              <%= link_to edit_menu[:text], edit_menu[:path],
+                method: :delete, data: { confirm: "本当に削除しますか？" } %>
+            <% else %>
+              <%= link_to edit_menu[:text], edit_menu[:path] %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

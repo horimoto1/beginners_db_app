@@ -6,13 +6,13 @@ RSpec.feature "Articles::ArticleCreates", type: :feature do
 
   background do
     sign_in user
+    visit category_path(category)
   end
 
   feature "記事投稿ページのレイアウト" do
     scenario "入力項目一覧が表示され、初期値が入力されていること" do
-      visit category_path(category)
-
-      click_on "記事投稿"
+      find("label[for=edit-menu-toggle]").click
+      click_on "記事を投稿する"
 
       expect(page).to have_current_path new_category_article_path(category), ignore_query: true
 

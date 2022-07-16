@@ -12,7 +12,8 @@ RSpec.feature "Articles::ArticleUpdates", type: :feature do
     scenario "入力項目一覧が表示され、初期値が入力されていること" do
       visit category_article_path(article.category, article)
 
-      click_on "記事編集"
+      find("label[for=edit-menu-toggle]").click
+      click_on "記事を編集する"
 
       expect(page).to have_current_path edit_category_article_path(article.category,
                                                                    article), ignore_query: true
@@ -33,6 +34,25 @@ RSpec.feature "Articles::ArticleUpdates", type: :feature do
       expect(page).to have_field "カテゴリーID", with: article.category_id
 
       expect(page).to have_button "更新"
+    end
+
+    scenario "編集メニューが表示されること" do
+      visit edit_category_article_path(article.category, article)
+
+      find("label[for=edit-menu-toggle]").click
+      within "div.edit-menu" do
+        # 記事編集ページへのリンクが表示されること
+        expect(page).to have_link "記事を編集する",
+                                  href: edit_category_article_path(
+                                    article.category, article
+                                  )
+
+        # 記事削除機能へのリンクが表示されること
+        expect(page).to have_link "記事を削除する",
+                                  href: category_article_path(
+                                    article.category, article
+                                  )
+      end
     end
   end
 

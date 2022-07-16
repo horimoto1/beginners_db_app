@@ -15,7 +15,8 @@ RSpec.feature "Articles::ArticleDestroys", type: :feature, js: true do
         count = Article.count
 
         dismiss_confirm "本当に削除しますか？" do
-          click_on "記事削除"
+          find("label[for=edit-menu-toggle]").click
+          click_on "記事を削除する"
         end
 
         # Ajaxの処理完了を待機する
@@ -28,7 +29,8 @@ RSpec.feature "Articles::ArticleDestroys", type: :feature, js: true do
     context "確認ダイアログでOKを選択する" do
       scenario "記事が削除され、フラッシュが表示されること" do
         accept_alert "本当に削除しますか？" do
-          click_on "記事削除"
+          find("label[for=edit-menu-toggle]").click
+          click_on "記事を削除する"
         end
 
         # Ajaxの処理完了を待機する

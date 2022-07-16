@@ -6,6 +6,14 @@ function closeSideMenu() {
   }
 }
 
+// 編集メニューを閉じる
+function closeEditMenu() {
+  const element = document.getElementById("edit-menu-toggle");
+  if (element !== null) {
+    element.checked = false;
+  }
+}
+
 // 検索フォームを閉じる
 function closeSearchForm() {
   const toggle = document.getElementById("search-form-toggle");
@@ -82,9 +90,14 @@ function handleMatchMedia(e) {
 // ページ読み込み時の初期化処理
 document.addEventListener("turbolinks:load", () => {
   document.addEventListener("click", (e) => {
-    // サイドメニューの外側をクリックした際はサイドメニューを閉じる
+    // サイドメニューの外側をクリックした場合はサイドメニューを閉じる
     if (!e.target.closest(".side-menu")) {
       closeSideMenu();
+    }
+
+    // 編集メニューの外側をクリックした場合は編集メニューを閉じる
+    if (!e.target.closest(".edit-menu")) {
+      closeEditMenu();
     }
 
     // キーワードが未入力かどうかチェックする
@@ -110,6 +123,9 @@ document.addEventListener("turbolinks:load", () => {
 document.addEventListener("turbolinks:visit", () => {
   // サイドメニューの表示状態がリセットされない場合があるため
   closeSideMenu();
+
+  // 編集メニューの表示状態がリセットされない場合があるため
+  closeEditMenu();
 
   // 検索フォームの表示状態がリセットされない場合があるため
   closeSearchForm();

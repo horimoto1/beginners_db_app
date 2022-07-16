@@ -1,15 +1,3 @@
-<% if user_signed_in? %>
-  <div class="action-menu">
-    <ul class="left-list">
-      <li>
-        <%= link_to "カテゴリー作成", new_category_path %>
-      </li>
-    </ul>
-  </div>
-
-  <div class="clear"></div>
-<% end %>
-
 <div class="heading">
   <h1>TOP PAGE</h1>
   <%= markdown_file("app/views/home/top.md") %>

@@ -38,4 +38,28 @@
       }
     }
   }
+
+  /* 削除ボタン */
+  .button-link {
+    a {
+      display: inline-block;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      min-width: 6rem;
+      height: 2rem;
+      line-height: calc(2rem - 4px);
+      text-align: center;
+      padding: 1px 6px;
+      letter-spacing: normal;
+      background-color: #3a3a3a;
+      color: white;
+      cursor: pointer;
+      margin-top: 1rem;
+
+      &:hover {
+        background-color: #7a7a7a;
+      }
+    }
+  }
 }

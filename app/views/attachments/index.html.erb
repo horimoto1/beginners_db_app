@@ -25,12 +25,8 @@
             </div>
           <% end %>
 
-          <div class="action-menu">
-            <ul class="right-list">
-              <li>
-                <%= link_to "削除", attachment_path(attachment),method: :delete, data: { confirm: "本当に削除しますか？" } %>
-              </li>
-            </ul>
+          <div class="button-link right">
+            <%= link_to "削除", attachment_path(attachment),method: :delete, data: { confirm: "本当に削除しますか？" } %>
           </div>
 
           <div class="clear"></div>

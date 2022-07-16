@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_edit_menu, only: [:show, :edit]
 
   def show
     @child_categories = @category.child_categories.sorted
@@ -85,5 +86,16 @@ class CategoriesController < ApplicationController
     @category = @category.to_a.first
 
     raise ActiveRecord::RecordNotFound unless @category
+  end
+
+  def set_edit_menu
+    return unless user_signed_in?
+
+    @edit_menu_list = [
+      { text: "カテゴリーを作成する", path: new_category_path(parent_category_id: @category.id), method: "get" },
+      { text: "カテゴリーを編集する", path: edit_category_path(@category), method: "get" },
+      { text: "記事を投稿する", path: new_category_article_path(@category), method: "get" },
+      { text: "カテゴリーを削除する", path: category_path(@category), method: "delete" }
+    ]
   end
 end

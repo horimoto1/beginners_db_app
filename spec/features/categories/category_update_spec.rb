@@ -13,7 +13,8 @@ RSpec.feature "Categories::CategoryUpdates", type: :feature do
     scenario "入力項目一覧が表示され、初期値が入力されていること" do
       visit category_path(category)
 
-      click_on "カテゴリー編集"
+      find("label[for=edit-menu-toggle]").click
+      click_on "カテゴリーを編集する"
 
       expect(page).to have_current_path edit_category_path(category), ignore_query: true
 
@@ -28,6 +29,33 @@ RSpec.feature "Categories::CategoryUpdates", type: :feature do
       expect(page).to have_field "親カテゴリーID", with: category.parent_category_id
 
       expect(page).to have_button "更新"
+    end
+
+    scenario "編集メニューが表示されること" do
+      visit edit_category_path(category)
+
+      find("label[for=edit-menu-toggle]").click
+      within "div.edit-menu" do
+        # カテゴリー作成ページへのリンクが表示されること
+        expect(page).to have_link "カテゴリーを作成する",
+                                  href: new_category_path(
+                                    parent_category_id: category.id
+                                  )
+
+        # カテゴリー編集ページへのリンクが表示されること
+        expect(page).to have_link "カテゴリーを編集する",
+                                  href: edit_category_path(category)
+
+        # 記事投稿ページへのリンクが表示されること
+        expect(page).to have_link "記事を投稿する",
+                                  href: new_category_article_path(
+                                    category
+                                  )
+
+        # カテゴリー削除機能へのリンクが表示されること
+        expect(page).to have_link "カテゴリーを削除する",
+                                  href: category_path(category)
+      end
     end
   end
 

@@ -27,6 +27,10 @@
     </div>
   </div>
 
+  <% if user_signed_in? %>
+    <%= render "shared/edit_menu" %>
+  <% end %>
+
   <div class="menu-bar-wrapper">
     <div class="menu-bar">
       <ul>
