@@ -91,7 +91,7 @@ RSpec.feature "Attachments::AttachmentIndices", type: :feature do
   end
 
   # headlessモードだとコピーできないため、通常モードで動かす
-  feature "画像パスコピー機能", driver: :chromedriver do
+  feature "画像パスコピー機能", driver: :selenium do
     scenario "クリップボードに画像パスがコピーされること" do
       visit attachments_path
 

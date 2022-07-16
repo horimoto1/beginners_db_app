@@ -1,28 +1,43 @@
 require "capybara/rspec"
 require "selenium-webdriver"
 
-# Capybaraにheadless_chromedriverを登録する
-Capybara.register_driver :headless_chromedriver do |app|
-  # Chromeをヘッドレスモードで起動するように指定する
-  options = Selenium::WebDriver::Chrome::Options.new
-  options.add_argument("headless")
+driver = ENV.fetch("RAILS_WEB_DRIVER") { "chrome" }
+puts "Capybara register #{driver} driver"
 
-  # seleniumでchromedriverを作成する
-  Capybara::Selenium::Driver.new(
-    app,
-    browser: :chrome,
-    capabilities: options
-  )
+case driver
+when /chrome/i
+  # ヘッドレスモードのchromedriverを登録する
+  Capybara.register_driver :headless_selenium do |app|
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument("--headless")
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome,
+      capabilities: options
+    )
+  end
+
+  # 通常のchromedriverを登録する
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome
+    )
+  end
+when /firefox/i
+  # ヘッドレスモードのfirefoxdriverを登録する
+  Capybara.register_driver :headless_selenium do |app|
+    options = Selenium::WebDriver::Firefox::Options.new
+    options.add_argument("--headless")
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :firefox,
+      options: options
+    )
+  end
 end
 
-# Capybaraにchromedriverを登録する
-Capybara.register_driver :chromedriver do |app|
-  # seleniumでchromedriverを作成する
-  Capybara::Selenium::Driver.new(
-    app,
-    browser: :chrome
-  )
-end
-
-# デフォルトのドライバをheadless_chromedriverにする
-Capybara.javascript_driver = :headless_chromedriver
+# デフォルトのドライバをヘッドレスモードに変更する
+Capybara.javascript_driver = :headless_selenium
