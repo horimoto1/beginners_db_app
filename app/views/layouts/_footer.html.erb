@@ -10,14 +10,14 @@
           <% end %>
         </li>
         <li>
-          <span>&#10072;</span>
+          <span>|</span>
         </li>
         <li>
           <%= link_to "プロフィール", profile_path %>
         </li>
         <% if user_signed_in? %>
           <li>
-            <span>&#10072;</span>
+            <span>|</span>
           </li>
           <li>
             <%= link_to "画像一覧", attachments_path, data: { "turbolinks" => false } %>

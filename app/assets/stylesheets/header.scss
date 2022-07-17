@@ -60,7 +60,9 @@
     z-index: 3;
 
     &::before {
-      content: "\02716";
+      // content: "\02716";
+      content: "\f00d";
+      font-family: FontAwesome;
       color: white;
       // font-weight: 900;
     }

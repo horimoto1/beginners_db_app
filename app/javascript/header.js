@@ -20,6 +20,11 @@ function closeSearchForm() {
   if (toggle !== null) {
     toggle.checked = false;
   }
+
+  const searchForm = document.querySelector(".search-form");
+  if (searchForm !== null && window.matchMedia("(max-width: 800px)").matches) {
+    searchForm.style.setProperty("display", "none", "");
+  }
 }
 
 // 検索フォームの入力状態をチェックする
