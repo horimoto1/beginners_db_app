@@ -60,6 +60,7 @@ select {
   -moz-appearance: none; /* Firefox対応 */
   -o-appearance: none; /* Opera対応 */
   outline-width: 0; /* フォーカス時の枠線を取り消す */
+  margin: 0;
 }
 
 html {
@@ -93,7 +94,7 @@ p {
 }
 
 pre {
-  margin: 0px;
+  margin: 0;
 }
 
 code {
@@ -111,7 +112,7 @@ img {
 }
 
 body {
-  margin: 0px;
+  margin: 0;
   background-color: #eee;
   min-width: 300px;
 }
