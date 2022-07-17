@@ -19,12 +19,9 @@ function resetClipboard() {
 
 // ページ読み込み時の初期化処理
 document.addEventListener("turbolinks:load", () => {
+  // クリップボードのコピーボタンをリセットする
+  resetClipboard();
+
   // クリップボードのコピーボタンを設定する
   setupClipboard();
-});
-
-// ページ遷移時のリセット処理
-document.addEventListener("turbolinks:visit", () => {
-  // クリップボードのコピーボタンの増殖を防止する
-  resetClipboard();
 });

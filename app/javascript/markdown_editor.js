@@ -158,15 +158,12 @@ function resetMarkdownEditer() {
 
 // ページ読み込み時の初期化処理
 document.addEventListener("turbolinks:load", () => {
+  // マークダウンエディタをリセットする
+  resetMarkdownEditer();
+
   // マークダウンエディタを設定する
   setupMarkdownEditer();
 
   // ファイル選択ダイアログを設定する
   setupInputFileDialog();
-});
-
-// ページ遷移時のリセット処理
-document.addEventListener("turbolinks:visit", () => {
-  // マークダウンエディタの増殖を防止する
-  resetMarkdownEditer();
 });
