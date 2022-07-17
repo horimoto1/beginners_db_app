@@ -1,16 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "ApplicationControllers", type: :request do
-  let!(:base_title) { "BeginnersDB" }
-
   describe "#not_found" do
     shared_examples "404エラーページ" do
       it "404エラーページを表示すること" do
         expect(response).to have_http_status(:not_found)
-      end
-
-      it "タイトルが正しいこと" do
-        expect(response.body).to include "404 Not Found | #{base_title}"
       end
     end
 
@@ -105,10 +99,6 @@ RSpec.describe "ApplicationControllers", type: :request do
         it "categoriesのshowページを表示すること" do
           expect(response).to have_http_status(:ok)
         end
-
-        it "タイトルが正しいこと" do
-          expect(response.body).to include "#{category.title} | #{base_title}"
-        end
       end
 
       context "記事が1つも無いカテゴリーにアクセスする" do
@@ -121,10 +111,6 @@ RSpec.describe "ApplicationControllers", type: :request do
 
         it "categoriesのshowページを表示すること" do
           expect(response).to have_http_status(:ok)
-        end
-
-        it "タイトルが正しいこと" do
-          expect(response.body).to include "#{category.title} | #{base_title}"
         end
       end
     end
@@ -151,10 +137,6 @@ RSpec.describe "ApplicationControllers", type: :request do
       it "500エラーページを表示すること" do
         expect(response).to have_http_status(:internal_server_error)
       end
-
-      it "タイトルが正しいこと" do
-        expect(response.body).to include "500 Server Error | #{base_title}"
-      end
     end
   end
 
@@ -171,10 +153,6 @@ RSpec.describe "ApplicationControllers", type: :request do
         it "非公開ページを表示すること" do
           expect(response).to have_http_status(:not_found)
         end
-
-        it "タイトルが正しいこと" do
-          expect(response.body).to include "非公開 | #{base_title}"
-        end
       end
     end
 
@@ -187,10 +165,6 @@ RSpec.describe "ApplicationControllers", type: :request do
 
         it "articlesのshowページを表示すること" do
           expect(response).to have_http_status(:ok)
-        end
-
-        it "タイトルが正しいこと" do
-          expect(response.body).to include "#{article.title} | #{base_title}"
         end
       end
     end

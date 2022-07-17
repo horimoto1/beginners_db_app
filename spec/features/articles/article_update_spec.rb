@@ -9,6 +9,12 @@ RSpec.feature "Articles::ArticleUpdates", type: :feature do
   end
 
   feature "記事編集ページのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit edit_category_article_path(article.category, article)
+
+      expect(page).to have_title "記事編集 | DB入門"
+    end
+
     scenario "入力項目一覧が表示され、初期値が入力されていること" do
       visit category_article_path(article.category, article)
 

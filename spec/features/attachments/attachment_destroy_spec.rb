@@ -17,7 +17,7 @@ RSpec.feature "Attachments::AttachmentDestroys", type: :feature, js: true do
         within "div.image-list" do
           within "li#image-item-#{attachment.id}" do
             dismiss_confirm "本当に削除しますか？" do
-              click_on "削除"
+              click_on "destroy"
             end
           end
         end
@@ -34,7 +34,7 @@ RSpec.feature "Attachments::AttachmentDestroys", type: :feature, js: true do
         within "div.image-list" do
           within "li#image-item-#{attachment.id}" do
             accept_alert "本当に削除しますか？" do
-              click_on "削除"
+              click_on "destroy"
             end
           end
         end

@@ -4,6 +4,12 @@ RSpec.feature "Users::Sessions::Logins", type: :feature do
   given!(:user) { create(:user) }
 
   feature "ログインページのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit new_user_session_path
+
+      expect(page).to have_title "ログイン | DB入門"
+    end
+
     scenario "入力項目一覧が表示されること" do
       visit root_path
 

@@ -2,16 +2,18 @@ require "rails_helper"
 
 RSpec.describe ApplicationHelper, type: :helper do
   describe "#full_title" do
+    let!(:base_title) { "DB入門" }
+
     context "引数無しで呼び出された場合" do
-      it "BeginnersDBを返すこと" do
-        expect(full_title).to eq "BeginnersDB"
+      it "base_titleを返すこと" do
+        expect(full_title).to eq base_title
       end
     end
 
     context "引数有りで呼び出された場合" do
-      it "引数 | BeginnersDBを返すこと" do
+      it "引数 | base_titleを返すこと" do
         title = "sample"
-        expect(full_title(title)).to eq "#{title} | BeginnersDB"
+        expect(full_title(title)).to eq "#{title} | #{base_title}"
       end
     end
   end

@@ -9,6 +9,12 @@ RSpec.feature "Attachments::AttachmentIndices", type: :feature do
   end
 
   feature "画像一覧ページのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit attachments_path
+
+      expect(page).to have_title "画像一覧 | DB入門"
+    end
+
     scenario "見出しが表示されること" do
       visit root_path
 
@@ -44,7 +50,7 @@ RSpec.feature "Attachments::AttachmentIndices", type: :feature do
             end
 
             # 各画像に削除ボタンが表示されること
-            expect(page).to have_link "削除",
+            expect(page).to have_link "destroy",
                                       href: attachment_path(attachment)
           end
         end
@@ -82,7 +88,7 @@ RSpec.feature "Attachments::AttachmentIndices", type: :feature do
             expect(page).to have_no_selector "li.copy-to-clip"
 
             # 削除ボタンが表示されること
-            expect(page).to have_link "削除",
+            expect(page).to have_link "destroy",
                                       href: attachment_path(no_attachment)
           end
         end

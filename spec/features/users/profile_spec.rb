@@ -2,6 +2,12 @@ require "rails_helper"
 
 RSpec.feature "Users::Profiles", type: :feature do
   feature "プロフィールのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit profile_path
+
+      expect(page).to have_title "プロフィール | DB入門"
+    end
+
     scenario "見出しが表示されること" do
       visit root_path
 

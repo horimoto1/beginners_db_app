@@ -20,6 +20,12 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
   }
 
   feature "カテゴリー詳細ページのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit category_path(root_category)
+
+      expect(page).to have_title "#{root_category.title} | DB入門"
+    end
+
     scenario "パンくずリストが表示されること" do
       visit category_path(root_category)
 

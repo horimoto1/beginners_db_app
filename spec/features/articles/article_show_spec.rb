@@ -14,6 +14,10 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
       visit category_article_path(article.category, article)
     end
 
+    scenario "タイトルが正しいこと" do
+      expect(page).to have_title "#{article.title} | DB入門"
+    end
+
     scenario "パンくずリストが表示されること" do
       within "div.breadcrumb" do
         expect(page).to have_link "ホーム", href: root_path

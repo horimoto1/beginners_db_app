@@ -2,8 +2,6 @@ require "rails_helper"
 
 RSpec.describe "DeviseSessionsControllers", type: :request do
   describe "GET /login to #new" do
-    let!(:base_title) { "BeginnersDB" }
-
     context "ログアウト時" do
       before do
         get new_user_session_path
@@ -11,10 +9,6 @@ RSpec.describe "DeviseSessionsControllers", type: :request do
 
       it "取得に成功すること" do
         expect(response).to have_http_status(:ok)
-      end
-
-      it "タイトルが正しいこと" do
-        expect(response.body).to include "ログイン | #{base_title}"
       end
     end
 

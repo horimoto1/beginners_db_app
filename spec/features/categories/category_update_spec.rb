@@ -10,6 +10,12 @@ RSpec.feature "Categories::CategoryUpdates", type: :feature do
   end
 
   feature "カテゴリー編集ページのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit edit_category_path(category)
+
+      expect(page).to have_title "カテゴリー編集 | DB入門"
+    end
+
     scenario "入力項目一覧が表示され、初期値が入力されていること" do
       visit category_path(category)
 

@@ -6,11 +6,18 @@ RSpec.feature "Articles::ArticleCreates", type: :feature do
 
   background do
     sign_in user
-    visit category_path(category)
   end
 
   feature "記事投稿ページのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit new_category_article_path(category)
+
+      expect(page).to have_title "記事投稿 | DB入門"
+    end
+
     scenario "入力項目一覧が表示され、初期値が入力されていること" do
+      visit category_path(category)
+
       find("label[for=edit-menu-toggle]").click
       click_on "記事を投稿する"
 

@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "CategoriesControllers", type: :request do
   describe "GET /categories/:id to #show" do
-    let!(:base_title) { "BeginnersDB" }
     let!(:category) { create(:category) }
 
     before do
@@ -16,14 +15,9 @@ RSpec.describe "CategoriesControllers", type: :request do
     it "取得に成功すること" do
       expect(response).to have_http_status(:ok)
     end
-
-    it "タイトルが正しいこと" do
-      expect(response.body).to include "#{category.title} | #{base_title}"
-    end
   end
 
   describe "GET /categories/new to #new" do
-    let!(:base_title) { "BeginnersDB" }
     let!(:user) { create(:user) }
 
     context "ログアウト時" do
@@ -42,10 +36,6 @@ RSpec.describe "CategoriesControllers", type: :request do
 
       it "取得に成功すること" do
         expect(response).to have_http_status(:ok)
-      end
-
-      it "タイトルが正しいこと" do
-        expect(response.body).to include "カテゴリー新規作成 | #{base_title}"
       end
     end
   end
@@ -75,7 +65,6 @@ RSpec.describe "CategoriesControllers", type: :request do
   end
 
   describe "GET /categories/:id/edit to #edit" do
-    let(:base_title) { "BeginnersDB" }
     let!(:user) { create(:user) }
     let!(:category) { create(:category) }
 
@@ -95,10 +84,6 @@ RSpec.describe "CategoriesControllers", type: :request do
 
       it "取得に成功すること" do
         expect(response).to have_http_status(:ok)
-      end
-
-      it "タイトルが正しいこと" do
-        expect(response.body).to include "カテゴリー編集 | #{base_title}"
       end
     end
   end

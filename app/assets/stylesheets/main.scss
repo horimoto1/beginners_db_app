@@ -151,3 +151,14 @@
     }
   }
 }
+
+/* タブレット、スマートフォン向けレイアウト */
+@media screen and (max-width: 800px) {
+  .main-wrapper {
+    padding: 0;
+
+    .main {
+      box-shadow: none;
+    }
+  }
+}

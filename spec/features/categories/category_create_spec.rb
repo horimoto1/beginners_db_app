@@ -14,6 +14,12 @@ RSpec.feature "Categories::CategoryCreates", type: :feature do
   end
 
   feature "カテゴリー作成ページのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit new_category_path
+
+      expect(page).to have_title "カテゴリー新規作成 | DB入門"
+    end
+
     context "トップページから作成する場合" do
       scenario "入力項目一覧が表示され、初期値が入力されていること" do
         visit root_path

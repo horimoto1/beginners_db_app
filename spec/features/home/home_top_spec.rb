@@ -4,6 +4,12 @@ RSpec.feature "Home::HomeTops", type: :feature do
   feature "トップページのレイアウト" do
     given!(:root_categories) { create_list(:category, 3) }
 
+    scenario "タイトルが正しいこと" do
+      visit root_path
+
+      expect(page).to have_title "DB入門"
+    end
+
     scenario "見出しが表示されること" do
       visit root_path
 

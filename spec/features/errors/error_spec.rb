@@ -2,6 +2,12 @@ require "rails_helper"
 
 RSpec.feature "Errors::Errors", type: :feature do
   feature "404エラーページのレイアウト" do
+    scenario "タイトルが正しいこと" do
+      visit "/undefined"
+
+      expect(page).to have_title "404 Not Found | DB入門"
+    end
+
     scenario "見出し、画像が表示されること" do
       visit "/undefined"
 
@@ -34,6 +40,12 @@ RSpec.feature "Errors::Errors", type: :feature do
         receive(:show).and_raise(StandardError)
     end
 
+    scenario "タイトルが正しいこと" do
+      visit category_path(category)
+
+      expect(page).to have_title "500 Server Error | DB入門"
+    end
+
     scenario "見出しが表示されること" do
       visit category_path(category)
 
@@ -55,6 +67,12 @@ RSpec.feature "Errors::Errors", type: :feature do
 
   feature "非公開ページのレイアウト" do
     given!(:article) { create(:article) }
+
+    scenario "タイトルが正しいこと" do
+      visit category_article_path(article.category, article)
+
+      expect(page).to have_title "非公開 | DB入門"
+    end
 
     scenario "見出しが表示されること" do
       visit category_article_path(article.category, article)

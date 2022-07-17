@@ -4,8 +4,6 @@ RSpec.describe "AttachmentsControllers", type: :request do
   let!(:user) { create(:user) }
 
   describe "GET /attachments to #index" do
-    let!(:base_title) { "BeginnersDB" }
-
     context "ログアウト時" do
       it "取得に失敗すること" do
         get attachments_path
@@ -22,10 +20,6 @@ RSpec.describe "AttachmentsControllers", type: :request do
 
       it "取得に成功すること" do
         expect(response).to have_http_status(:ok)
-      end
-
-      it "タイトルが正しいこと" do
-        expect(response.body).to include "画像一覧 | #{base_title}"
       end
     end
   end

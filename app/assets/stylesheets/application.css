@@ -138,10 +138,8 @@ body {
 }
 
 /* タブレット、スマートフォン向けレイアウト */
-@media screen and (max-width: 800px) {
-  /* 共通レイアウト */
+/* @media screen and (max-width: 800px) {
   html {
-    /* remの基準値を12px～16pxに調整する */
     font-size: clamp(12px, 2vw, 16px);
   }
-}
+} */

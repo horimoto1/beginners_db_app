@@ -10,6 +10,12 @@ RSpec.feature "Searches::Searches", type: :feature do
       create_list(:article, 20, category_id: category.id)
     }
 
+    scenario "タイトルが正しいこと" do
+      visit searches_path
+
+      expect(page).to have_title "検索結果 | DB入門"
+    end
+
     scenario "見出しが表示されること" do
       visit searches_path
 

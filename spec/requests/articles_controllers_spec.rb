@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "ArticlesControllers", type: :request do
   describe "GET /categories/:category_id/articles/:id to #show" do
-    let!(:base_title) { "BeginnersDB" }
     let!(:article) { create(:article, published: true) }
 
     before do
@@ -12,14 +11,9 @@ RSpec.describe "ArticlesControllers", type: :request do
     it "取得に成功すること" do
       expect(response).to have_http_status(:ok)
     end
-
-    it "タイトルが正しいこと" do
-      expect(response.body).to include "#{article.title} | #{base_title}"
-    end
   end
 
   describe "GET /categories/:category_id/articles/new to #new" do
-    let!(:base_title) { "BeginnersDB" }
     let!(:user) { create(:user) }
     let!(:category) { create(:category) }
 
@@ -39,10 +33,6 @@ RSpec.describe "ArticlesControllers", type: :request do
 
       it "取得に成功すること" do
         expect(response).to have_http_status(:ok)
-      end
-
-      it "タイトルが正しいこと" do
-        expect(response.body).to include "記事投稿 | #{base_title}"
       end
     end
   end
@@ -79,7 +69,6 @@ RSpec.describe "ArticlesControllers", type: :request do
   end
 
   describe "GET /categories/:category_id/articles/:id/edit to #edit" do
-    let!(:base_title) { "BeginnersDB" }
     let!(:user) { create(:user) }
     let!(:article) { create(:article) }
 
@@ -99,10 +88,6 @@ RSpec.describe "ArticlesControllers", type: :request do
 
       it "取得に成功すること" do
         expect(response).to have_http_status(:ok)
-      end
-
-      it "タイトルが正しいこと" do
-        expect(response.body).to include "記事編集 | #{base_title}"
       end
     end
   end
