@@ -6,9 +6,9 @@ function articleStatusColor() {
   }
 
   if (articleStatus.value === "published") {
-    articleStatus.style.setProperty("color", "#0000ff", "");
+    articleStatus.style.setProperty("color", "#0000ff");
   } else {
-    articleStatus.style.setProperty("color", "#ff0000", "");
+    articleStatus.style.setProperty("color", "#ff0000");
   }
 }
 

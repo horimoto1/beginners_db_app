@@ -8,9 +8,8 @@ require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
 require("jquery");
-require("adjust_style");
-require("adjust_turbolinks");
 require("clipboard_button");
+require("dynamic_style");
 require("header");
 require("markdown_editor");
 

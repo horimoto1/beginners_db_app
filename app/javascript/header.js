@@ -14,19 +14,6 @@ function closeEditMenu() {
   }
 }
 
-// 検索フォームを閉じる
-function closeSearchForm() {
-  const toggle = document.getElementById("search-form-toggle");
-  if (toggle !== null) {
-    toggle.checked = false;
-  }
-
-  const searchForm = document.querySelector(".search-form");
-  if (searchForm !== null && window.matchMedia("(max-width: 800px)").matches) {
-    searchForm.style.setProperty("display", "none", "");
-  }
-}
-
 // 検索フォームの入力状態をチェックする
 function searchFormCheck(e) {
   let element = e.target;
@@ -56,15 +43,19 @@ function setupSearchFormToggle() {
   }
 
   toggle.addEventListener("change", (e) => {
+    if (window.innerWidth > 800) {
+      return;
+    }
+
     const searchForm = document.querySelector(".search-form");
     if (searchForm === null) {
       return;
     }
 
     if (e.target.checked) {
-      searchForm.style.setProperty("display", "block", "");
+      searchForm.style.setProperty("display", "block");
     } else {
-      searchForm.style.setProperty("display", "none", "");
+      searchForm.style.setProperty("display", "none");
     }
   });
 }
@@ -83,12 +74,12 @@ function handleMatchMedia(e) {
 
   if (e.matches) {
     if (toggle.checked) {
-      searchForm.style.setProperty("display", "block", "");
+      searchForm.style.setProperty("display", "block");
     } else {
-      searchForm.style.setProperty("display", "none", "");
+      searchForm.style.setProperty("display", "none");
     }
   } else {
-    searchForm.style.setProperty("display", "block", "");
+    searchForm.style.setProperty("display", "block");
   }
 }
 
@@ -122,16 +113,4 @@ document.addEventListener("turbolinks:load", () => {
 
   // 初期設定
   handleMatchMedia(mediaQuery);
-});
-
-// ページ遷移時のリセット処理
-document.addEventListener("turbolinks:visit", () => {
-  // サイドメニューの表示状態がリセットされない場合があるため
-  closeSideMenu();
-
-  // 編集メニューの表示状態がリセットされない場合があるため
-  closeEditMenu();
-
-  // 検索フォームの表示状態がリセットされない場合があるため
-  closeSearchForm();
 });
