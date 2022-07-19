@@ -33,3 +33,25 @@
     }
   }
 }
+
+/* タブレット、スマートフォン向けレイアウト */
+@media screen and (max-width: 800px) {
+  .footer-wrapper {
+    border-top: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .footer-wrapper {
+    .footer-menu {
+      li {
+        span,
+        a {
+          font-size: 0.75rem;
+          padding-left: 0.75rem;
+          line-height: 2.25rem;
+        }
+      }
+    }
+  }
+}

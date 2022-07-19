@@ -1,7 +1,5 @@
 /* フラッシュ */
 .flash {
-  margin-bottom: 1rem;
-
   p {
     padding: 1rem;
     margin-bottom: 1rem;
@@ -35,5 +33,24 @@
     background-color: #f2dede;
     border: 1px solid #ebccd1;
     border-radius: 4px;
+  }
+}
+
+/* タブレット、スマートフォン向けレイアウト */
+@media screen and (max-width: 800px) {
+  .flash {
+    p {
+      margin-bottom: 0;
+    }
+
+    .info,
+    .notice,
+    .success,
+    .warning,
+    .danger,
+    .alert {
+      border: none;
+      border-radius: 0;
+    }
   }
 }

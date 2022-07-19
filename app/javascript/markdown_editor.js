@@ -6,6 +6,23 @@ import SimpleMDE from "simplemde";
 import Rails from "@rails/ujs";
 
 let simplemde = null;
+let timeoutId;
+
+// マークダウンエディタにドラッグオーバー時のスタイルを適用する
+function dragDropArea() {
+  const element = document.querySelector(".CodeMirror");
+  if (element === null) {
+    return;
+  }
+
+  clearTimeout(timeoutId);
+
+  element.classList.add("dragDropArea");
+
+  timeoutId = setTimeout(() => {
+    element.classList.remove("dragDropArea");
+  }, 100);
+}
 
 // ファイルをマークダウンエディタにD&Dする
 function dropFile(file) {
@@ -25,7 +42,10 @@ function setupInputFileDialog() {
 
   element.accept = "image/jpeg,image/png,image/gif,image/svg+xml";
   element.addEventListener("change", (e) => {
-    dropFile(e.target.files[0]);
+    if (e.target.value) {
+      dropFile(e.target.files[0]);
+      e.target.value = "";
+    }
   });
 }
 
@@ -127,10 +147,15 @@ function setupMarkdownEditer() {
     }
   });
 
+  // ドラッグオーバー時のスタイルを適用する
+  simplemde.codemirror.on("dragover", () => {
+    dragDropArea();
+  });
+
   // エディタに画像がドラッグ&ドロップされた際の処理
   inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
     // POSTで送信するパス
-    uploadUrl: "/attachments",
+    uploadUrl: "/attachments.json",
     // パラメータのキー
     uploadFieldName: "image",
     // content-type
@@ -141,8 +166,12 @@ function setupMarkdownEditer() {
     urlText: (filename, result) => `![${result.orig_file_name}](${filename})`,
     // オリジナルのファイル名を渡せるようにする
     remoteFilename: (file) => file.name,
-    // アップロード後のイベント
+    // リクエスト成功時のイベント
     onFileUploadResponse: (response) => {
+      showErrorMessages(response);
+    },
+    // リクエスト失敗時のイベント
+    onFileUploadError: (response) => {
       showErrorMessages(response);
     }
   });
