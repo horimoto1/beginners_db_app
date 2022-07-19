@@ -39,13 +39,15 @@ class ApplicationController < ActionController::Base
   end
 
   def access_denied
+    message = "アクセス権限がありません"
+
     respond_to do |format|
       format.html do
-        flash.now[:alert] = "アクセス権限がありません"
+        flash.now[:alert] = message
         render template: "home/top", status: :forbidden, layout: "application"
       end
       format.json do
-        render json: { errors: ["アクセス権限がありません"] }, status: :forbidden
+        render json: { errors: [message] }, status: :forbidden
       end
     end
   end

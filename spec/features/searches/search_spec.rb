@@ -346,43 +346,5 @@ RSpec.feature "Searches::Searches", type: :feature do
         end
       end
     end
-
-    feature "ワイルドカード検索" do
-      given!(:keyword) {
-        %(-"サ*1 サン..2" OR サ%4 サン..6 OR "s*1 s.....2 s*l.3")
-      }
-
-      background do
-        visit searches_path(keyword: keyword)
-      end
-
-      scenario "ワイルドカード検索ができること" do
-        within "div.search-result" do
-          # 検索結果に含まれない
-          sample_articles_1.each do |article|
-            expect(page).to have_no_link article.title,
-                                         href: category_article_path(
-                                           article.category, article
-                                         )
-          end
-
-          # 検索結果に含まれる
-          sample_articles_2.each do |article|
-            expect(page).to have_link article.title,
-                                      href: category_article_path(
-                                        article.category, article
-                                      )
-          end
-
-          # 検索結果に含まれる
-          sample_articles_3.each do |article|
-            expect(page).to have_link article.title,
-                                      href: category_article_path(
-                                        article.category, article
-                                      )
-          end
-        end
-      end
-    end
   end
 end
