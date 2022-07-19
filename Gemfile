@@ -7,6 +7,7 @@ gem "rails", "~> 6.0.4", ">= 6.0.4.8"
 
 gem "active_storage_validations", ">= 0.8.2"
 gem "bootsnap", ">= 1.4.2", require: false
+gem "cancancan"
 gem "coderay"
 gem "devise"
 gem "font-awesome-rails"

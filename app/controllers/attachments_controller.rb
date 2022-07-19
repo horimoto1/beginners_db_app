@@ -1,5 +1,6 @@
 class AttachmentsController < ApplicationController
   before_action :authenticate_user!
+  authorize_resource only: [:create, :destroy]
 
   def index
     @attachments = Attachment.all.order(created_at: :desc).page(params[:page])

@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  authorize_resource only: [:create, :update, :destroy]
   before_action :set_category, only: [:show, :edit, :update, :destroy]
   before_action :set_edit_menu, only: [:show, :edit]
 

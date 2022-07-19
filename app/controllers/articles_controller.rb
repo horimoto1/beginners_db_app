@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :preview]
+  authorize_resource only: [:create, :update, :destroy]
   before_action :set_category, except: [:preview]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :set_edit_menu, only: [:show, :edit]

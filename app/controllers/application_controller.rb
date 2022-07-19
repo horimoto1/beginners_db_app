@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::RoutingError, with: :not_found
   rescue_from ApplicationError::NotPublishedError, with: :not_published
+  rescue_from CanCan::AccessDenied, with: :access_denied
 
   before_action :set_menu
 
@@ -35,5 +36,17 @@ class ApplicationController < ActionController::Base
   def not_published(exception = nil)
     @message = exception.message if exception
     render template: "errors/not_published", status: :not_found, layout: "application"
+  end
+
+  def access_denied
+    respond_to do |format|
+      format.html do
+        flash.now[:alert] = "アクセス権限がありません"
+        render template: "home/top", status: :forbidden, layout: "application"
+      end
+      format.json do
+        render json: { errors: ["アクセス権限がありません"] }, status: :forbidden
+      end
+    end
   end
 end

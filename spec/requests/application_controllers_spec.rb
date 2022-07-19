@@ -169,4 +169,111 @@ RSpec.describe "ApplicationControllers", type: :request do
       end
     end
   end
+
+  describe "#access_denied" do
+    context "ユーザに管理者権限が無い場合" do
+      let!(:visiter) { create(:user, admin: false) }
+
+      before do
+        sign_in visiter
+      end
+
+      describe "カテゴリーの作成" do
+        let!(:category) { attributes_for(:category) }
+
+        it "作成に失敗すること" do
+          expect { post categories_path, params: { category: category } }.not_to \
+            change { Category.count }
+          expect(flash).to be_any
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
+      describe "カテゴリーの更新" do
+        let!(:category) { create(:category) }
+
+        it "更新に失敗すること" do
+          expect {
+            patch category_path(category), params: { category: { name: "sample" } }
+          }.not_to change { category.reload.name }
+          expect(flash).to be_any
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
+      describe "カテゴリーの削除" do
+        let!(:category) { create(:category) }
+
+        it "削除に失敗すること" do
+          expect { delete category_path(category) }.not_to \
+            change { Category.count }
+          expect(flash).to be_any
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
+      describe "記事の投稿" do
+        let!(:category) { create(:category) }
+        let!(:article) { attributes_for(:article, category_id: category.id) }
+
+        it "作成に失敗すること" do
+          expect {
+            post category_articles_path(category),
+                 params: { article: article }
+          }.not_to change { Article.count }
+          expect(flash).to be_any
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
+      describe "記事の更新" do
+        let!(:article) { create(:article) }
+
+        it "更新に失敗すること" do
+          expect {
+            patch category_article_path(article.category, article),
+                  params: { article: { name: "sample" } }
+          }.not_to change { article.reload.name }
+          expect(flash).to be_any
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
+      describe "記事の削除" do
+        let!(:article) { create(:article) }
+
+        it "削除に失敗すること" do
+          expect { delete category_article_path(article.category, article) }.not_to \
+            change { Article.count }
+          expect(flash).to be_any
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
+      describe "画像の投稿" do
+        let!(:image) {
+          Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/kitten.jpg"),
+                                       "image/jpg")
+        }
+
+        it "作成に失敗すること" do
+          expect { post attachments_path, params: { image: image } }.not_to \
+            change { Attachment.count }
+          expect(flash).to be_any
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
+      describe "画像の削除" do
+        let!(:attachment) { create(:attachment) }
+
+        it "削除に失敗すること" do
+          expect { delete attachment_path(attachment) }.not_to \
+            change { Attachment.count }
+          expect(flash).to be_any
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+  end
 end
