@@ -39,7 +39,7 @@
     position: absolute;
     top: 0px;
     right: 2.5rem;
-    padding-right: 1rem;
+    padding: 0px 1rem;
     cursor: pointer;
 
     &::before {
@@ -55,8 +55,7 @@
 
   input[type="checkbox"]:checked ~ label {
     position: fixed;
-    right: 1rem;
-    padding-right: 0px;
+    right: 0px;
     z-index: 3;
 
     &::before {
@@ -79,7 +78,7 @@
     position: absolute;
     top: 0px;
     right: 0px;
-    padding-right: 1rem;
+    padding: 0px 1rem;
     cursor: pointer;
   }
 
@@ -135,7 +134,7 @@
     position: absolute;
     top: 0px;
     right: 0px;
-    padding-right: 1rem;
+    padding: 0px 1rem;
     cursor: pointer;
     color: white;
     transition: opacity 200ms 0s ease;
