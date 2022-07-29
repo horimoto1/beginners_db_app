@@ -35,6 +35,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+    @category.image.attach(params[:category][:image]) if params[:category][:image]
     if @category.save
       flash[:success] = "カテゴリーを作成しました"
       redirect_to category_path(@category)
@@ -46,7 +47,9 @@ class CategoriesController < ApplicationController
   def edit; end
 
   def update
-    if @category.update(category_params)
+    @category.assign_attributes(category_params)
+    @category.image.attach(params[:category][:image]) if params[:category][:image]
+    if @category.save
       flash[:success] = "カテゴリーを更新しました"
       @category.reload
       redirect_to category_path(@category)

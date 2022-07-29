@@ -27,6 +27,8 @@ class Category < ApplicationRecord
   include FriendlyId
   friendly_id :name, use: :slugged
 
+  has_one_attached :image
+
   has_many :child_categories,
            class_name: "Category",
            foreign_key: "parent_category_id",
@@ -46,6 +48,12 @@ class Category < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :title, presence: true, uniqueness: true
   validates :category_order, presence: true
+
+  validates :image, content_type: { in: ["image/jpeg", "image/png",
+                                         "image/gif", "image/svg+xml"],
+                                    message: "のcontent-typeが無効です。" },
+                    size: { less_than: 5.megabytes,
+                            message: "のファイルサイズは5MB未満にしてください。" }
 
   validate :parent_category_id_should_be_null_or_exists
 

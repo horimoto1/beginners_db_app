@@ -18,7 +18,7 @@ class AttachmentsController < ApplicationController
 
   def destroy
     @attachment = Attachment.find(params[:id])
-    @attachment.image.purge if @attachment.image.attached?
+    # @attachment.image.purge if @attachment.image.attached?
     @attachment.destroy
     flash[:success] = "画像を削除しました"
 

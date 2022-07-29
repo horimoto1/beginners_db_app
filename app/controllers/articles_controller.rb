@@ -25,6 +25,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.image.attach(params[:article][:image]) if params[:article][:image]
     if @article.save
       flash[:success] = "記事を投稿しました"
       redirect_to category_article_path(@article.category, @article)
@@ -36,7 +37,9 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def update
-    if @article.update(article_params)
+    @article.assign_attributes(article_params)
+    @article.image.attach(params[:article][:image]) if params[:article][:image]
+    if @article.save
       flash[:success] = "記事を更新しました"
       @article.reload
       redirect_to category_article_path(@article.category, @article)

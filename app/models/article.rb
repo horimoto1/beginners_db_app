@@ -31,6 +31,8 @@ class Article < ApplicationRecord
   include FriendlyId
   friendly_id :name, use: :slugged
 
+  has_one_attached :image
+
   belongs_to :category, optional: true # 関連先を検査しないようにする
 
   PUBLISHED_STATUS = "published".freeze
@@ -45,6 +47,12 @@ class Article < ApplicationRecord
   validates :article_order, presence: true
   validates :status, presence: true
   validates :category_id, presence: true
+
+  validates :image, content_type: { in: ["image/jpeg", "image/png",
+                                         "image/gif", "image/svg+xml"],
+                                    message: "のcontent-typeが無効です。" },
+                    size: { less_than: 5.megabytes,
+                            message: "のファイルサイズは5MB未満にしてください。" }
 
   validate :category_id_should_be_exists
 

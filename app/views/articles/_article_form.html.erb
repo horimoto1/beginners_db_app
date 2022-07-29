@@ -13,6 +13,11 @@
     </div>
 
     <div class="block-field">
+      <%= f.label :image, "サムネイル" %>
+      <%= f.file_field :image, accept: "image/jpeg,image/png,image/gif,image/svg+xml" %>
+    </div>
+
+    <div class="block-field">
       <%= f.label :summary, "サマリー" %>
       <%= f.text_area :summary %>
     </div>
