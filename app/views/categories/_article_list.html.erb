@@ -1,9 +1,0 @@
-<!-- eager_loadのキャッシュを使用する -->
-<% category.articles.each do |article| %>
-  <li class="article-navi">
-    <%= link_to category_article_path(category, article) do %>
-      <span class="fa fa-file"></span>
-      <%= article.title %>
-    <% end %>
-  </li>
-<% end %>

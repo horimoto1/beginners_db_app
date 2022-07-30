@@ -10,3 +10,56 @@
     color: #0000ff;
   }
 }
+
+.article-navi {
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: #f4f5f7;
+  }
+
+  .thumbnail {
+    float: left;
+    width: 6rem;
+
+    img {
+      border-radius: 0.5rem;
+      height: 5rem;
+      width: 5rem;
+      margin: 0.5rem;
+      object-fit: cover;
+      vertical-align: top;
+    }
+  }
+
+  .text {
+    float: left;
+    width: calc(100% - 6rem);
+
+    .title {
+      padding-top: 0.5rem;
+    }
+
+    .summary {
+      padding-top: 0.5rem;
+
+      p {
+        color: #333;
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  .meta {
+    float: right;
+    padding-top: 0.5rem;
+    line-height: 1.5rem !important;
+
+    .status,
+    .update,
+    .create {
+      margin-left: 0.75rem !important;
+      font-size: 0.75rem !important;
+    }
+  }
+}

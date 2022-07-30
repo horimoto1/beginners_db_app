@@ -9,14 +9,15 @@
 <% if @articles.any? %>
   <div class="search-result">
     <ul>
+      <li class="search-result-navi">
+        <h2>
+          <span class="fa fa-search"></span>
+          検索結果
+        </h2>
+      </li>
       <% @articles.each do |article| %>
-        <li>
-          <%= link_to category_article_path(article.category, article) do %>
-            <%= article.title %>
-          <% end %>
-        </li>
-        <p><%= extract_substring(article.summary + plaintext(article.content),
-                                 @positive_keywords) %></p>
+        <%= render "shared/article_navi", article: article,
+          summary: extract_substring(plaintext(article.summary) + plaintext(article.content), @positive_keywords, 50) %>
       <% end %>
     </ul>
   </div>

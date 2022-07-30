@@ -41,7 +41,7 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
       visit category_path(root_category)
 
       # 作成日時、更新日時が表示されること
-      within "div.meta" do
+      within "div.meta", match: :first do
         expect(page).to have_content root_category.created_at.strftime("%Y/%m/%d")
         expect(page).to have_content root_category.updated_at.strftime("%Y/%m/%d")
       end

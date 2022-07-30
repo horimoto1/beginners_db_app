@@ -74,7 +74,7 @@ RSpec.feature "Errors::Errors", type: :feature do
 
     scenario "画像が表示されること" do
       within "div.content" do
-        expect(find("img")[:src]).to match(%r{^/assets/NotPublished.*\.svg$})
+        expect(find("img")[:src]).to match(%r{^/assets/not_published.*\.svg$})
       end
     end
   end

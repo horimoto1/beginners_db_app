@@ -38,23 +38,25 @@
       </h2>
     </li>
 
-    <%= render "article_list", category: @category %>
+    <% @category.articles.each do |article| %>
+      <%= render "shared/article_navi", article: article,
+        summary: plaintext(article.summary).truncate(50) %>
+    <% end %>
 
-    <li class="child-category-navi">
-      <% @child_categories.each do |category| %>
-        <ul>
-          <li class="category-navi">
-            <%= link_to category_path(category) do %>
-              <h2 id="<%= category.slug %>">
-                <span class="fa fa-folder fa-fw"></span>
-                <%= category.title %>
-              </h2>
-            <% end %>
-          </li>
-          <%= render "article_list", category: category %>
-        </ul>
+    <% @child_categories.each do |category| %>
+      <li class="category-navi">
+        <%= link_to category_path(category) do %>
+          <h2 id="<%= category.slug %>">
+            <span class="fa fa-folder fa-fw"></span>
+            <%= category.title %>
+          </h2>
+        <% end %>
+      </li>
+      <% category.articles.each do |article| %>
+        <%= render "shared/article_navi", article: article,
+          summary: plaintext(article.summary).truncate(50) %>
       <% end %>
-    </li>
+    <% end %>
   </ul>
 </div>
 

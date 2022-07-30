@@ -10,8 +10,8 @@ class CategoriesController < ApplicationController
     @previous_category = @category.previous_category
     @next_category = @category.next_category
 
-    # 事前に記事一覧をキャッシュしておく
-    @child_categories = @child_categories.with_articles.merge(Article.sorted)
+    # 必要なレコードを先読みする
+    @child_categories = @child_categories.with_articles.merge(Article.with_attached_image).merge(Article.sorted)
 
     # ログイン状態に基づきフィルタリングする
     unless user_signed_in?
@@ -79,8 +79,8 @@ class CategoriesController < ApplicationController
   def set_category
     @category = Category.where(slug: params[:id]).or(Category.where(id: params[:id]))
 
-    # 事前に記事一覧をキャッシュしておく
-    @category = @category.with_articles.merge(Article.sorted)
+    # 必要なレコードを先読みする
+    @category = @category.with_articles.merge(Article.with_attached_image).merge(Article.sorted)
 
     # ログイン状態に基づきフィルタリングする
     unless user_signed_in?

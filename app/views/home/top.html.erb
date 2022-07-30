@@ -17,3 +17,24 @@
     <% end %>
   </ul>
 </div>
+
+<% if @articles.any? %>
+  <div class="latest-updates">
+    <ul>
+      <li class="latest-updates-navi">
+        <h2>
+          <span class="fa fa-file"></span>
+          最新情報
+        </h2>
+      </li>
+      <% @articles.each do |article| %>
+        <%= render "shared/article_navi", article: article,
+        summary: plaintext(article.summary).truncate(50) %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="pagination-wrapper">
+    <%= paginate @articles, params: { controller: :home, action: :top } %>
+  </div>
+<% end %>

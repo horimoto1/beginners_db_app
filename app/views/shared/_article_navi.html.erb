@@ -1,0 +1,21 @@
+<li class="article-navi">
+  <%= link_to category_article_path(article.category, article) do %>
+    <div class="thumbnail">
+      <% if article.image.attached? %>
+        <%= image_tag article.image, alt: article.image.filename %>
+      <% else %>
+        <%= image_tag "beginners_db.svg", alt: "beginners db" %>
+      <% end %>
+    </div>
+    <div class= "text">
+      <div class="title">
+        <h3><%= article.title %></h3>
+      </div>
+      <div class="summary">
+        <p><%= summary %></p>
+      </div>
+    </div>
+    <%= render "shared/meta", object: article %>
+    <div class="clear"></div>
+  <% end %>
+</li>

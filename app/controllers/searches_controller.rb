@@ -30,8 +30,8 @@ class SearchesController < ApplicationController
       @articles = @articles.published
     end
 
-    # 事前にカテゴリーをキャッシュしておく
-    @articles = @articles.with_category
+    # 必要なレコードを先読みする
+    @articles = @articles.with_category.with_attached_image
   end
 
   private
