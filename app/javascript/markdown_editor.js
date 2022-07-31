@@ -26,7 +26,7 @@ function dragDropArea() {
 
 // ファイルをマークダウンエディタにD&Dする
 function dropFile(file) {
-  if (file !== null && simplemde !== null) {
+  if (file != null && simplemde !== null) {
     const event = jQuery.Event("drop", { dataTransfer: { files: [file] } });
     const cm = simplemde.codemirror;
     cm.constructor.signal(cm, "drop", cm, event);
@@ -35,7 +35,7 @@ function dropFile(file) {
 
 // ファイル選択ダイアログを設定する
 function setupInputFileDialog() {
-  const element = document.getElementById("input-file");
+  const element = document.getElementById("hidden-input-file");
   if (element === null) {
     return;
   }
@@ -51,7 +51,7 @@ function setupInputFileDialog() {
 
 // ファイル選択ダイアログを表示する
 function showInputFileDialog() {
-  const element = document.getElementById("input-file");
+  const element = document.getElementById("hidden-input-file");
   if (element === null) {
     return;
   }
@@ -75,7 +75,7 @@ function showErrorMessages(response) {
 }
 
 // マークダウンをパースする
-function markdownParse(plainText, preview) {
+function parseMarkdown(plainText, preview) {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "/preview", true);
   xhr.setRequestHeader("X-CSRF-Token", Rails.csrfToken());
@@ -141,7 +141,7 @@ function setupMarkdownEditer() {
     forceSync: true,
     // プレビューを有効にする
     previewRender(plainText, preview) {
-      markdownParse(plainText, preview);
+      parseMarkdown(plainText, preview);
 
       return "Loading...";
     }

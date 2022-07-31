@@ -130,10 +130,16 @@
 
       .previous {
         float: left;
+        width: 50%;
       }
 
       .next {
         float: right;
+        width: 50%;
+
+        a {
+          float: right;
+        }
       }
     }
   }

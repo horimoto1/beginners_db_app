@@ -3,14 +3,14 @@
     <div class="previous">
       <%= link_to object_path(previous_object) do %>
         &lsaquo; 前
-        <%= previous_object.title %>
+        <%= previous_object.title.truncate(20) %>
       <% end %>
     </div>
   <% end %>
   <% if next_object %>
     <div class="next">
       <%= link_to object_path(next_object) do %>
-        <%= next_object.title %>
+        <%= next_object.title.truncate(20) %>
         次 &rsaquo;
       <% end %>
     </div>

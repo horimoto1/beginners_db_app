@@ -116,4 +116,29 @@
       }
     }
   }
+
+  .input-file-field {
+    position: relative;
+
+    input {
+      background-color: #eee;
+    }
+
+    button {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      width: 2rem;
+      height: 2rem;
+      color: #333;
+      border: 0;
+      cursor: pointer;
+      font-size: 1rem;
+      background: inherit;
+
+      &:hover {
+        color: #1a0dab;
+      }
+    }
+  }
 }

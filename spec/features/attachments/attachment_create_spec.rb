@@ -65,7 +65,7 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
           accept_alert do
             # ファイル選択ダイアログにファイルをアタッチする
             file_path = Rails.root.join("spec/fixtures/5MB.png")
-            attach_file("input-file", file_path, make_visible: true)
+            attach_file("hidden-input-file", file_path, make_visible: true)
 
             # Ajaxの処理完了を待機する
             sleep 1
@@ -86,7 +86,7 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
 
           # ファイル選択フォームにファイルをアタッチする
           file_path = Rails.root.join("spec/fixtures/kitten.jpg")
-          attach_file("input-file", file_path, make_visible: true)
+          attach_file("hidden-input-file", file_path, make_visible: true)
 
           # Ajaxの処理完了を待機する
           sleep 1
@@ -108,18 +108,18 @@ RSpec.feature "Attachments::AttachmentCreates", type: :feature, js: true do
     def drop_file_editor_field(file_path)
       # ダミーのファイル選択フォームを追加する
       page.execute_script <<-JS
-        const fakeFileInput = document.createElement("input");
-        fakeFileInput.id = "fakeFileInput";
-        fakeFileInput.type = "file";
-        document.body.appendChild(fakeFileInput);
+        const fakeInputFile = document.createElement("input");
+        fakeInputFile.id = "fakeInputFile";
+        fakeInputFile.type = "file";
+        document.body.appendChild(fakeInputFile);
       JS
 
       # ダミーのファイル選択フォームにファイルをアタッチする
-      attach_file("fakeFileInput", file_path)
+      attach_file("fakeInputFile", file_path)
 
       # ファイルのドロップイベントを発火する
       page.execute_script <<-JS
-        const fileList = [fakeFileInput.files[0]];
+        const fileList = [fakeInputFile.files[0]];
         const editor = document.querySelector(".CodeMirror").CodeMirror;
         const event = jQuery.Event("drop", { dataTransfer: { files: fileList } });
         editor.constructor.signal(editor, "drop", editor, event);

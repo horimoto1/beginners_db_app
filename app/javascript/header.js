@@ -15,7 +15,7 @@ function closeEditMenu() {
 }
 
 // 検索フォームの入力状態をチェックする
-function searchFormCheck(e) {
+function checkSearchForm(e) {
   let element = e.target;
   // クリック位置によっては子要素がイベント発生元になるため調整する
   while (element.getAttribute("class") !== "search-button") {
@@ -98,7 +98,7 @@ document.addEventListener("turbolinks:load", () => {
 
     // キーワードが未入力かどうかチェックする
     if (e.target.closest(".search-button")) {
-      searchFormCheck(e);
+      checkSearchForm(e);
     }
   });
 

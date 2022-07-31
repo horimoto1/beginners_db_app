@@ -14,7 +14,14 @@
 
     <div class="block-field">
       <%= f.label :image, "サムネイル" %>
-      <%= f.file_field :image, accept: "image/jpeg,image/png,image/gif,image/svg+xml" %>
+      <%= f.file_field :image, accept: "image/jpeg,image/png,image/gif,image/svg+xml", class: "hidden" %>
+
+      <div class="input-file-field">
+        <%= f.text_field :image, value: @article.image.attached? ? @article.image.filename : "", disabled: true, id: "input-file-text" %>
+        <button type="button" id="input-file-button">
+          <span class="fa fa-file"></span>
+        </button>
+      </div>
     </div>
 
     <div class="block-field">
