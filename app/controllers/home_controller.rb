@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def top
     # 最新の記事一覧を取得する
-    @articles = Article.order(updated_at: :desc).page(params[:page])
+    @articles = Article.order(updated_at: :desc).page(params[:page]).per(5)
 
     # ログイン状態に基づきフィルタリングする
     unless user_signed_in?

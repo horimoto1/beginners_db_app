@@ -43,20 +43,8 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html do
-        flash.now[:alert] = message
-
-        # 最新の記事一覧を取得する
-        @articles = Article.order(updated_at: :desc).page(params[:page])
-
-        # ログイン状態に基づきフィルタリングする
-        unless user_signed_in?
-          @articles = @articles.published
-        end
-
-        # 必要なレコードを先読みする
-        @articles = @articles.with_category.with_attached_image
-
-        render template: "home/top", status: :forbidden, layout: "application"
+        flash[:alert] = message
+        redirect_to root_path
       end
       format.json do
         render json: { errors: [message] }, status: :forbidden

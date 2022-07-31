@@ -84,7 +84,8 @@ RSpec.feature "Searches::Searches", type: :feature do
             # 2ページ目のリンクが表示されること
             expect(page).to have_link "2",
                                       href: searches_path(
-                                        keyword: keyword, page: 2
+                                        keyword: keyword, page: 2,
+                                        anchor: "search-result"
                                       )
 
             # 3～4ページ目のリンクが表示されないこと
@@ -124,7 +125,8 @@ RSpec.feature "Searches::Searches", type: :feature do
             (2..4).each do |n|
               expect(page).to have_link n.to_s,
                                         href: searches_path(
-                                          keyword: keyword, page: n
+                                          keyword: keyword, page: n,
+                                          anchor: "search-result"
                                         )
             end
           end

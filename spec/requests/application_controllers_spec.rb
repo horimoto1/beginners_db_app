@@ -185,7 +185,7 @@ RSpec.describe "ApplicationControllers", type: :request do
           expect { post categories_path, params: { category: category } }.not_to \
             change { Category.count }
           expect(flash).to be_any
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -197,7 +197,7 @@ RSpec.describe "ApplicationControllers", type: :request do
             patch category_path(category), params: { category: { name: "sample" } }
           }.not_to change { category.reload.name }
           expect(flash).to be_any
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -208,7 +208,7 @@ RSpec.describe "ApplicationControllers", type: :request do
           expect { delete category_path(category) }.not_to \
             change { Category.count }
           expect(flash).to be_any
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -222,7 +222,7 @@ RSpec.describe "ApplicationControllers", type: :request do
                  params: { article: article }
           }.not_to change { Article.count }
           expect(flash).to be_any
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -235,7 +235,7 @@ RSpec.describe "ApplicationControllers", type: :request do
                   params: { article: { name: "sample" } }
           }.not_to change { article.reload.name }
           expect(flash).to be_any
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -246,7 +246,7 @@ RSpec.describe "ApplicationControllers", type: :request do
           expect { delete category_article_path(article.category, article) }.not_to \
             change { Article.count }
           expect(flash).to be_any
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -260,7 +260,7 @@ RSpec.describe "ApplicationControllers", type: :request do
           expect { post attachments_path, params: { image: image } }.not_to \
             change { Attachment.count }
           expect(flash).to be_any
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -271,7 +271,7 @@ RSpec.describe "ApplicationControllers", type: :request do
           expect { delete attachment_path(attachment) }.not_to \
             change { Attachment.count }
           expect(flash).to be_any
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to redirect_to(root_path)
         end
       end
     end

@@ -7,7 +7,7 @@
 </div>
 
 <% if @articles.any? %>
-  <div class="search-result">
+  <div class="search-result" id="search-result">
     <ul>
       <li class="search-result-navi">
         <h2>
@@ -16,13 +16,13 @@
         </h2>
       </li>
       <% @articles.each do |article| %>
-        <%= render "shared/article_navi", article: article,
-          summary: extract_substring(plaintext(article.summary) + plaintext(article.content), @positive_keywords, 50) %>
+        <% summary = extract_substring(plaintext(article.summary) + plaintext(article.content), @positive_keywords, 50) %>
+        <%= render "shared/article_navi", article: article, summary: summary %>
       <% end %>
     </ul>
   </div>
 
   <div class="pagination-wrapper">
-    <%= paginate @articles, params: { controller: :searches, action: :index } %>
+    <%= paginate @articles, params: { controller: :searches, action: :index, anchor: "search-result" } %>
   </div>
 <% end %>

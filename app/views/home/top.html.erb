@@ -19,7 +19,7 @@
 </div>
 
 <% if @articles.any? %>
-  <div class="latest-updates">
+  <div class="latest-updates" id="latest-updates">
     <ul>
       <li class="latest-updates-navi">
         <h2>
@@ -35,6 +35,6 @@
   </div>
 
   <div class="pagination-wrapper">
-    <%= paginate @articles, params: { controller: :home, action: :top } %>
+    <%= paginate @articles, params: { controller: :home, action: :top, anchor: "latest-updates" } %>
   </div>
 <% end %>
