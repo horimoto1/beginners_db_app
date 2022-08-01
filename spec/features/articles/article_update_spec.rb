@@ -2,7 +2,11 @@ require "rails_helper"
 
 RSpec.feature "Articles::ArticleUpdates", type: :feature do
   given!(:user) { create(:user) }
-  given!(:article) { create(:article, published: true) }
+  given!(:article) {
+    create(:article, published: true,
+                     image: "kitten.jpg",
+                     content_type: "image/jpeg")
+  }
 
   background do
     sign_in user
@@ -27,6 +31,11 @@ RSpec.feature "Articles::ArticleUpdates", type: :feature do
       expect(page).to have_field "スラッグ名", with: article.name
 
       expect(page).to have_field "タイトル", with: article.title
+
+      # サムネイル
+      input_file_text = find("#input-file-text")
+      expect(input_file_text.value).to eq "kitten.jpg"
+      expect(input_file_text.disabled?).to eq true
 
       expect(page).to have_field "サマリー", with: article.summary
 
@@ -79,13 +88,17 @@ RSpec.feature "Articles::ArticleUpdates", type: :feature do
           fill_in invalid_field[:locator], with: invalid_field[:value]
         end
 
+        # ファイル選択フォームにファイルをアタッチする
+        file_path = Rails.root.join("spec/fixtures/5MB.png")
+        attach_file("サムネイル", file_path, make_visible: true)
+
         # 記事が更新されないこと
         expect { click_on "更新" }.not_to change { article.reload.name }
 
         # エラーが表示されること
         expect(page).to have_selector "div.error_explanation"
         error_elements = all("div.field_with_errors")
-        expect(error_elements.count).to eq(invalid_fields.count * 2)
+        expect(error_elements.count).to eq(invalid_fields.count * 2 + 3)
       end
     end
 
@@ -103,6 +116,10 @@ RSpec.feature "Articles::ArticleUpdates", type: :feature do
         valid_fields.each do |valid_field|
           fill_in valid_field[:locator], with: valid_field[:value]
         end
+
+        # ファイル選択フォームにファイルをアタッチする
+        file_path = Rails.root.join("spec/fixtures/rails.svg")
+        attach_file("サムネイル", file_path, make_visible: true)
 
         select "非公開", from: "ステータス"
 

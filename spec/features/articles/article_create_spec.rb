@@ -23,13 +23,18 @@ RSpec.feature "Articles::ArticleCreates", type: :feature do
 
       expect(page).to have_current_path new_category_article_path(category), ignore_query: true
 
-      expect(find_field("スラッグ名").text).to be_blank
+      expect(find_field("スラッグ名").value).to be_blank
 
-      expect(find_field("タイトル").text).to be_blank
+      expect(find_field("タイトル").value).to be_blank
 
-      expect(find_field("サマリー").text).to be_blank
+      # サムネイル
+      input_file_text = find("#input-file-text")
+      expect(input_file_text.value).to be_blank
+      expect(input_file_text.disabled?).to eq true
 
-      expect(find_field("コンテンツ").text).to be_blank
+      expect(find_field("サマリー").value).to be_blank
+
+      expect(find_field("コンテンツ").value).to be_blank
 
       expect(page).to have_select "ステータス", options: ["非公開", "公開"],
                                            selected: "非公開"
@@ -59,13 +64,17 @@ RSpec.feature "Articles::ArticleCreates", type: :feature do
           fill_in invalid_field[:locator], with: invalid_field[:value]
         end
 
+        # ファイル選択フォームにファイルをアタッチする
+        file_path = Rails.root.join("spec/fixtures/5MB.png")
+        attach_file("サムネイル", file_path, make_visible: true)
+
         # カテゴリーが作成されないこと
         expect { click_on "投稿" }.not_to change { Article.count }
 
         # エラーが表示されること
         expect(page).to have_selector "div.error_explanation"
         error_elements = all("div.field_with_errors")
-        expect(error_elements.count).to eq(invalid_fields.count * 2)
+        expect(error_elements.count).to eq(invalid_fields.count * 2 + 3)
       end
     end
 
@@ -81,6 +90,10 @@ RSpec.feature "Articles::ArticleCreates", type: :feature do
         valid_fields.each do |valid_field|
           fill_in valid_field[:locator], with: valid_field[:value]
         end
+
+        # ファイル選択フォームにファイルをアタッチする
+        file_path = Rails.root.join("spec/fixtures/kitten.jpg")
+        attach_file("サムネイル", file_path, make_visible: true)
 
         select "公開", from: "ステータス"
 

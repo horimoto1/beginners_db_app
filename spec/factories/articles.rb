@@ -30,6 +30,8 @@ FactoryBot.define do
   factory :article do
     transient do
       published { false }
+      image { "" }
+      content_type { "" }
     end
 
     sequence(:name) { |n| "test#{n}" }
@@ -39,5 +41,13 @@ FactoryBot.define do
     sequence(:article_order) { |n| n }
     status { published ? "published" : "private" }
     association :category
+
+    after(:build) do |article, evaluator|
+      if evaluator.image.present? && evaluator.content_type.present?
+        article.image.attach(io: File.open("spec/fixtures/#{evaluator.image}"),
+                             filename: evaluator.image,
+                             content_type: evaluator.content_type)
+      end
+    end
   end
 end

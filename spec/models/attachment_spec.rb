@@ -11,7 +11,7 @@ require "rails_helper"
 RSpec.describe Attachment, type: :model do
   describe "バリデーション" do
     context "全ての属性が正しい場合" do
-      context "content_typeがimage/jpeg" do
+      context "content_typeがimage/jpegの場合" do
         let!(:attachment) { build(:attachment) }
 
         it "バリデーションが通ること" do
@@ -19,7 +19,7 @@ RSpec.describe Attachment, type: :model do
         end
       end
 
-      context "content_typeがimage/png" do
+      context "content_typeがimage/pngの場合" do
         let!(:attachment) {
           build(:attachment, image: "480x320.png",
                              content_type: "image/png")
@@ -30,7 +30,7 @@ RSpec.describe Attachment, type: :model do
         end
       end
 
-      context "content_typeがimage/gif" do
+      context "content_typeがimage/gifの場合" do
         let!(:attachment) {
           build(:attachment, image: "480x320.gif",
                              content_type: "image/gif")
@@ -41,7 +41,7 @@ RSpec.describe Attachment, type: :model do
         end
       end
 
-      context "content_typeがimage/svg+xml" do
+      context "content_typeがimage/svg+xmlの場合" do
         let!(:attachment) {
           build(:attachment, image: "rails.svg",
                              content_type: "image/svg+xml")
@@ -52,7 +52,7 @@ RSpec.describe Attachment, type: :model do
         end
       end
 
-      context "file_sizeが4MB" do
+      context "file_sizeが4MBの場合" do
         let!(:attachment) {
           build(:attachment, image: "4MB.png",
                              content_type: "image/png")
@@ -64,8 +64,8 @@ RSpec.describe Attachment, type: :model do
       end
     end
 
-    context "imageが不正" do
-      context "content_typeがimage/webp" do
+    context "imageが不正の場合" do
+      context "content_typeがimage/webpの場合" do
         let!(:attachment) {
           build(:attachment, image: "480x320.webp",
                              content_type: "image/webp")
@@ -76,7 +76,7 @@ RSpec.describe Attachment, type: :model do
         end
       end
 
-      context "file_sizeが5MB" do
+      context "file_sizeが5MBの場合" do
         let!(:attachment) {
           build(:attachment, image: "5MB.png",
                              content_type: "image/png")

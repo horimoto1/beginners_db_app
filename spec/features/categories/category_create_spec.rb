@@ -29,17 +29,17 @@ RSpec.feature "Categories::CategoryCreates", type: :feature do
 
         expect(page).to have_current_path new_category_path, ignore_query: true
 
-        expect(find_field("スラッグ名").text).to be_blank
+        expect(find_field("スラッグ名").value).to be_blank
 
-        expect(find_field("タイトル").text).to be_blank
+        expect(find_field("タイトル").value).to be_blank
 
-        expect(find_field("サマリー").text).to be_blank
+        expect(find_field("サマリー").value).to be_blank
 
         expect(page).to have_field "カテゴリーの並び順",
                                    with: Category.root_categories.count + 1
 
         # 親カテゴリーIDは空欄になっていること
-        expect(find_field("親カテゴリーID").text).to be_blank
+        expect(find_field("親カテゴリーID").value).to be_blank
 
         expect(page).to have_button "新規作成"
       end
@@ -54,11 +54,11 @@ RSpec.feature "Categories::CategoryCreates", type: :feature do
 
         expect(page).to have_current_path new_category_path, ignore_query: true
 
-        expect(find_field("スラッグ名").text).to be_blank
+        expect(find_field("スラッグ名").value).to be_blank
 
-        expect(find_field("タイトル").text).to be_blank
+        expect(find_field("タイトル").value).to be_blank
 
-        expect(find_field("サマリー").text).to be_blank
+        expect(find_field("サマリー").value).to be_blank
 
         expect(page).to have_field "カテゴリーの並び順",
                                    with: root_category.child_categories.count + 1

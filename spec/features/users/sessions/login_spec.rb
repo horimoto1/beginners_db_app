@@ -19,10 +19,10 @@ RSpec.feature "Users::Sessions::Logins", type: :feature do
 
       expect(page).to have_current_path new_user_session_path, ignore_query: true
 
-      expect(find_field("Eメール").text).to be_blank
+      expect(find_field("Eメール").value).to be_blank
 
       password = find_field("パスワード")
-      expect(password.text).to be_blank
+      expect(password.value).to be_blank
       # パスワードは伏字になっていること
       expect(password[:type]).to eq "password"
 

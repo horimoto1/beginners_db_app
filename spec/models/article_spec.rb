@@ -34,8 +34,48 @@ RSpec.describe Article, type: :model do
     let!(:article) { build(:article, category_id: category.id) }
 
     context "全ての属性が正しい場合" do
-      it "バリデーションが通ること" do
-        expect(article).to be_valid
+      context "imageが無い場合" do
+        it "バリデーションが通ること" do
+          expect(article).to be_valid
+        end
+      end
+
+      context "imageがある場合" do
+        let!(:article_with_image) {
+          build(:article, category_id: category.id,
+                          image: "kitten.jpg",
+                          content_type: "image/jpeg")
+        }
+
+        it "バリデーションが通ること" do
+          expect(article_with_image).to be_valid
+        end
+      end
+    end
+
+    context "imageが不正の場合" do
+      context "content_typeがimage/webpの場合" do
+        let!(:article_with_image) {
+          build(:article, category_id: category.id,
+                          image: "480x320.webp",
+                          content_type: "image/webp")
+        }
+
+        it "バリデーションが通らないこと" do
+          expect(article_with_image).not_to be_valid
+        end
+      end
+
+      context "file_sizeが5MBの場合" do
+        let!(:article_with_image) {
+          build(:article, category_id: category.id,
+                          image: "5MB.png",
+                          content_type: "image/png")
+        }
+
+        it "バリデーションが通らないこと" do
+          expect(article_with_image).not_to be_valid
+        end
       end
     end
 
