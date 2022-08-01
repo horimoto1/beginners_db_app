@@ -49,6 +49,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    @article.image.purge if @article.image.attached?
     @article.destroy
     flash[:success] = "記事を削除しました"
     redirect_to category_path(@category)

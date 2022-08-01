@@ -2,19 +2,11 @@ require "rails_helper"
 
 RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
   given!(:user) { create(:user) }
-  given!(:root_category) { create(:category) }
-  given!(:articles) {
-    create_list(:article, 3,
-                category_id: root_category.id)
-  }
-  given!(:child_categories) {
-    create_list(:category, 3,
-                parent_category_id: root_category.id)
-  }
+  given!(:category) { create(:category) }
 
   background do
     sign_in user
-    visit category_path(root_category)
+    visit category_path(category)
   end
 
   feature "カテゴリー削除機能" do
@@ -45,13 +37,7 @@ RSpec.feature "Categories::CategoryDestroys", type: :feature, js: true do
         sleep 1
 
         # カテゴリーが削除されること
-        expect(Category.where(id: root_category.id).count).to eq 0
-
-        # 記事が削除されること
-        expect(Article.where(category_id: root_category.id).count).to eq 0
-
-        # 子カテゴリーが削除されること
-        expect(Category.where(parent_category_id: root_category.id).count).to eq 0
+        expect(Category.where(id: category.id).count).to eq 0
 
         # トップページに遷移すること
         expect(page).to have_current_path root_path, ignore_query: true

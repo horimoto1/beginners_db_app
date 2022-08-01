@@ -59,13 +59,18 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    parent_category = @category.parent_category
-    @category.destroy
-    flash[:success] = "カテゴリーを削除しました"
-    if parent_category
-      redirect_to category_path(parent_category)
+    if @category.destroy
+      flash[:success] = "カテゴリーを削除しました"
+
+      if @category.parent_category
+        redirect_to category_path(@category.parent_category)
+      else
+        redirect_to root_path
+      end
     else
-      redirect_to root_path
+      flash[:alert] = "記事または子カテゴリーが存在するため削除できません"
+
+      redirect_to request.referer || root_path
     end
   end
 

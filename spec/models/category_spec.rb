@@ -126,17 +126,24 @@ RSpec.describe Category, type: :model do
   describe "アソシエーション" do
     let!(:category) { create(:category) }
 
-    before do
-      create(:category, parent_category_id: category.id)
-      create(:article, category_id: category.id)
+    describe "子カテゴリーが存在する場合" do
+      before do
+        create(:category, parent_category_id: category.id)
+      end
+
+      it "削除できないこと" do
+        expect { category.destroy }.not_to change { Category.count }
+      end
     end
 
-    it "削除時に子Categoryも削除されること" do
-      expect { category.destroy }.to change { Category.count }.by(-2)
-    end
+    describe "記事が存在する場合" do
+      before do
+        create(:article, category_id: category.id)
+      end
 
-    it "削除時に関連するArticleも削除されること" do
-      expect { category.destroy }.to change { Article.count }.by(-1)
+      it "削除できないこと" do
+        expect { category.destroy }.not_to change { Category.count }
+      end
     end
   end
 

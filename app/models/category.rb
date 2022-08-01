@@ -30,14 +30,14 @@ class Category < ApplicationRecord
   has_many :child_categories,
            class_name: "Category",
            foreign_key: "parent_category_id",
-           dependent: :destroy,
+           dependent: :restrict_with_error,
            inverse_of: :parent_category
   belongs_to :parent_category,
              class_name: "Category",
              optional: true,
              inverse_of: :child_categories
   has_many :articles,
-           dependent: :destroy
+           dependent: :restrict_with_error
 
   scope :sorted, -> { order(category_order: :asc, id: :asc) }
   scope :root_categories, -> { where(parent_category_id: nil) }
