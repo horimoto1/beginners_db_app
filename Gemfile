@@ -40,6 +40,7 @@ group :development do
   gem "htmlbeautifier"
   gem "listen", ">= 3.1.5"
   gem "prettier"
+  gem "rails-erd"
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
