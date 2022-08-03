@@ -1,24 +1,130 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリケーション名
 
-Things you may want to cover:
+DB 入門サイト
 
-* Ruby version
+## アプリケーション概要
 
-* System dependencies
+データベース初心者を対象に、データベースの基礎知識を体系的にアウトプットするためのブログアプリです。
 
-* Configuration
+## 課題
 
-* Database creation
+自身がデータベースの基礎知識を学習する際は、必要な情報が体系的かつ十分に含まれている教材がなかなか見つからず、複数の参考書やネット上から情報を収集し、それらを整理することに苦労した経験がありました。
 
-* Database initialization
+例えば、SQL、論理設計、物理設計をそれぞれ別の参考書やネット上から学習する必要があったり、インデックスなど分野を跨るような知識を十分に理解するためには、それに関する情報を深掘りする必要があったなどです。
 
-* How to run the test suite
+そのため、データベースの基礎知識を体系的かつ十分に学習できる教材が必要という課題を見出し、ポートフォリオ作成をきっかけに、当ブログサイトを作成することにしました。
 
-* Services (job queues, cache servers, search engines, etc.)
+当ブログサイトは Web 構築や運営の練習台にしたり、データベース基礎の復習のために活用していきたいと思っています。
 
-* Deployment instructions
+まだ記事はほとんど投稿できていませんが、これから随時投稿してきたいです。
 
-* ...
+## URL
+
+https://majestic-joshua-tree-45635.herokuapp.com
+
+## テスト用アカウント
+
+email：visiter@example.com
+
+password：visiter
+
+※このアカウントでログインすると、投稿者用の編集ページにアクセスすることができるようになります。ただし、実際のデータを編集する機能(投稿、更新、削除)は制限しています。
+
+## 使用技術
+
+- Ruby 2.7.6
+- Ruby on Rails 6.0.5
+- PostgreSQL 14.4
+- Puma 4.3.12
+- Heroku
+- AWS
+  - S3
+- RSpec
+- Rubocop
+- ESLint
+
+## 機能一覧
+
+- ログイン機能
+
+  - devise
+
+- カテゴリー編集機能
+
+  - 投稿、更新、削除
+
+- 記事編集機能
+
+  - 投稿、更新、削除
+  - 記事の非公開設定
+  - マークダウンで記述
+    - SimpleMDE + Redcarpet + CodeRay
+
+- 画像編集機能
+
+  - 一覧表示、投稿、削除
+  - エディタにドラッグアンドドロップで画像を投稿
+    - inline-attachment
+
+- リンク
+
+  - パンくずリスト
+  - 目次
+  - ページネーション
+    - kaminari
+  - ページング
+
+- 検索機能
+  - ransack
+  - AND 検索
+  - OR 検索
+  - 除外検索
+  - フレーズ検索
+
+## 非機能要件
+
+- アクセス制御
+
+  - cancancan
+  - 以下の機能はログイン中のみ利用可能
+    - 非公開中の記事の表示
+    - 公開中の記事が含まれないカテゴリーの表示
+    - 画像一覧の表示
+  - 以下の機能は管理者のみ利用可能
+    - カテゴリーの編集(作成、更新、削除)
+    - 記事の編集(投稿、更新、削除)
+    - 画像の編集(削除)
+
+- レスポンシブデザイン
+
+  - ブレイクポイント
+    - PC 向け：801px
+    - タブレット向け：401px ～ 800px
+    - スマートフォン向け：400px
+
+- スラッグ
+
+  - friendly_id
+
+- 例外処理
+
+  - 404 エラー：存在しないパスやコンテンツへのアクセス時
+  - 500 エラー：StandardError 発生時
+
+- テストコード
+  - RSpec
+  - 単体テスト(model spec、helper spec)
+  - 機能テスト(request spec)
+  - 統合テスト(feature spec)
+
+## データベース設計
+
+![erd](https://user-images.githubusercontent.com/96732339/182565436-eae917a0-cf30-415e-8f59-d5dc424f0f30.svg)
+
+## 実装予定の要件
+
+- AWS への移行
+  - Heroku から AWS にデプロイする
+  - AWS で独自ドメインを取得し、常時 HTTPS 化する
