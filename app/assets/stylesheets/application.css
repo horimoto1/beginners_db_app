@@ -54,7 +54,8 @@ p {
 
 input,
 textarea,
-select {
+select,
+button {
   appearance: none; /* プラットフォームネイティブのスタイルを適用しない */
   -webkit-appearance: none; /* Google Chrome/Safari対応 */
   -moz-appearance: none; /* Firefox対応 */
