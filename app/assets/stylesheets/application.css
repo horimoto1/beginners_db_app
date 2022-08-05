@@ -64,10 +64,6 @@ button {
   margin: 0;
 }
 
-button span {
-  vertical-align: top;
-}
-
 html {
   font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
     "Hiragino Sans", Meiryo, sans-serif;
