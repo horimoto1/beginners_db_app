@@ -62,6 +62,7 @@ button {
   -o-appearance: none; /* Opera対応 */
   outline-width: 0; /* フォーカス時の枠線を取り消す */
   margin: 0;
+  padding: 0;
 }
 
 html {
