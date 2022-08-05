@@ -65,7 +65,7 @@ button {
 }
 
 button {
-  text-align: center;
+  vertical-align: middle;
 }
 
 html {
