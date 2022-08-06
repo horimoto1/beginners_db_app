@@ -1,0 +1,9 @@
+/* firefox向け */
+@-moz-document url-prefix() {
+  input,
+  textarea,
+  select,
+  button {
+    vertical-align: middle; /* フォーム系要素のズレを調整 */
+  }
+}
