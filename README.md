@@ -42,7 +42,7 @@ password：visiter
 - AWS
   - S3
 - RSpec
-- Rubocop
+- RuboCop
 - ESLint
 
 ## 機能一覧
@@ -138,14 +138,14 @@ password：visiter
 
 - リンター
 
-  - Ruby(Rubocop)
+  - Ruby(RuboCop)
   - Javascript(ESLint)
 
 - フォーマッター
 
-  - Ruby(rufo)
-  - CSS、Sass、Javascript、json(Prettier)
-  - HTML、erb(Format/Beautify ERB)
+  - Ruby(Rufo)
+  - CSS、Sass、JavaScript、JSON(Prettier)
+  - HTML、ERB(Format/Beautify ERB)
 
 ## データベース設計
 
