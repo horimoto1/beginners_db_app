@@ -33,16 +33,26 @@
   }
 
   ul {
+    padding-left: 2rem;
+
     li {
-      padding-top: 0.5rem;
-      list-style: disc inside;
+      list-style: disc;
+    }
+
+    ul li {
+      list-style: circle;
     }
   }
 
   ol {
+    padding-left: 2rem;
+
     li {
-      padding-top: 0.5rem;
-      list-style: decimal inside;
+      list-style: decimal;
+    }
+
+    ul li {
+      list-style: lower-roman;
     }
   }
 
