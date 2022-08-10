@@ -1,21 +1,21 @@
 /* マークダウンのスタイル */
 .heading {
   h1 {
-    padding-top: 1rem;
+    margin-top: 1rem;
     border-bottom: 2px solid #777;
   }
 }
 
 .content {
   h1 {
-    padding-top: 1rem;
+    margin-top: 1rem;
     border-bottom: 2px solid #0000ff;
   }
 }
 
 .heading,
 .content {
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 
   h2,
   h3,
@@ -29,13 +29,14 @@
   }
 
   p {
-    padding-top: 1rem;
+    margin-top: 1rem;
   }
 
   ul {
     padding-left: 2rem;
 
     li {
+      margin-top: 0.25rem;
       list-style: disc;
     }
 
@@ -48,10 +49,11 @@
     padding-left: 2rem;
 
     li {
+      margin-top: 0.25rem;
       list-style: decimal;
     }
 
-    ul li {
+    ol li {
       list-style: lower-roman;
     }
   }
@@ -113,7 +115,7 @@
 
   /* テーブル */
   .table-wrapper {
-    padding-top: 1rem;
+    margin-top: 1rem;
     overflow-x: auto; /* 横軸スクロールバー */
 
     table {
