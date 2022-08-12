@@ -324,7 +324,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.4)
     syntax_tree (3.0.0)
       prettier_print
     syntax_tree-haml (1.2.0)
@@ -413,7 +412,6 @@ DEPENDENCIES
   spring (>= 2.1.0)
   spring-commands-rspec
   spring-watcher-listen (>= 2.0.1)
-  sqlite3 (~> 1.4)
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)

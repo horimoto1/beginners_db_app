@@ -2,7 +2,7 @@
 #
 # Table name: categories
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  category_order     :integer          not null
 #  name               :string           not null
 #  slug               :string           default(""), not null
@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  parent_category_id  (parent_category_id => categories.id)
+#  fk_rails_...  (parent_category_id => categories.id)
 #
 require "rails_helper"
 
