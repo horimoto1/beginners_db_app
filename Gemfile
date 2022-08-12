@@ -16,6 +16,7 @@ gem "image_processing", ">= 1.9.3"
 gem "jbuilder", "~> 2.7"
 gem "kaminari"
 gem "mini_magick", ">= 4.9.5"
+gem "pg"
 gem "pragmatic_segmenter"
 gem "puma", "~> 4.1"
 gem "rails-i18n"
@@ -31,7 +32,6 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "rspec-rails", ">= 5.1.2", "< 6.0.0"
-  gem "sqlite3", "~> 1.4"
 end
 
 group :development do
@@ -60,7 +60,6 @@ end
 
 group :production do
   gem "aws-sdk-s3"
-  gem "pg"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
