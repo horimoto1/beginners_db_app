@@ -2,10 +2,10 @@
 
 import "inline-attachment/src/inline-attachment";
 import "inline-attachment/src/codemirror-4.inline-attachment";
-import SimpleMDE from "simplemde";
+import EasyMDE from "easymde";
 import Rails from "@rails/ujs";
 
-let simplemde = null;
+let easymde = null;
 let timeoutId;
 
 // マークダウンエディタにドラッグオーバー時のスタイルを適用する
@@ -26,9 +26,9 @@ function dragDropArea() {
 
 // ファイルをマークダウンエディタにD&Dする
 function dropFile(file) {
-  if (file != null && simplemde !== null) {
+  if (file != null && easymde !== null) {
     const event = jQuery.Event("drop", { dataTransfer: { files: [file] } });
-    const cm = simplemde.codemirror;
+    const cm = easymde.codemirror;
     cm.constructor.signal(cm, "drop", cm, event);
   }
 }
@@ -105,7 +105,7 @@ function setupMarkdownEditer() {
   }
 
   // textareaをマークダウンエディタにする
-  simplemde = new SimpleMDE({
+  easymde = new EasyMDE({
     element,
     // ツールバーのカスタマイズ
     toolbar: [
@@ -148,12 +148,12 @@ function setupMarkdownEditer() {
   });
 
   // ドラッグオーバー時のスタイルを適用する
-  simplemde.codemirror.on("dragover", () => {
+  easymde.codemirror.on("dragover", () => {
     dragDropArea();
   });
 
   // エディタに画像がドラッグ&ドロップされた際の処理
-  inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
+  inlineAttachment.editors.codemirror4.attach(easymde.codemirror, {
     // POSTで送信するパス
     uploadUrl: "/attachments.json",
     // パラメータのキー
@@ -179,9 +179,9 @@ function setupMarkdownEditer() {
 
 // マークダウンエディタをリセットする
 function resetMarkdownEditer() {
-  if (simplemde !== null) {
-    simplemde.toTextArea();
-    simplemde = null;
+  if (easymde !== null) {
+    easymde.toTextArea();
+    easymde = null;
   }
 }
 

@@ -61,7 +61,7 @@ password：visiter
 
   - 表示、投稿、更新、削除
   - 記事の非公開設定
-  - マークダウンで記述(SimpleMDE + Redcarpet + CodeRay)
+  - マークダウンで記述(EasyMDE + Redcarpet + CodeRay)
   - エディタにドラッグアンドドロップで画像を投稿(inline-attachment)
   - マークダウンのプレビュー
 
