@@ -20,7 +20,7 @@ RSpec.feature "Searches::Searches", type: :feature do
       visit searches_path
 
       # 見出しが表示されること
-      within "div.heading" do
+      within "div.heading", match: :first do
         expect(page).to have_selector "h1", text: "検索結果"
       end
     end
