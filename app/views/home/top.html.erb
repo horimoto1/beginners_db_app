@@ -7,12 +7,16 @@
   <ul>
     <% @root_categories.each do |root_category| %>
       <li class="top-box">
-        <div class="top-box-title">
-          <%= link_to root_category do %>
+        <%= link_to root_category do %>
+          <div class="title">
             <h2><%= root_category.title %></h2>
-          <% end %>
-        </div>
-        <%= markdown(root_category.summary) %>
+          </div>
+          <div class="summary">
+            <p><%= markdown(root_category.summary) %></p>
+          </div>
+          <%= render "shared/meta", object: root_category %>
+          <div class="clear"></div>
+        <% end %>
       </li>
     <% end %>
   </ul>
@@ -20,13 +24,13 @@
 
 <% if @articles.any? %>
   <div class="latest-updates" id="latest-updates">
+    <div class="heading">
+      <h2>
+        <span class="fa fa-file"></span>
+        最新情報
+      </h2>
+    </div>
     <ul>
-      <li class="latest-updates-navi">
-        <h2>
-          <span class="fa fa-file"></span>
-          最新情報
-        </h2>
-      </li>
       <% @articles.each do |article| %>
         <%= render "shared/article_navi", article: article,
         summary: plaintext(article.summary).truncate(50) %>

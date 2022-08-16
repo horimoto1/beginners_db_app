@@ -20,7 +20,7 @@ RSpec.feature "Home::HomeTops", type: :feature do
     scenario "見出しが表示されること" do
       visit root_path
 
-      within "div.heading" do
+      within "div.heading", match: :first do
         expect(page).to have_selector "h1", text: "TOP PAGE"
       end
     end

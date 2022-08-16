@@ -8,13 +8,13 @@
 
 <% if @articles.any? %>
   <div class="search-result" id="search-result">
+    <div class="heading">
+      <h2>
+        <span class="fa fa-search"></span>
+        検索結果
+      </h2>
+    </div>
     <ul>
-      <li class="search-result-navi">
-        <h2>
-          <span class="fa fa-search"></span>
-          検索結果
-        </h2>
-      </li>
       <% @articles.each do |article| %>
         <% summary = extract_substring(plaintext(article.summary) + plaintext(article.content), @positive_keywords, 50) %>
         <%= render "shared/article_navi", article: article, summary: summary %>

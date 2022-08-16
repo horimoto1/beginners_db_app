@@ -1,32 +1,44 @@
 /* トップページのメニュー */
 .top-menu {
   margin-bottom: 1rem;
-  display: flex;
-  flex-wrap: wrap;
 
   ul {
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .top-box {
-    position: relative;
     border: 2px solid #777;
     border-radius: 6px;
-    padding-bottom: 1rem;
-    margin: 1.5rem 0.5rem 0.5rem 0.5rem;
-    width: calc(50% - 1rem);
+    width: calc(50% - 0.5rem);
 
-    .top-box-title {
-      position: absolute;
-      top: -1rem; /* ボーダー上に重ねて表示する */
-      left: 1rem;
-      background-color: white;
-      padding: 0px 0.5rem;
+    .title {
+      padding: 0.5rem 0.5rem 0 0.5rem;
     }
 
-    p {
-      padding: 1rem 1rem 0px 1rem;
+    .summary {
+      padding: 0.5rem 0.5rem 0 0.5rem;
+
+      p {
+        color: #333;
+      }
+    }
+
+    .meta {
+      padding: 0.5rem 0.5rem 0 0.5rem;
+      line-height: 1.5rem !important;
+
+      .status,
+      .update,
+      .create {
+        margin-left: 0.75rem !important;
+        font-size: 0.75rem !important;
+      }
+    }
+
+    &:hover {
+      background-color: #f4f5f7;
     }
   }
 }
@@ -34,16 +46,6 @@
 /* 最新情報 */
 .latest-updates {
   margin-bottom: 1rem;
-
-  .latest-updates-navi {
-    margin-top: 1rem;
-    border-bottom: 1px solid #333;
-    padding-bottom: 2px;
-
-    h2 {
-      display: inline;
-    }
-  }
 }
 
 /* タブレット、スマートフォン向けレイアウト */
@@ -54,9 +56,7 @@
     }
 
     .top-box {
-      margin: 1.5rem 0 0 0;
-      width: auto;
-      height: auto;
+      width: 100%;
     }
   }
 }

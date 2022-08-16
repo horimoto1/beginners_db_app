@@ -30,34 +30,35 @@
 </div>
 
 <div class="category-menu">
+  <div class="heading">
+    <h2 id="<%= @category.slug %>">
+      <span class="fa fa-folder-open"></span>
+      <%= @category.title %>
+    </h2>
+  </div>
   <ul>
-    <li class="category-navi">
-      <h2 id="<%= @category.slug %>">
-        <span class="fa fa-folder-open"></span>
-        <%= @category.title %>
-      </h2>
-    </li>
-
     <% @category.articles.each do |article| %>
       <%= render "shared/article_navi", article: article,
         summary: plaintext(article.summary).truncate(50) %>
     <% end %>
+  </ul>
 
-    <% @child_categories.each do |category| %>
-      <li class="category-navi">
-        <%= link_to category_path(category) do %>
-          <h2 id="<%= category.slug %>">
-            <span class="fa fa-folder fa-fw"></span>
-            <%= category.title %>
-          </h2>
-        <% end %>
-      </li>
+  <% @child_categories.each do |category| %>
+    <div class="heading">
+      <%= link_to category_path(category) do %>
+        <h2 id="<%= category.slug %>">
+          <span class="fa fa-folder fa-fw"></span>
+          <%= category.title %>
+        </h2>
+      <% end %>
+    </div>
+    <ul>
       <% category.articles.each do |article| %>
         <%= render "shared/article_navi", article: article,
           summary: plaintext(article.summary).truncate(50) %>
       <% end %>
-    <% end %>
-  </ul>
+    </ul>
+  <% end %>
 </div>
 
 <%= render "shared/pager", previous_object: @previous_category,

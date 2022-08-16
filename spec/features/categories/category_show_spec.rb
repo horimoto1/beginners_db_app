@@ -51,7 +51,7 @@ RSpec.feature "Categories::CategoryShows", type: :feature do
       visit category_path(root_category)
 
       # 見出しが表示されること
-      within "div.heading" do
+      within "div.heading", match: :first do
         expect(page).to have_selector "h1", text: root_category.title
       end
     end
