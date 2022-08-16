@@ -144,7 +144,9 @@ function setupMarkdownEditer() {
       parseMarkdown(plainText, preview);
 
       return "Loading...";
-    }
+    },
+    // サイドプレビューでスクロールの同期を無効にする
+    syncSideBySidePreviewScroll: false
   });
 
   // ドラッグオーバー時のスタイルを適用する
