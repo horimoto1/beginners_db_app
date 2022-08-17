@@ -26,6 +26,11 @@
   }
 }
 
+.editor-toolbar.fullscreen {
+  white-space: nowrap;
+  overflow: auto hidden;
+}
+
 .dragDropArea {
   border: #ddd dashed 5px !important;
   background-color: #f4f4f4;
