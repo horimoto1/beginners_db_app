@@ -16,4 +16,8 @@ test:
   database: beginners_db_app_test
 
 production:
-  url: <%= ENV["DATABASE_URL"] %>
+  <<: *default
+  database: <%= Rails.application.credentials.dig(:aws, :rds_db_name) %>
+  username: <%= Rails.application.credentials.dig(:aws, :rds_username) %>
+  password: <%= Rails.application.credentials.dig(:aws, :rds_password) %>
+  host: <%= Rails.application.credentials.dig(:aws, :rds_hostname) %>

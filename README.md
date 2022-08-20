@@ -20,7 +20,7 @@ DB 入門サイト
 
 ## URL
 
-https://majestic-joshua-tree-45635.herokuapp.com
+https://beginners-db.com
 
 ## テスト用アカウント
 
@@ -37,9 +37,11 @@ password：visiter
 - Ruby 2.7.6
 - Ruby on Rails 6.0.5
 - PostgreSQL 14.4
+- Nginx 1.18.0
 - Puma 4.3.12
-- Heroku
 - AWS
+  - EC2
+  - RDS
   - S3
 - RSpec
 - RuboCop
@@ -150,10 +152,3 @@ password：visiter
 ## データベース設計
 
 ![erd](https://user-images.githubusercontent.com/96732339/182565436-eae917a0-cf30-415e-8f59-d5dc424f0f30.svg)
-
-## 実装予定の要件
-
-- AWS への移行
-
-  - Heroku から AWS にデプロイする
-  - 独自ドメインを取得する
