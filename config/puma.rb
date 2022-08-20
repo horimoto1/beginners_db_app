@@ -3,11 +3,20 @@ max_threads_count = ENV.fetch("RAILS_MAX_THREADS", 5)
 min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
 threads min_threads_count, max_threads_count
 
-# ポート番号
-port ENV.fetch("PORT", 3000)
-
 # Pumaが起動する実行環境
 environment ENV.fetch("RAILS_ENV") { "development" }
+
+# Pumaの起動方法
+if environment == "production"
+  # UNIXドメインソケット通信
+  bind "unix://#{Rails.root.join("/tmp/sockets/puma.sock")}"
+
+  # デーモン化
+  daemonize true
+else
+  # ポート番号
+  port ENV.fetch("PORT", 3000)
+end
 
 # Pumaが起動するプロセスID
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
