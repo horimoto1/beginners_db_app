@@ -41,10 +41,6 @@ Style/IfUnlessModifier:
 Style/PerlBackrefs:
   Enabled: false
 
-# 入れ子になった文字列リテラルのスタイルを強要しない
-Style/StringLiteralsInInterpolation:
-  Enabled: false
-
 # シンボル配列に%iなどの%記法を強要しない
 Style/SymbolArray:
   Enabled: false
@@ -140,6 +136,10 @@ Naming/VariableNumber:
   EnforcedStyle: snake_case
 
 ########## Rails ##########
+
+# Rails.rootの使用方法を強制しない
+Rails/FilePath:
+  Enabled: false
 
 # putsなどの利用を警告する
 Rails/Output:

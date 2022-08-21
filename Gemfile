@@ -6,6 +6,7 @@ ruby "2.7.6"
 gem "rails", "~> 6.0.4", ">= 6.0.4.8"
 
 gem "active_storage_validations", ">= 0.8.2"
+gem "annotate"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "cancancan"
 gem "coderay"
@@ -35,7 +36,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "annotate"
   gem "bullet"
   gem "htmlbeautifier"
   gem "listen", ">= 3.1.5"
