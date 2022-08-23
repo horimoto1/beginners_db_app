@@ -1,7 +1,7 @@
 <li>
   <%= link_to "TOP", root_path %>
 </li>
-<% @root_categories&.each do |root_category| %>
+<% @root_categories.each do |root_category| %>
   <li>
     <%= link_to root_category.title, category_path(root_category) %>
   </li>
