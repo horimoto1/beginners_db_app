@@ -41,7 +41,6 @@ group :development do
   gem "listen", ">= 3.1.5"
   gem "prettier"
   gem "rails-erd"
-  gem "rails_real_favicon"
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
