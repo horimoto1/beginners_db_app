@@ -55,7 +55,7 @@ password：visiter
 
   - 表示、作成、更新、削除
 
-  ![カテゴリー編集機能](https://user-images.githubusercontent.com/96732339/186200905-47e2620e-4cb5-4b01-aa5b-eb12ab87c722.gif)
+  ![カテゴリー編集機能](https://user-images.githubusercontent.com/96732339/186284173-b90ae9e9-f4ea-4b2f-a902-a0ac666327cc.gif)
 
 - 記事編集機能
 
@@ -65,13 +65,13 @@ password：visiter
   - エディタにドラッグアンドドロップで画像を投稿(inline-attachment)
   - マークダウンのプレビュー
 
-  ![記事編集機能](https://user-images.githubusercontent.com/96732339/186200946-38cece0a-99ff-46bc-a35b-a0ee7a0877e4.gif)
+  ![記事編集機能](https://user-images.githubusercontent.com/96732339/186284189-7445acb5-7405-41fe-b66f-dfb32f582fac.gif)
 
 - 画像リソース編集機能
 
   - 一覧表示、投稿、削除
 
-  ![画像リソース編集機能](https://user-images.githubusercontent.com/96732339/186200999-d3022b4f-43bb-4d04-ba2e-1ea59676a9e8.gif)
+  ![画像リソース編集機能](https://user-images.githubusercontent.com/96732339/186284204-eaaf6c12-97e9-44d3-8a6b-e803d2d2282f.gif)
 
 - リンク
 
