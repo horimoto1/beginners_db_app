@@ -47,17 +47,17 @@ RSpec.describe MarkdownHelper, type: :helper do
         expect(markdown(text)).to include %(<a href="https://www.google.com/">Google</a>)
       end
 
-      # 適用されないため削除
-      #   xit "通常記法のコードブロックを解析しないこと" do
-      #     # 通常記法では、各行の先頭にある4つのスペースを持つテキストをコードブロックに変換する
-      #     text = <<-EOS
-      # SELECT *
-      # FROM table;
-      # WHERE id = id;
+      # 適用されないため保留
+      # it "通常記法のコードブロックを解析しないこと" do
+      #   # 通常記法では、各行の先頭にある4つのスペースを持つテキストをコードブロックに変換する
+      #   text = <<-EOS
+      #     SELECT *
+      #     FROM table;
+      #     WHERE id = id;
       #   EOS
 
-      #     expect(markdown(text)).not_to include %(<div class="code">)
-      #   end
+      #   expect(markdown(text)).not_to include %(<div class="code">)
+      # end
 
       it "打ち消し線を解析すること" do
         text = "~~aaa~~"
@@ -72,8 +72,8 @@ RSpec.describe MarkdownHelper, type: :helper do
         expect(markdown(text)).to include "<div>aaa</div>"
       end
 
-      # 適用されないため削除
-      # xit "#の後に空白が無ければ見出しと認めないこと" do
+      # 適用されないため保留
+      # it "#の後に空白が無ければ見出しと認めないこと" do
       #   text = "#aaa"
 
       #   expect(markdown(text)).not_to include "h1"
@@ -91,12 +91,11 @@ RSpec.describe MarkdownHelper, type: :helper do
         expect(markdown(text)).to include "<strong>aaa</strong>"
       end
 
-      # 適用されないため削除
-      # xit "ハイライトを解析すること" do
-      #   text = "==aaa=="
+      it "ハイライトを解析すること" do
+        text = "==aaa=="
 
-      #   expect(markdown(text)).to include "<mark>aaa</mark>"
-      # end
+        expect(markdown(text)).to include "<mark>aaa</mark>"
+      end
 
       it "引用符を解析すること" do
         text = ">aaa"
@@ -104,10 +103,10 @@ RSpec.describe MarkdownHelper, type: :helper do
         expect(markdown(text)).to include "<blockquote>"
       end
 
-      it "注釈と脚注リンクを解析すること" do
+      it "注釈と脚注を解析すること" do
         text = <<~EOS
           aaa [^1]
-          [^1]: 注釈
+          [^1]: 脚注
         EOS
 
         expect(markdown(text)).to include %(<sup id="fnref1"><a href="#fn1">1</a></sup>)
