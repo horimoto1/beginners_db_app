@@ -22,7 +22,7 @@ gem "pragmatic_segmenter"
 gem "puma", "~> 4.1"
 gem "rails-i18n"
 gem "ransack"
-gem "redcarpet", "~> 2.3.0"
+gem "redcarpet", ">= 3.5.1"
 gem "sass-rails", ">= 6"
 gem "seed_dump"
 gem "turbolinks", "~> 5"
@@ -63,4 +63,4 @@ group :production do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", ">= 1.2.10", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
