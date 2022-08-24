@@ -107,10 +107,11 @@ RSpec.describe MarkdownHelper, type: :helper do
       it "注釈と脚注リンクを解析すること" do
         text = <<~EOS
           aaa [^1]
-          [^1]: #footnotes_1
+          [^1]: 注釈
         EOS
 
-        expect(markdown(text)).to include %(<a href="#footnotes_1"><sup>1</sup></a>)
+        expect(markdown(text)).to include %(<sup id="fnref1"><a href="#fn1">1</a></sup>)
+        expect(markdown(text)).to include %(<li id="fn1">)
       end
     end
 
@@ -182,13 +183,13 @@ RSpec.describe MarkdownHelper, type: :helper do
       result = <<~EOS
         <ul>
         <li>
-        <a href="#toc_0">aaa</a>
+        <a href="#aaa">aaa</a>
         <ul>
         <li>
-        <a href="#toc_1">bbb</a>
+        <a href="#bbb">bbb</a>
         <ul>
         <li>
-        <a href="#toc_2">ccc</a>
+        <a href="#ccc">ccc</a>
         </li>
         </ul>
         </li>

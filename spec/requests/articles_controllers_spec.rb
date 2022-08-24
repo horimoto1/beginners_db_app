@@ -151,7 +151,7 @@ RSpec.describe "ArticlesControllers", type: :request do
 
     context "ログアウト時" do
       it "取得に失敗すること" do
-        post preview_path, params: { text: "# テスト" }
+        post preview_path, params: { text: "# テスト1" }
         expect(flash).to be_any
         expect(response).to redirect_to(new_user_session_path)
       end
@@ -160,9 +160,9 @@ RSpec.describe "ArticlesControllers", type: :request do
     context "ログイン時" do
       it "取得に成功すること" do
         sign_in user
-        post preview_path, params: { text: "# テスト" }
+        post preview_path, params: { text: "# テスト1" }
         expect(JSON.parse(response.body)["markdown"]).to \
-          eq %(<div class="content"><h1 id="toc_0">テスト</h1>\n</div>)
+          eq %(<div class="content"><h1 id="1">テスト1</h1>\n</div>)
       end
     end
   end
