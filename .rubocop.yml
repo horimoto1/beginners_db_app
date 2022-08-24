@@ -81,6 +81,7 @@ Metrics/MethodLength:
   Exclude:
     - "db/migrate/*.rb"
     - "app/models/*.rb"
+    - "app/helpers/markdown_helper.rb"
 
 # クラスの行数：350行以上は警告する
 Metrics/ClassLength:
