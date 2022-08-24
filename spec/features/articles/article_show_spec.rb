@@ -43,9 +43,9 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
       within "div.toc" do
         # 目次のページ内リンク一覧が表示されること
         within "div.toc-table" do
-          expect(page).to have_link "テスト1", href: "#toc_0"
-          expect(page).to have_link "テスト2", href: "#toc_1"
-          expect(page).to have_link "テスト3", href: "#toc_2"
+          expect(page).to have_link "テスト1", href: "#1"
+          expect(page).to have_link "テスト2", href: "#2"
+          expect(page).to have_link "テスト3", href: "#3"
         end
 
         # 目次を閉じる
@@ -60,9 +60,9 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
 
         # 目次のページ内リンク一覧が再表示されること
         within "div.toc-table" do
-          expect(page).to have_link "テスト1", href: "#toc_0"
-          expect(page).to have_link "テスト2", href: "#toc_1"
-          expect(page).to have_link "テスト3", href: "#toc_2"
+          expect(page).to have_link "テスト1", href: "#1"
+          expect(page).to have_link "テスト2", href: "#2"
+          expect(page).to have_link "テスト3", href: "#3"
         end
       end
     end
@@ -70,9 +70,9 @@ RSpec.feature "Articles::ArticleShows", type: :feature do
     scenario "コンテンツが表示されること" do
       within "div.content" do
         # マークダウンのパース結果が表示されること
-        expect(page).to have_selector "h1#toc_0", text: "テスト1"
-        expect(page).to have_selector "h2#toc_1", text: "テスト2"
-        expect(page).to have_selector "h3#toc_2", text: "テスト3"
+        expect(page).to have_selector "h1#1", text: "テスト1"
+        expect(page).to have_selector "h2#2", text: "テスト2"
+        expect(page).to have_selector "h3#3", text: "テスト3"
       end
     end
 

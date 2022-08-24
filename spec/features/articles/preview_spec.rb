@@ -26,9 +26,9 @@ RSpec.feature "Articles::Previews", type: :feature, js: true do
         # コンテンツが表示されること
         within "div.content" do
           # マークダウンのパース結果が表示されること
-          expect(page).to have_selector "h1#toc_0", text: "サンプル1"
-          expect(page).to have_selector "h2#toc_1", text: "サン%プル2"
-          expect(page).to have_selector "h3#toc_2", text: "サン プル3"
+          expect(page).to have_selector "h1", text: "サンプル1"
+          expect(page).to have_selector "h2", text: "サン%プル2"
+          expect(page).to have_selector "h3", text: "サン プル3"
         end
       end
     end
@@ -48,9 +48,9 @@ RSpec.feature "Articles::Previews", type: :feature, js: true do
         # コンテンツが表示されること
         within "div.content" do
           # マークダウンのパース結果が表示されること
-          expect(page).to have_selector "h1#toc_0", text: "テスト1"
-          expect(page).to have_selector "h2#toc_1", text: "テスト2"
-          expect(page).to have_selector "h3#toc_2", text: "テスト3"
+          expect(page).to have_selector "h1", text: "テスト1"
+          expect(page).to have_selector "h2", text: "テスト2"
+          expect(page).to have_selector "h3", text: "テスト3"
         end
       end
     end
