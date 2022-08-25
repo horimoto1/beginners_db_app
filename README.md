@@ -121,7 +121,7 @@ password：visiter
 
 - スラッグ(friendly_id)
 
-- 常時 HTTPS 化
+- 常時 HTTPS 化(Certbot)
 
 - 例外処理
 
