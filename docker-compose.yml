@@ -10,6 +10,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    networks:
+      - beginners-db-app-network
     depends_on:
       - app
 
@@ -22,8 +24,14 @@ services:
       - public-share:/srv/beginners_db_app/public
       - tmp-share:/srv/beginners_db_app/tmp
       - log-store:/srv/beginners_db_app/log
+    networks:
+      - beginners-db-app-network
 
 volumes:
   public-share:
   tmp-share:
   log-store:
+
+networks:
+  beginners-db-app-network:
+    external: true
