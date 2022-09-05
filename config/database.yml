@@ -4,7 +4,7 @@ default: &default
   timeout: 5000
   encoding: unicode
   username: beginners_db_app
-  # password:
+  password: beginners_db_app
   host: localhost
 
 development:
