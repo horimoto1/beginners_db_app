@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    volumes:
+      - public-share:/srv/beginners_db_app/public
+      - tmp-share:/srv/beginners_db_app/tmp
+    ports:
+      - 80:80
+      - 443:443
+    network_mode: "host"
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+    command: rails s
+    volumes:
+      - .:/srv/beginners_db_app
+      - public-share:/srv/beginners_db_app/public
+      - tmp-share:/srv/beginners_db_app/tmp
+    network_mode: "host"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    volumes:
+      - db-store:/var/lib/postgresql/data
+      - ./docker/postgres:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+    network_mode: "host"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  db-store:
+  public-share:
+  tmp-share:
