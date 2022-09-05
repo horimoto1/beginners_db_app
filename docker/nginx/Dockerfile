@@ -10,6 +10,7 @@ ENV TZ=Asia/Tokyo
 # パッケージのインストール
 RUN apt-get update -qq && \
   apt-get install -y \
+  vim \
   certbot \
   python3-certbot-nginx
 
