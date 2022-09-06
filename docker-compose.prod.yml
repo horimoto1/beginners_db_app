@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: docker/production/nginx/Dockerfile
     container_name: nginx
-    command: "/bin/sh -c 'while :; do sleep 36h & wait $!; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    command: "/bin/sh -c 'while :; do sleep 36h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
       - ./docker/production/nginx/conf.d:/etc/nginx/conf.d
       - html:/var/www/html
@@ -24,7 +24,7 @@ services:
   certbot:
     image: certbot/certbot
     container_name: certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $!; done;'"
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     volumes:
       - html:/var/www/html
       - letsencrypt:/etc/letsencrypt
