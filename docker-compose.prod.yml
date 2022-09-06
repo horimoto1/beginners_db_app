@@ -16,8 +16,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    networks:
-      - beginners-db-app-network
     depends_on:
       - rails
 
@@ -29,8 +27,6 @@ services:
       - html:/var/www/html
       - letsencrypt:/etc/letsencrypt
       - log-letsencrypt:/var/log/letsencrypt
-    networks:
-      - beginners-db-app-network
 
   rails:
     build:
@@ -42,8 +38,6 @@ services:
       - public-share:/srv/beginners_db_app/public
       - tmp-share:/srv/beginners_db_app/tmp
       - log-rails:/srv/beginners_db_app/log
-    networks:
-      - beginners-db-app-network
 
 volumes:
   public-share:
