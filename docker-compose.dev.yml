@@ -1,36 +1,41 @@
 version: "3.8"
 services:
-  web:
+  nginx:
     build:
       context: .
-      dockerfile: docker/nginx/Dockerfile
+      dockerfile: docker/development/nginx/Dockerfile
+    container_name: nginx
     volumes:
       - public-share:/srv/beginners_db_app/public
       - tmp-share:/srv/beginners_db_app/tmp
+      - log-nginx:/var/log/nginx
     ports:
       - 80:80
       - 443:443
     network_mode: "host"
     depends_on:
-      - app
+      - rails
 
-  app:
+  rails:
     build:
       context: .
+    container_name: rails
     command: rails s
     volumes:
       - .:/srv/beginners_db_app
       - public-share:/srv/beginners_db_app/public
       - tmp-share:/srv/beginners_db_app/tmp
+      - log-rails:/srv/beginners_db_app/log
     network_mode: "host"
     depends_on:
-      - db
+      - postgres
 
-  db:
+  postgres:
     image: postgres:14
+    container_name: postgres
     volumes:
       - db-store:/var/lib/postgresql/data
-      - ./docker/postgres:/docker-entrypoint-initdb.d
+      - ./docker/development/postgres:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
     network_mode: "host"
@@ -42,3 +47,5 @@ volumes:
   db-store:
   public-share:
   tmp-share:
+  log-nginx:
+  log-rails:

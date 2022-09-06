@@ -10,16 +10,14 @@ ENV TZ=Asia/Tokyo
 # パッケージのインストール
 RUN apt-get update -qq && \
   apt-get install -y \
-  vim \
-  certbot \
-  python3-certbot-nginx
+  vim
 
 # デフォルトの設定ファイルを削除する
 RUN rm -f /etc/nginx/conf.d/default.conf
 
 # 設定ファイルをコピー
-COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./docker/nginx/conf.d/beginners_db_app.conf /etc/nginx/conf.d/beginners_db_app.conf
+COPY ./docker/development/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker/development/nginx/conf.d/beginners_db_app.conf /etc/nginx/conf.d/beginners_db_app.conf
 
 # ポートを解放する
 EXPOSE 80 443
