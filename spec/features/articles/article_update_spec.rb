@@ -90,7 +90,7 @@ RSpec.feature "Articles::ArticleUpdates", type: :feature do
 
         # ファイル選択フォームにファイルをアタッチする
         file_path = Rails.root.join("spec/fixtures/5MB.png")
-        attach_file("サムネイル", file_path, make_visible: true)
+        attach_file("サムネイル", file_path)
 
         # 記事が更新されないこと
         expect { click_on "更新" }.not_to change { article.reload.name }
@@ -119,7 +119,7 @@ RSpec.feature "Articles::ArticleUpdates", type: :feature do
 
         # ファイル選択フォームにファイルをアタッチする
         file_path = Rails.root.join("spec/fixtures/rails.svg")
-        attach_file("サムネイル", file_path, make_visible: true)
+        attach_file("サムネイル", file_path)
 
         select "非公開", from: "ステータス"
 
