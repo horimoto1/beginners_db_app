@@ -66,7 +66,7 @@ RSpec.feature "Articles::ArticleCreates", type: :feature do
 
         # ファイル選択フォームにファイルをアタッチする
         file_path = Rails.root.join("spec/fixtures/5MB.png")
-        attach_file("サムネイル", file_path, make_visible: true)
+        attach_file("サムネイル", file_path)
 
         # カテゴリーが作成されないこと
         expect { click_on "投稿" }.not_to change { Article.count }
@@ -93,7 +93,7 @@ RSpec.feature "Articles::ArticleCreates", type: :feature do
 
         # ファイル選択フォームにファイルをアタッチする
         file_path = Rails.root.join("spec/fixtures/kitten.jpg")
-        attach_file("サムネイル", file_path, make_visible: true)
+        attach_file("サムネイル", file_path)
 
         select "公開", from: "ステータス"
 
