@@ -264,6 +264,8 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
+    rspec_junit_formatter (0.5.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.35.1)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -401,6 +403,7 @@ DEPENDENCIES
   ransack
   redcarpet (>= 3.5.1)
   rspec-rails (>= 5.1.2, < 6.0.0)
+  rspec_junit_formatter
   rubocop
   rubocop-performance
   rubocop-rails
