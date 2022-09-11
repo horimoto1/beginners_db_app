@@ -35,11 +35,13 @@ services:
     command: rails s -e production
     volumes:
       - .:/srv/beginners_db_app
+      - bundle:/usr/local/bundle
       - public-share:/srv/beginners_db_app/public
       - tmp-share:/srv/beginners_db_app/tmp
       - log-rails:/srv/beginners_db_app/log
 
 volumes:
+  bundle:
   public-share:
   tmp-share:
   html:

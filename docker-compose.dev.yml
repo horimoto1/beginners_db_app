@@ -23,6 +23,7 @@ services:
     command: rails s
     volumes:
       - .:/srv/beginners_db_app
+      - bundle:/usr/local/bundle
       - public-share:/srv/beginners_db_app/public
       - tmp-share:/srv/beginners_db_app/tmp
       - log-rails:/srv/beginners_db_app/log
@@ -44,6 +45,7 @@ services:
       POSTGRES_PASSWORD: postgres
 
 volumes:
+  bundle:
   db-store:
   public-share:
   tmp-share:
