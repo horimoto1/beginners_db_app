@@ -85,20 +85,20 @@ jobs:
       # RSpecを並列実行する
       - ruby/rspec-test
 
-  # deploy:
-  #   docker:
-  #     - image: cimg/ruby:2.7.6-browsers
-  #       auth:
-  #         username: mydockerhub-user
-  #         password: $DOCKERHUB_PASSWORD
-  #   steps:
-  #     # 本番環境にSSH接続する
-  #     - add_ssh_keys:
-  #         fingerprints:
-  #           - xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx
-  #     - run:
-  #         name: 本番環境にデプロイ
-  #         command: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/srv/beginners_db_app/deploy.sh"
+  deploy:
+    docker:
+      - image: cimg/ruby:2.7.6-browsers
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      # 本番環境にSSH接続する
+      - add_ssh_keys:
+          fingerprints:
+            - ce:0c:c3:a3:96:c4:d4:97:de:2b:c5:ca:01:52:9d:82
+      - run:
+          name: 本番環境にデプロイ
+          command: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/srv/beginners_db_app/deploy.sh"
 
 # ワークフローを使って上記で宣言したジョブをオーケストレーションする
 workflows:
@@ -112,10 +112,10 @@ workflows:
       - test:
           requires:
             - build
-      # - deploy:
-      #     requires:
-      #       - lint
-      #       - test
-      #     filters:
-      #       branches:
-      #         only: master
+      - deploy:
+          requires:
+            - lint
+            - test
+          filters:
+            branches:
+              only: master
