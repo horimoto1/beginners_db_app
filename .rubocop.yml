@@ -5,6 +5,9 @@ require:
 
 inherit_from: .rubocop_todo.yml
 
+inherit_gem:
+  rubocop-discourse: default.yml
+
 AllCops:
   # 検査対象から除外する
   Exclude:
