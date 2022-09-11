@@ -5,9 +5,6 @@ require:
 
 inherit_from: .rubocop_todo.yml
 
-inherit_gem:
-  rubocop-discourse: default.yml
-
 AllCops:
   # 検査対象から除外する
   Exclude:
@@ -15,6 +12,7 @@ AllCops:
     - "bin/**/*"
     - "tmp/seeds.rb"
     - "lib/tasks/auto_annotate_models.rake"
+    - "vendor/**/*"
   # 警告にCop名を表示する
   DisplayCopNames: true
 

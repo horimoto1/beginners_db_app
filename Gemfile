@@ -43,7 +43,6 @@ group :development do
   gem "prettier"
   gem "rails-erd"
   gem "rubocop", require: false
-  gem "rubocop-discourse", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
