@@ -5,13 +5,17 @@ orbs:
   node: circleci/node@5.0.2
   browser-tools: circleci/browser-tools@1.4.0
 
-jobs:
-  build:
+executors:
+  docker-rails:
     docker:
       - image: cimg/ruby:2.7.6-browsers
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD
+
+commands:
+  setup-rails:
+    description: "Railsアプリのセットアップ"
     steps:
       # git cloneする
       - checkout
@@ -21,32 +25,24 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
 
-  rubocop:
-    docker:
-      - image: cimg/ruby:2.7.6-browsers
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+jobs:
+  build:
+    executor: docker-rails
     steps:
-      - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-      # RuboCop
+      - setup-rails
+
+  rubocop:
+    executor: docker-rails
+    steps:
+      - setup-rails
+      # RuboCopを実行する
       - ruby/rubocop-check
 
   eslint:
-    docker:
-      - image: cimg/ruby:2.7.6-browsers
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+    executor: docker-rails
     steps:
-      - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-      # ESLint
+      - setup-rails
+      # ESLintを実行する
       - run:
           name: ESLint
           command: |
@@ -58,11 +54,10 @@ jobs:
 
   rspec:
     parallelism: 3
+    # プライマリコンテナ
+    executor: docker-rails
+    # セカンダリコンテナ
     docker:
-      - image: cimg/ruby:2.7.6-browsers
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
       - image: cimg/postgres:14.4
         auth:
           username: mydockerhub-user
@@ -84,10 +79,7 @@ jobs:
       - browser-tools/install-chrome
       # chromedriverをインストールする
       - browser-tools/install-chromedriver
-      - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
+      - setup-rails
       - run:
           name: データベースの待機
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
