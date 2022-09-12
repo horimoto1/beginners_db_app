@@ -54,10 +54,13 @@ jobs:
 
   rspec:
     parallelism: 3
-    # プライマリコンテナ
-    executor: docker-rails
-    # セカンダリコンテナ
     docker:
+      # プライマリコンテナ
+      - image: cimg/ruby:2.7.6-browsers
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+      # セカンダリコンテナ
       - image: cimg/postgres:14.4
         auth:
           username: mydockerhub-user
