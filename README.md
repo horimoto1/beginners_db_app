@@ -44,6 +44,9 @@ password：visiter
 - RSpec
 - RuboCop
 - ESLint
+- Docker 20.10.17
+- docker-compose 2.4.1
+- CircleCI 2.1
 
 ## 機能一覧
 
@@ -123,6 +126,8 @@ password：visiter
 
 - 常時 HTTPS 化(Certbot)
 
+  - SSL 証明書の自動更新
+
 - 例外処理
 
   | エラー                           | 処理                   |
@@ -154,4 +159,18 @@ password：visiter
 
 ## インフラ構成
 
-![インフラ-AWS構成図](https://user-images.githubusercontent.com/96732339/186193523-b0f5a89d-851b-44d4-9901-a5272a6424f0.svg)
+![インフラ-AWS構成図-v2](https://user-images.githubusercontent.com/96732339/189619931-8d626b05-75e5-46e6-86d9-5ae5237ba8cc.svg)
+
+## CI/CD
+
+- 自動ビルド
+
+  - GitHub への push または merge 時に、CircleCI 上でビルドが通ることを確認する。
+
+- 自動テスト
+
+  - 自動ビルドが成功した場合は、RuboCop、ESLint、RSpec をそれぞれ並列に実行する。
+
+- 自動デプロイ
+
+  - 全ての自動テストが成功し、master ブランチである場合は、EC2 へ自動デプロイする。
