@@ -21,7 +21,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
 
-  lint:
+  rubocop:
     docker:
       - image: cimg/ruby:2.7.6-browsers
         auth:
@@ -34,6 +34,18 @@ jobs:
           pkg-manager: yarn
       # RuboCop
       - ruby/rubocop-check
+
+  eslint:
+    docker:
+      - image: cimg/ruby:2.7.6-browsers
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
       # ESLint
       - run:
           name: ESLint
@@ -44,7 +56,7 @@ jobs:
       - store_test_results:
           path: /tmp/test-reports
 
-  test:
+  rspec:
     parallelism: 3
     docker:
       - image: cimg/ruby:2.7.6-browsers
@@ -86,19 +98,15 @@ jobs:
       - ruby/rspec-test
 
   deploy:
-    docker:
-      - image: cimg/ruby:2.7.6-browsers
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+    machine: true
     steps:
       # 本番環境にSSH接続する
       - add_ssh_keys:
           fingerprints:
-            - ce:0c:c3:a3:96:c4:d4:97:de:2b:c5:ca:01:52:9d:82
+            - $KEY_FINGERPRINT
       - run:
           name: 本番環境にデプロイ
-          command: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/srv/beginners_db_app/deploy.sh"
+          command: ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "/srv/beginners_db_app/deploy.sh"
 
 # ワークフローを使って上記で宣言したジョブをオーケストレーションする
 workflows:
@@ -106,16 +114,20 @@ workflows:
   build_lint_test_deploy:
     jobs:
       - build
-      - lint:
+      - rubocop:
           requires:
             - build
-      - test:
+      - eslint:
+          requires:
+            - build
+      - rspec:
           requires:
             - build
       - deploy:
           requires:
-            - lint
-            - test
+            - rubocop
+            - eslint
+            - rspec
           filters:
             branches:
               only: master

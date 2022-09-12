@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd /srv/beginners_db_app
+git checkout master
 git pull
 
 docker-compose -f docker-compose.prod.yml run rails bundle install --without test development
