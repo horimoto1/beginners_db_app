@@ -10,11 +10,9 @@ DB 入門サイト
 
 ## 課題
 
-自身がデータベースの基礎知識を学習する際は、体系的に学習できる教材がなかなか見つからず、複数の参考書やネット上から情報を収集し、それらを整理することに苦労した経験がありました。
-
-例えば、SQL、論理設計、物理設計の基礎をそれぞれ別の参考書やネット上から学習する必要があったり、インデックスなど分野を跨るような知識を十分に理解するためには、それらに関する情報を深掘りする必要があったなどです。
-
-そのため、自身の学習した内容を元に、データベースの基礎知識を体系的に学習できる Web サイトを作成したいと考え、当サイトを作成しました。
+以前、私はデータベースの資格取得のためにデータベースの基礎知識を学習していましたが、その際は知識を体系的に学習することに苦労しました。
+データベースの基礎知識を体系的に学習するためには、カテゴリーごとに複数の参考書やネット上から情報を収集し、それらを体系的に整理する必要がありました。
+そのため、自身の学習した内容を元に、データベースの基礎知識を体系的に学習できる Web サイトを作成してみたいと考え、当サイトを作成しました。
 
 ## URL
 
@@ -45,8 +43,8 @@ password：visiter
 - RuboCop
 - ESLint
 - Docker 20.10.17
-- docker-compose 2.4.1
-- CircleCI 2.1
+- Docker Compose 2.4.1
+- CircleCI
 
 ## 機能一覧
 
@@ -144,14 +142,14 @@ password：visiter
 
 - リンター
 
-  - Ruby(RuboCop)
-  - Javascript(ESLint)
+  - Ruby の静的解析(RuboCop)
+  - Javascript の静的解析(ESLint)
 
 - フォーマッター
 
-  - Ruby(Rufo)
-  - CSS、Sass、JavaScript、JSON(Prettier)
-  - HTML、ERB(Format/Beautify ERB)
+  - Ruby のコード整形(Rufo)
+  - Javascript、Sass、CSS、JSON のコード整形(Prettier)
+  - HTML、ERB のコード整形(Format/Beautify ERB)
 
 ## データベース設計
 
@@ -159,7 +157,7 @@ password：visiter
 
 ## インフラ構成
 
-![インフラ-AWS構成図-v2](https://user-images.githubusercontent.com/96732339/189619931-8d626b05-75e5-46e6-86d9-5ae5237ba8cc.svg)
+![インフラ-AWS構成図-v2](https://user-images.githubusercontent.com/96732339/190550145-cd6394b1-707e-4896-a780-9d4cb556d9aa.svg)
 
 ## CI/CD
 
